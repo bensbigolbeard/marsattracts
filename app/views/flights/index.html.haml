@@ -1,12 +1,15 @@
 %h1 Flights
-  - @flights.all.each do |flight|
-    %ul
-      %li 
-        = flight.origin
-      %li 
-        = flight.destination
-      %li 
-        = flight.departure_time
-      %li 
-        = flight.arrival_time
+-@flights.all.each do |flight|
+  %ul
+    %li 
+      =link_to flight_path(flight.id) do 
+        = flight.flight_number
+    %li 
+      = flight.origin
+    %li 
+      = flight.destination
+    %li 
+      = flight.departure_time
+    %li 
+      = flight.arrival_time
 
