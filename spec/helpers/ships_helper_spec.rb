@@ -10,6 +10,3 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe ShipsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
