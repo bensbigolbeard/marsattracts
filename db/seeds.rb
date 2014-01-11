@@ -7,35 +7,35 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Flight.create!([
-    {flight_number:001, 
+    {flight_number:'001', 
     departure_time: Date.today, 
     arrival_time: Date.today + 6.months, 
     origin: "Mega City One", 
     destination: "Olympus Mons Base Camp", 
     distance: "a million units"},
 
-    {flight_number:002, 
+    {flight_number:'002', 
     departure_time: Date.today, 
     arrival_time: Date.today + 5.months, 
     origin: "Mega City One", 
     destination: "Olympus Mons Base Camp", 
     distance: "a million units"},
 
-    {flight_number:003, 
+    {flight_number:'003', 
     departure_time: Date.today, 
     arrival_time: Date.today + 4.months, 
     origin: "Mega City One", 
     destination: "Olympus Mons Base Camp", 
     distance: "a million units"},
 
-    {flight_number:004, 
+    {flight_number:'004', 
     departure_time: Date.today, 
     arrival_time: Date.today + 6.months, 
     origin: "Mega City One", 
     destination: "Olympus Mons Base Camp", 
     distance: "a million units"},
-    
-    {flight_number:005, 
+
+    {flight_number:'005', 
     departure_time: Date.today, 
     arrival_time: Date.today + 3.months, 
     origin: "Mega City One", 
