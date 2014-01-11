@@ -9,8 +9,7 @@ describe Passenger do
       date_of_birth: Time.now)
     expect(passenger).to be_valid
   end
-
-  it "is invalid without a first name" do 
+  it "is invalid without a first name" do
     expect(Passenger.new(first_name: nil)).to have(1).errors_on(:first_name)
   end
   it "is invalid without a last name" do 
