@@ -12,6 +12,7 @@ class TripsController < ApplicationController
   end
 
   def edit
+    @trip = Trip.find_by_passenger_id(params[:id])
   end
 
   def update

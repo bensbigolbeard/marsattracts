@@ -5,14 +5,15 @@ class PassengersController < ApplicationController
 
   def new
     @flight = Flight.find(params[:flight_id])
-    @passenger = Passenger.new
+    @passenger = @flight.passengers.new
   end
 
   def create
     @flight = Flight.find(params[:flight_id])
-    @passenger = @flight.passengers.new(passenger_params)
+    @passenger = @flight.passengers.create(passenger_params)
     if @passenger.save
-      redirect_to edit_trip_path
+
+      redirect_to edit_trip_path(:id => @passenger.trips.last)
     else
       redirect_to :back
     end
