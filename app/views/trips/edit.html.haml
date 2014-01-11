@@ -1,0 +1,10 @@
+%h1 Confirm Before Booking
+= simple_form_for @passenger, :url => flight_passenger_path(@passenger, :flight_id => @flight_id, :id => @passenger_id), :html => {:method => :patch} do |f|
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :email
+  = f.input :date_of_birth
+  = f.input :phone
+  = f.input :address
+  = f.input :emergency_contact
+  = f.submit

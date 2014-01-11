@@ -1,0 +1,10 @@
+%h1 
+  Flight 
+  = @flight.flight_number
+
+= @ship.id
+= @ship.speed
+= @ship.capacity
+
+= link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
+

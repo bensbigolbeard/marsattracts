@@ -12,6 +12,10 @@ class TripsController < ApplicationController
   end
 
   def edit
+    @trip = Trip.find_by_passenger_id(params[:id])
+    @passenger = Passenger.find(@trip.passenger_id)
+    @flight_id = @trip.flight_id
+    @passenger_id = @trip.passenger_id
   end
 
   def update

@@ -2,9 +2,12 @@ MarsAttracts::Application.routes.draw do
   
   root 'flights#index'
 
-  resources :flights
-  resources :passengers
+  resources :flights do
+    resources :passengers
+  end
+
   resources :trips
+
   resources :ships
 
 
