@@ -32,14 +32,30 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'faker', '1.1.2'
+gem 'hirb'
+gem 'foundation-rails'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+group :development, :test do
+  gem 'rspec-rails'
+  # The following optional lines are part of the advanced setup.
+  gem 'guard-rspec', '2.5.0'
+  gem 'spork-rails', '4.0.0'
+  gem 'guard-spork', '1.5.0'
+  gem 'childprocess', '0.3.6'
+  gem 'better_errors', '1.1.0'
+  gem 'binding_of_caller', '0.7.2'
+end
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+group :test do
+  gem 'selenium-webdriver', '2.35.1'
+  gem 'capybara', '2.1.0'
+  gem 'factory_girl_rails'
+  gem 'cucumber-rails', '1.4.0', :require => false
+  gem 'database_cleaner'
+  gem 'launchy'
+end
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+group :production do
+  gem 'rails_12factor'
+end
