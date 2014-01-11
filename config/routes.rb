@@ -1,4 +1,13 @@
 MarsAttracts::Application.routes.draw do
+  
+  root 'flights#index'
+
+  resources :flights
+  resources :passengers
+  resources :trips
+  resources :ships
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
