@@ -1,11 +1,21 @@
 class PassengersController < ApplicationController
+
   def index
   end
 
   def new
+    @flight = Flight.find(params[:flight_id])
+    @passenger = Passenger.new
   end
 
   def create
+    @flight = Flight.find(params[:flight_id])
+    @passenger = @flight.passengers.new(passenger_params)
+    if @passenger.save
+      redirect_to edit_trip_path
+    else
+      redirect_to :back
+    end
   end
 
   def show
@@ -19,4 +29,9 @@ class PassengersController < ApplicationController
 
   def destroy
   end
+
+  private
+    def passenger_params
+      params.require(:passenger).permit(:first_name, :last_name, :email, :phone, :address, :emergency_contact, :date_of_birth)
+    end
 end
