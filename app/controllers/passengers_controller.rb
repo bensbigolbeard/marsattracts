@@ -26,6 +26,13 @@ class PassengersController < ApplicationController
   end
 
   def update
+    @trip = Trip.find(params[:id])
+    @passenger = @trip.passenger
+    if @passenger.update(passenger_params)
+      redirect_to trip_path
+    else
+      redirect_to :back
+    end
   end
 
   def destroy
