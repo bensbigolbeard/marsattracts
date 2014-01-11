@@ -19,4 +19,10 @@ class PassengersController < ApplicationController
 
   def destroy
   end
+
+  private
+
+    def passenger_params 
+      params.require(:passenger).permit(:first_name, :last_name, :email, :phone, :address, :emergency_contact, :date_of_birth)
+    end
 end
