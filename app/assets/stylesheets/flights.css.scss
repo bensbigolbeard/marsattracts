@@ -5,3 +5,21 @@
 .row {padding: 8em 0em;}
 
 #origin, #destination {background-color: transparent;}
+
+#waxing-mars{
+  position: absolute;
+  right:-30px;
+  top:-30px;
+  height:35%;
+  width:auto;
+  z-index: 1000;
+}
+
+#earth{
+  position: absolute;
+  left:-250px;
+  bottom:-430px;
+  height:100%;
+  width:auto;
+  z-index: 1000;
+}
