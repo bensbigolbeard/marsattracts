@@ -30,7 +30,9 @@ describe Passenger do
   it "is invalid without a date of birth" do 
     expect(Passenger.new(date_of_birth: nil)).to have(1).errors_on(:date_of_birth)
   end
+  it "stores a flight in a new trip"
   it "redirects to a confirmation page" 
+  it "sends a confirmation email"
 
   
 end
