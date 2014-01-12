@@ -39,12 +39,8 @@ class PassengersController < ApplicationController
   end
 
   private
-<<<<<<< HEAD
 
-    def passenger_params 
-=======
     def passenger_params
->>>>>>> d594f1311a90c9e6d6066e5668634352835eadf2
       params.require(:passenger).permit(:first_name, :last_name, :email, :phone, :address, :emergency_contact, :date_of_birth)
     end
 end
