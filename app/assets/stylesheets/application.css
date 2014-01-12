@@ -9,5 +9,23 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require foundation_and_overrides
+
  *= require_tree .
  */
+
+body#background {
+  background: url('background.png') repeat 5% 5%
+}
+#midground {
+  background: url('midground.png') repeat 20% 20%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 997;
+}
+#foreground {
+  background: url('foreground.png') repeat 40% 110%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 998;
+}

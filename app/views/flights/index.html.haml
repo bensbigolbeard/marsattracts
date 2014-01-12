@@ -1,15 +1,11 @@
-%h1 Flights
--@flights.all.each do |flight|
-  %ul
-    %li 
-      =link_to flight_path(flight.id) do 
-        = flight.flight_number
-    %li 
-      = flight.origin
-    %li 
-      = flight.destination
-    %li 
-      = flight.departure_time
-    %li 
-      = flight.arrival_time
+.row
+  .medium-4.medium-centered.columns
+    %input#origin{:type => "text", :placeholder => "Picking An Origin"}
+    %br 
+    %input#destination{:type => "text", :placeholder => "Picking A Destination"}
+    %br
 
+    =date_select "flight", "departure", :prompt => {day: "Select Day", month: "Select Month", year: "Select Year"}
+
+    %button.button
+      Get me off this rock!    
