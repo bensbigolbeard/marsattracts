@@ -1,5 +1,18 @@
-- @flights.each do |flight|
-  %li= flight.id
-  %li= flight.departure_time
-  %li= flight.arrival_time
-  %br
+.row.search-padding
+  .medium-8.columns.medium-centered
+    %h1 Your Flight Results
+.row
+  .medium-8.columns.medium-centered
+    - @flights.each do |flight|
+      =link_to flight_path(flight.id), :class => 'link' do  
+        %div
+          .row.result-bars
+            .medium-2.columns
+              = flight.flight_number
+            .medium-3.columns
+              = flight.departure_time
+            .medium-3.columns 
+              = flight.arrival_time
+            .medium-4.columns
+              = flight.distance
+      %br
