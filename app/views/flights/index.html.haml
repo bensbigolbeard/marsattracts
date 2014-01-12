@@ -3,6 +3,7 @@
 .row
   .medium-4.medium-centered.columns
     =form_tag flights_path, :method => "get" do
-      =text_field_tag :search, params[:search], :id => "origin", :type => "text", :placeholder => "Picking An Origin"
+      =text_field_tag :search_origin, params[:search_origin], :id => "origin", :type => "text", :placeholder => "Picking An Origin"
+      =text_field_tag :search_destination, params[:search_destination], :id => "destination", :type => "text", :placeholder => "Picking A Destination"
       %br 
       =submit_tag "get me off this rock", :name => nil

@@ -1,6 +1,13 @@
 class FlightsController < ApplicationController
   def index
-    @flights = Flight.search(params[:search])
+    @flights = Flight.all
+    @flight_origins = Flight.search_origin(params[:search_origin])
+    @flight_destinations = Flight.search_destination(params[:search_destination])
+    if params[:search_origin].nil?
+
+    else
+      redirect_to flights_search_path(:search_origin => @flight_origins, :search_destination => @flight_destinations)
+    end
   end
 
   def new
@@ -24,11 +31,13 @@ class FlightsController < ApplicationController
   end
 
   def search
+    # Params are arrays of id's
+    @flights = Flight.search_results(params[:search_origin], params[:search_destination])
   end
 
   private
 
   def search_params
-    params.require(:flight).permit(:search)
+    params.require(:flight).permit(:search_destination, :search_origin)
   end
 end
