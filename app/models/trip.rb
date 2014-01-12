@@ -3,6 +3,6 @@ class Trip < ActiveRecord::Base
   belongs_to :passenger
 
   def total_price 
-    Flight.find(trip.flight_id).price
+    Flight.find(flight_id).price
   end
 end
