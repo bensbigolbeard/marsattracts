@@ -12,6 +12,9 @@ gem 'haml'
 # Use Simple_form for form formating
 gem 'simple_form'
 
+# Use Pg_search to query multiple tables and return filtered results
+gem 'pg_search'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

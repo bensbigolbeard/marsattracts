@@ -1,6 +1,6 @@
 class FlightsController < ApplicationController
   def index
-    @flights = Flight.all
+    @flights = Flight.search(params[:search])
   end
 
   def new
@@ -24,5 +24,11 @@ class FlightsController < ApplicationController
   end
 
   def search
+  end
+
+  private
+
+  def search_params
+    params.require(:flight).permit(:search)
   end
 end

@@ -2,12 +2,7 @@
 %img#earth{:src => "/assets/earth_placeholder.png"}
 .row
   .medium-4.medium-centered.columns
-    %input#origin{:type => "text", :placeholder => "Picking An Origin"}
-    %br 
-    %input#destination{:type => "text", :placeholder => "Picking A Destination"}
-    %br
-
-    =date_select "flight", "departure", :prompt => {day: "Select Day", month: "Select Month", year: "Select Year"}
-
-    %button.button
-      Get me off this rock!    
+    =form_tag flights_path, :method => "get" do
+      =text_field_tag :search, params[:search], :id => "origin", :type => "text", :placeholder => "Picking An Origin"
+      %br 
+      =submit_tag "get me off this rock", :name => nil
