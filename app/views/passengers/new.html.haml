@@ -1,9 +1,25 @@
-= simple_form_for [@flight, @passenger] do |f|
-  = f.input :first_name
-  = f.input :last_name
-  = f.input :email
-  = f.input :date_of_birth
-  = f.input :phone
-  = f.input :address
-  = f.input :emergency_contact
-  = f.submit
+%img#helmet{:src => "/assets/helmet.png"}
+
+.row.form-padding
+  .medium-6.columns.medium-centered
+    %h1 Passenger Information
+.row
+  .medium-5.columns  
+    = minimal_form_for [@flight, @passenger] do |f|
+      .row
+        .medium-6.columns
+          = f.input :first_name, :class => "field-styling", :placeholder =>"first name"
+        .medium-6.columns
+          = f.input :last_name, :placeholder =>"last name", :class => "field-styling"
+      .dateselect
+        = f.input :date_of_birth, :class => "dateselect"
+      .row
+        .medium-6.columns
+          = f.input :email, :placeholder =>"email"
+        .medium-6.columns
+          = f.input :phone, :class => "field-styling"
+      = f.input :address, :class => "field-styling"
+      = f.input :emergency_contact, :class => "field-styling"
+      = link_to flight_passengers_path, method: :post do
+        .submit-button
+          Secure Your Ticket

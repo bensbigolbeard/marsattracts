@@ -1,3 +1,27 @@
 // Place all the styles related to the Passengers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.form-padding {
+  padding-top: 3em;
+  margin-bottom:4em;
+  h1{
+    color: white;
+    text-align:center;
+  }
+}
+
+.dateselect select {
+  width:32.55%;
+  background-color: transparent; 
+  color: #999999;
+}
+
+#helmet{
+  position: absolute;
+  right:-30px;
+  bottom:-200px;
+  height:80%;
+  width:auto;
+  z-index: 0;
+}
