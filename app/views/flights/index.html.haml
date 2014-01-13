@@ -1,9 +1,14 @@
 %img#waxing-mars{:src => "/assets/planet_placeholder_index.png"}
 %img#earth{:src => "/assets/earth_placeholder.png"}
+.row
+  .medium-6.medium-centered.columns
+    %h2.index 
+      Mars 
+      %span Attracts!
 .row#landing-search
   .medium-4.medium-centered.columns
     =form_tag flights_path, :method => "get" do
       =text_field_tag :search_origin, params[:search_origin], :id => "origin", :type => "text", :placeholder => "Picking An Origin"
       =text_field_tag :search_destination, params[:search_destination], :id => "destination", :type => "text", :placeholder => "Picking A Destination"
-      %br 
-      =submit_tag "get me off this rock", :name => nil
+      %br
+      =submit_tag "Get me off this rock!", :name => nil

@@ -6,6 +6,17 @@
 
 #origin, #destination {background-color: transparent; color:tomato;}
 
+h2.index{
+  font-family: 'EmpireState', 'Arial', 'sans-serif';
+  color: white;
+  font-size: 6em;
+  padding-left: -1em;
+  span {
+    color: tomato;
+    padding: 1em;
+  }
+}
+
 #waxing-mars{
   position: absolute;
   right:-30px;
@@ -15,7 +26,7 @@
   z-index: 0;
 }
 
-#earth{
+#earth {
   position: absolute;
   left:-250px;
   bottom:-430px;
@@ -25,13 +36,19 @@
 }
 
 .result-bars {
-  background: rgba(255,255,255,.5)
+  background: rgba(255,255,255,.5);
+  &:hover {
+    background: rgba(255,255,255,1);
+  }
 }
 
 .search-padding {
   margin:5em 0 2em 3em;
   h1{
     color: white;
+    font-size: 5em;
+    font-family: 'Tech', 'Arial', 'sans-serif';
+    margin-top: -3em;
   }
 }
 
@@ -41,4 +58,39 @@
   &:hover{
     color: tomato;
   }
+}
+
+h1.show {
+  color:white;
+  font-family: 'EmpireState', 'Arial', 'sans-serif';
+  font-size: 4em;
+  padding-top: 1em;
+}
+
+.info {
+  color: white;
+  font-size: 2.5em;
+  font-family: 'Tech', 'Arial', 'sans-serif';
+}
+
+.book_it {
+  font-size: 3em;
+  font-family: 'EmpireState', 'Arial', 'sans-serif';
+  margin-top: 1em;
+  padding-bottom: 300px;
+  a {
+    color: tomato;
+  }
+}
+
+#spaceman {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+}
+
+#graph {
+  position: absolute;
+  bottom: 10px;
+  right: 140px;
 }
