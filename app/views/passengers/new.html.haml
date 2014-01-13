@@ -20,6 +20,4 @@
           = f.input :phone, :class => "field-styling"
       = f.input :address, :class => "field-styling"
       = f.input :emergency_contact, :class => "field-styling"
-      = link_to flight_passengers_path, method: :post do
-        .submit-button
-          Secure Your Ticket
+      = f.submit "Submit Your Info", :class => "button"
