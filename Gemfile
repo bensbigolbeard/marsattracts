@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Pry-plus for debugging
+gem 'pry-plus'
+
 # Figaro for storing mailer credentials
 gem 'figaro'
 
