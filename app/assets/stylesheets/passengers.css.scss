@@ -25,3 +25,16 @@
   width:auto;
   z-index: 0;
 }
+
+#helmet2{
+  position: absolute;
+  left:-30px;
+  bottom:-200px;
+  height:80%;
+  width:auto;
+  z-index: 0;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
