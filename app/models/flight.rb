@@ -4,6 +4,8 @@ class Flight < ActiveRecord::Base
   belongs_to :ship
   has_many :trips
   has_many :passengers, :through => :trips
+  belongs_to :origin
+  belongs_to :destination
 
   pg_search_scope :search_origin, against: [:origin], using: {tsearch: {dictionary: 'english'}}
   pg_search_scope :search_destination, against: [:destination], using: {tsearch: {dictionary: 'english'}}
