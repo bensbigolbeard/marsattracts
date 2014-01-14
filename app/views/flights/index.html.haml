@@ -8,7 +8,7 @@
 .row#landing-search
   .medium-4.medium-centered.columns
     =form_tag flights_path, :method => "get" do
-      =text_field_tag :search_origin, params[:search_origin], :id => "origin", :type => "text", :placeholder => "Picking An Origin"
-      =text_field_tag :search_destination, params[:search_destination], :id => "destination", :type => "text", :placeholder => "Picking A Destination"
+      =select_tag "origin", options_from_collection_for_select(@flight_origins, "id", "origin")
+      =select_tag "destination", options_from_collection_for_select(@flight_destinations, "id", "destination")
       %br
       =submit_tag "Get me off this rock!", :name => nil
