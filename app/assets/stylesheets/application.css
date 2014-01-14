@@ -21,11 +21,11 @@ body#background {
   background: url('midground.png') repeat 20% 20%;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 997;
+  z-index: -3;
 }
 #foreground {
   background: url('foreground.png') repeat 40% 110%;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 998;
+  z-index: -2;
 }
