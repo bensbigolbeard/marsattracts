@@ -11,22 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140111234650) do
+ActiveRecord::Schema.define(version: 20140114230059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "destinations", force: true do |t|
+    t.string   "destination"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "flights", force: true do |t|
     t.string   "flight_number"
     t.datetime "departure_time"
     t.datetime "arrival_time"
-    t.string   "origin"
-    t.string   "destination"
     t.string   "distance"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "ship_id"
     t.integer  "price"
+    t.integer  "destination_id"
+    t.integer  "origin_id"
+  end
+
+  create_table "origins", force: true do |t|
+    t.string   "origin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "passengers", force: true do |t|
@@ -46,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140111234650) do
     t.integer  "capacity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "trips", force: true do |t|
