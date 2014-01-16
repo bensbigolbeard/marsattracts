@@ -7,7 +7,8 @@ gem 'pry-plus'
 gem 'mandrill-api'
 
 # Foreman for storing mailer credentials
-gem 'foreman'
+# gem 'foreman'
+gem 'figaro'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'

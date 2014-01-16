@@ -1,0 +1,5 @@
+SMTP_PORT: 587
+SMTP_HOST: "smtp.mandrillapp.com"
+SMTP_USERNAME: "akrueger"
+SMTP_PASSWORD: "viUFtkbLpJkJSEM8670Gdg"
+SMTP_PASSWORD_PROD: "an5g8inf9GFond8dsBYisA"
