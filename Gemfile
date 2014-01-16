@@ -1,5 +1,15 @@
 source 'https://rubygems.org'
 
+# Pry-plus for debugging
+gem 'pry-plus'
+
+# Mandrill for mailer
+gem 'mandrill-api'
+
+# Foreman for storing mailer credentials
+# gem 'foreman'
+gem 'figaro'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
