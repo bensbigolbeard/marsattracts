@@ -29,12 +29,13 @@ MarsAttracts::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  :address              => "smtp.gmail.com",
-  :port                 => 587,
-  :user_name            => ENV["EMAIL_ACCOUNT"],
-  :password             => ENV["EMAIL_PASSWORD"],
-  :authentication       => "plain",
-  :enable_starttls_auto => true
-}
+    :port           => ENV['SMTP_PORT'].to_i,
+    :address        => ENV['SMTP_HOST'],
+    :username      => ENV['SMTP_USERNAME'],
+    :password       => ENV['SMTP_PASSWORD'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true,
+    :authentication => 'login',
+  }
 
 end
