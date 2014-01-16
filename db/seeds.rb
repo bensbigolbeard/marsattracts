@@ -43,7 +43,7 @@ Ship.find(1).flights.create!([
     origin_id: 2, 
     destination_id: 2,
     price: 500, 
-    distance: "a million units"},
+    distance: "two million units"},
 ]);
 
 Ship.find(2).flights.create!([
@@ -62,6 +62,14 @@ Ship.find(2).flights.create!([
     destination_id: 4,
     price: 10000, 
     distance: "a million units"},
+
+    {flight_number:'002', 
+    departure_time: Date.today + 2.months,
+    arrival_time: Date.today + 9.months, 
+    origin_id: 2, 
+    destination_id: 2,
+    price: 750, 
+    distance: "five million units"},
 ]);    
 
 Ship.find(3).flights.create!([

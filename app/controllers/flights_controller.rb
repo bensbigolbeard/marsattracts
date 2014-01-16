@@ -35,6 +35,8 @@ class FlightsController < ApplicationController
     # @flight_destinations = Flight.search_destination(params[:search_destination])
     # Params are arrays of id's
     @flights = Flight.search_results(params[:origin], params[:destination])
+    @price_ascending = @flights.sort { |a, b| a.price <=> b.price }
+    @price_descending = @price_ascending.reverse
   end
 
   private

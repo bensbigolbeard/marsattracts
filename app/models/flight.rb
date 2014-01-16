@@ -61,4 +61,9 @@ class Flight < ActiveRecord::Base
 
     flights
   end
+
+  def sort_flights
+    self.sort { |a, b| b.price <=> a.price }
+  end
+
 end
