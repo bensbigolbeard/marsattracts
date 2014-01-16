@@ -3,6 +3,7 @@
     %h1.show 
       Flight 
       = @flight.flight_number
+      = Origin.find(@flight.origin_id).postal_code
 
 .row.info
   .medium-6.medium-centered.columns
@@ -25,7 +26,7 @@
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
 
-%img#graph{:src => "/assets/graph_placeholder_show.png"}
+/ %img#graph{:src => "/assets/graph_placeholder_show.png"}
 
-%img#spaceman{:src => "/assets/spaceman_placeholder_show.png"}
+/ %img#spaceman{:src => "/assets/spaceman_placeholder_show.png"}
 

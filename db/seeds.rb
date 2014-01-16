@@ -21,11 +21,11 @@ Destination.create!([
 ]);
 
 Origin.create!([
-  {origin:"Los Angeles"},
-  {origin:"Austin"},
-  {origin:"Boston"},
-  {origin:"Chicago"},
-  {origin:"Atlanta"},
+  {origin:"Los Angeles", postal_code: "90045", lat: 33.9516114, long: -118.3875775},
+  {origin:"Austin", postal_code: "78521", lat: 25.9739925, long: -97.3300529},
+  {origin:"Tokyo", postal_code: "108-8255", lat: 35.6282162, long: 139.7566333},
+  {origin:"Chicago", postal_code: "53140", lat: 42.638141, long: -87.82550069},
+  {origin:"Shanghai", postal_code: "201821", lat: 31.3587902, long: 121.2484577},
 ]);
 
 Ship.find(1).flights.create!([
