@@ -34,8 +34,8 @@ class Flight < ActiveRecord::Base
     flights = []
 
     if origin.length > 1 && destination.length > 1
-      origin.each do |on|
-        destination.each do |dn|
+      destination.each do |dn|
+        origin.each do |on|
           if on == dn
             flights << on
           else
@@ -45,14 +45,16 @@ class Flight < ActiveRecord::Base
       end
     elsif origin.length == 1 && destination.length > 1
       destination.each do |dn|
-        if on == dn
-          flights << on
+        if origin.first == dn
+          flights << origin.first
         else
           # Nothing! You get nothing!
         end    
       end   
     elsif origin.length == 1 && destination.length == 1
-      flights << origin.first
+      if origin.first == destination.first
+        flights << origin.first
+      end
     else
       #Nothing! You get Nothing1
     end
