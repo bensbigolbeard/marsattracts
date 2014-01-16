@@ -4,29 +4,27 @@
 .row
   .medium-8.columns.medium-centered
     - @flights.each do |flight|
+      .row.result-header
+        .medium-2.columns
+          Flight #
+        .medium-2.columns
+          Flight Departure
+        .medium-2.columns 
+          Flight Arrival
+        .medium-3.columns
+          Trip Distance
+        .medium-3.columns
+          Ticket Price
+        %br
       =link_to flight_path(flight.id), :class => 'link' do  
-        %div
-          .row.result-header
-            .medium-2.columns
-              Flight #
-            .medium-2.columns
-              Flight Departure
-            .medium-2.columns 
-              Flight Arrival
-            .medium-3.columns
-              Trip Distance
-            .medium-3.columns
-              Ticket Price
-
-          .row.result-bars
-            .medium-2.columns
-              = flight.flight_number
-            .medium-2.columns
-              = flight.departure_time
-            .medium-2.columns 
-              = flight.arrival_time
-            .medium-3.columns
-              = flight.distance
-            .medium-3.columns
-              = flight.price
-      %br
+        .row.result-bars
+          .medium-2.columns
+            = flight.flight_number
+          .medium-2.columns
+            = flight.departure_time.to_date
+          .medium-2.columns 
+            = flight.arrival_time.to_date
+          .medium-3.columns
+            = flight.distance
+          .medium-3.columns
+            = "$#{flight.price}"
