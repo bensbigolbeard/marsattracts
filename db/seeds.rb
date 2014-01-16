@@ -33,14 +33,16 @@ Ship.find(1).flights.create!([
     departure_time: Date.today, 
     arrival_time: Date.today + 6.months, 
     origin_id: 1, 
-    destination_id: 1, 
+    destination_id: 1,
+    price: 50, 
     distance: "a million units"},
 
     {flight_number:'002', 
     departure_time: Date.today, 
     arrival_time: Date.today + 5.months, 
     origin_id: 2, 
-    destination_id: 2, 
+    destination_id: 2,
+    price: 500, 
     distance: "a million units"},
 ]);
 
@@ -49,14 +51,16 @@ Ship.find(2).flights.create!([
     departure_time: Date.today, 
     arrival_time: Date.today + 4.months, 
     origin_id: 3, 
-    destination_id: 3, 
+    destination_id: 3,
+    price: 5000, 
     distance: "a million units"},
 
     {flight_number:'004', 
     departure_time: Date.today, 
     arrival_time: Date.today + 6.months, 
     origin_id: 4, 
-    destination_id: 4, 
+    destination_id: 4,
+    price: 10000, 
     distance: "a million units"},
 ]);    
 
@@ -65,7 +69,8 @@ Ship.find(3).flights.create!([
     departure_time: Date.today, 
     arrival_time: Date.today + 3.months, 
     origin_id: 5, 
-    destination_id: 5, 
+    destination_id: 5,
+    price: 5000000, 
     distance: "a million units"},
 
 ]);
