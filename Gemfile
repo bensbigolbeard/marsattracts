@@ -22,7 +22,6 @@ end
 
 group :test do
   gem 'rspec-rails' # R-spec for testing
-  #gem 'capybara' # Testing views and user interaction
   #gem 'factory_girl_rails' # Creates custom data records
   #gem 'database_cleaner' # Cleans database
   #gem 'faker' # Creates fake data
