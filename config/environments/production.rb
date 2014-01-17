@@ -77,4 +77,17 @@ MarsAttracts::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.action_mailer.raise_delivery_errors = true 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: "heroku.com" }
+  config.action_mailer.smtp_settings = {
+    :port           => ENV['SMTP_PORT'],
+    :address        => ENV['SMTP_HOST'],
+    :user_name      => ENV['SMTP_USERNAME'],
+    :password       => ENV['SMTP_PASSWORD_PROD'],
+    :domain         => 'heroku.com',
+    :authentication => 'login',
+    :enable_starttls_auto => true
+  }
 end

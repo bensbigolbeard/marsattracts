@@ -5,4 +5,7 @@ class Trip < ActiveRecord::Base
   def total_price 
     Flight.find(flight_id).price
   end
+
+  
+  
 end
