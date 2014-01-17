@@ -1,3 +1,5 @@
+# Mandrill environment variables
+
 SMTP_PORT: 587
 SMTP_HOST: "smtp.mandrillapp.com"
 SMTP_USERNAME: "akrueger"
@@ -5,3 +7,7 @@ SMTP_PASSWORD: "tfx_9NyyJLzZhlQSOliuSw"
 SMTP_PASSWORD_PROD: "KTW6PzfThOBovFNX6DmZcw"
 
 FORECAST_IO_KEY: "23247cd984195ff93b782688e0639f12"
+
+# Wolfram API environment variables
+
+WOLFRAM_APPID: "U2T3J4-AU3R62W62A"
