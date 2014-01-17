@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'pg_search'
 
 # Used to get coordinates and query current weather
+gem 'figaro'
 gem 'geocoder'
 gem 'forecast_io'
 

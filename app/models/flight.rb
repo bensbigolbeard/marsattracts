@@ -1,5 +1,6 @@
 class Flight < ActiveRecord::Base
   include PgSearch
+  require 'forecast_io'
 
   belongs_to :ship
   has_many :trips
@@ -58,5 +59,12 @@ class Flight < ActiveRecord::Base
     end
 
     flights
+  end
+
+  def coordinates
+    coordinates = []
+    coordinates << Origin.find(self.origin_id).lat
+    coordinates << Origin.find(self.origin_id).long
+    coordinates
   end
 end

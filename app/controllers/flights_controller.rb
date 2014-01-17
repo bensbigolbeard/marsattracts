@@ -17,8 +17,11 @@ class FlightsController < ApplicationController
   end
 
   def show
+    ForecastIO.api_key = ENV['FORECAST_IO_KEY']
     @flight = Flight.find(params[:id])
     @ship = @flight.ship
+    @lat = @flight.coordinates[0]
+    @long = @flight.coordinates[1]
   end
 
   def edit
