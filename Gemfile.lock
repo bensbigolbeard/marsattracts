@@ -292,6 +292,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   mandrill-api
+  nokogiri
   pg
   pg_search
   pry-plus

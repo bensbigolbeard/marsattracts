@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+# Nokogiri for Wolfram API
+gem 'nokogiri'
+
 # Pry-plus for debugging
 gem 'pry-plus'
 

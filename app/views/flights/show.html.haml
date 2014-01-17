@@ -6,18 +6,22 @@
 
 .row.info
   .medium-6.medium-centered.columns
-    .medium-4.columns
+    .medium-3.columns
       Ship
       %br
       = @ship.name
-    .medium-4.columns
+    .medium-3.columns
       Ship Speed
       %br
       = @ship.speed
-    .medium-4.columns
+    .medium-3.columns
       Capacity
       %br
       = @ship.capacity
+    .medium-3.columns
+      Distance
+      %br
+      = @flight.getDistance
 
 .row
   / .medium-2.medium-left.columns
@@ -25,7 +29,7 @@
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
 
-%img#graph{:src => "/assets/graph_placeholder_show.png"}
+%img#graph{:src => @flight.getImg}
 
 %img#spaceman{:src => "/assets/spaceman_placeholder_show.png"}
 

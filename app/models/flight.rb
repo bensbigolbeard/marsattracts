@@ -61,4 +61,51 @@ class Flight < ActiveRecord::Base
 
     flights
   end
+
+  # Wolfram Alpha API
+
+  def setWolf_query()
+    date = self.departure_time.strftime('%m/%d/%Y')
+    @query = "distance to mars #{date}".gsub(" ", "%20")
+  end
+
+  def setURL
+    @wolf_url = "http://api.wolframalpha.com/v2/query?appid=#{ENV['WOLFRAM_APPID']}&input=#{@query}&format=image,plaintext"
+  end
+
+  def setNokogiriDoc
+    @doc = Nokogiri::HTML(open(@wolf_url))
+  end
+  
+  def setSubpodNode
+    @subpod_nodes = @doc.xpath("//queryresult/pod/subpod")
+  end
+
+
+  def getImg() #type must be "au" or "miles"
+    setWolf_query()
+    setURL()
+    setNokogiriDoc()
+    setSubpodNode()
+
+    return @subpod_nodes.children[5].values[0] #returns URL string
+  end
+
+  def getDistance
+    setWolf_query()
+    setURL()
+    setNokogiriDoc()
+    setSubpodNode()
+
+    return @subpod_nodes[1].content
+  end
+    
+    # case distance
+    
+    # when type == "au"
+    #   @subpod_nodes[1].contents
+    # when ""
+    #   @subpod_nodes[5]
+
+
 end
