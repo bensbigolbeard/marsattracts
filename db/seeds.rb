@@ -31,7 +31,8 @@ Origin.create!([
 Ship.find(1).flights.create!([
     {flight_number:'001', 
     departure_time: Date.today, 
-    arrival_time: Date.today + 6.months, 
+    arrival_time: Date.today + 6.months,
+    duration: 6, 
     origin_id: 1, 
     destination_id: 1,
     price: 50, 
@@ -39,7 +40,8 @@ Ship.find(1).flights.create!([
 
     {flight_number:'002', 
     departure_time: Date.today, 
-    arrival_time: Date.today + 5.months, 
+    arrival_time: Date.today + 5.months,
+    duration: 5, 
     origin_id: 2, 
     destination_id: 2,
     price: 500, 
@@ -49,7 +51,8 @@ Ship.find(1).flights.create!([
 Ship.find(2).flights.create!([
     {flight_number:'003', 
     departure_time: Date.today, 
-    arrival_time: Date.today + 4.months, 
+    arrival_time: Date.today + 4.months,
+    duration: 4, 
     origin_id: 3, 
     destination_id: 3,
     price: 5000, 
@@ -57,7 +60,8 @@ Ship.find(2).flights.create!([
 
     {flight_number:'004', 
     departure_time: Date.today, 
-    arrival_time: Date.today + 6.months, 
+    arrival_time: Date.today + 6.months,
+    duration: 6,
     origin_id: 4, 
     destination_id: 4,
     price: 10000, 
@@ -65,7 +69,8 @@ Ship.find(2).flights.create!([
 
     {flight_number:'002', 
     departure_time: Date.today + 2.months,
-    arrival_time: Date.today + 9.months, 
+    arrival_time: Date.today + 9.months,
+    duration: 9, 
     origin_id: 2, 
     destination_id: 2,
     price: 750, 
@@ -75,10 +80,20 @@ Ship.find(2).flights.create!([
 Ship.find(3).flights.create!([
     {flight_number:'005', 
     departure_time: Date.today, 
-    arrival_time: Date.today + 3.months, 
+    arrival_time: Date.today + 3.months,
+    duration: 3, 
     origin_id: 5, 
     destination_id: 5,
     price: 5000000, 
     distance: "a million units"},
+
+    {flight_number:'002', 
+    departure_time: Date.today + 15.days, 
+    arrival_time: Date.today + 11.months,
+    duration: 11, 
+    origin_id: 2, 
+    destination_id: 2,
+    price: 1800, 
+    distance: "fifteen million units"},
 
 ]);

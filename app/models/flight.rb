@@ -23,47 +23,25 @@ class Flight < ActiveRecord::Base
       find(:all, :conditions => ['destination LIKE ?', "%#{search}%"])
     else
       find(:all)
-    end  
+    end
   end
 
-  def self.search_results(o, d)
-    # origin = Flight.search_origin(o)
-    # destination = Flight.search_destination(d)
-    origin = Flight.find_all_by_origin_id(o)
-    destination = Flight.find_all_by_destination_id(d)
-    flights = []
-
-    if origin.length > 1 && destination.length > 1
-      destination.each do |dn|
-        origin.each do |on|
-          if on == dn
-            flights << on
-          else
-            # Nothing! You get nothing!
-          end
-        end
-      end
-    elsif origin.length == 1 && destination.length > 1
-      destination.each do |dn|
-        if origin.first == dn
-          flights << origin.first
-        else
-          # Nothing! You get nothing!
-        end    
-      end   
-    elsif origin.length == 1 && destination.length == 1
-      if origin.first == destination.first
-        flights << origin.first
-      end
-    else
-      #Nothing! You get Nothing1
+  def self.search_results(origin, destination, sort = '')
+    
+    sort_query = ''
+    case sort
+      when 'price'
+        sort_query = 'price ASC'
+      when 'date'
+        sort_query = 'departure_time DESC'
+      when 'duration'
+        sort_query = ''
+      else
+        sort_query
     end
 
-    flights
-  end
-
-  def sort_flights
-    self.sort { |a, b| b.price <=> a.price }
+    self.where(origin_id: "#{origin}", destination_id: "#{destination}").order(sort_query)
+    
   end
 
 end

@@ -63,7 +63,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
-    database_cleaner (1.0.1)
+    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -77,7 +77,7 @@ GEM
       i18n (~> 0.5)
     ffi (1.9.3)
     formatador (0.2.4)
-    foundation-rails (5.0.2.0)
+    foundation-rails (5.0.3.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     gherkin (2.12.2)
@@ -217,7 +217,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.1.0)
+    turbolinks (2.2.0)
       coffee-rails
     tzinfo (0.3.38)
     uglifier (2.4.0)

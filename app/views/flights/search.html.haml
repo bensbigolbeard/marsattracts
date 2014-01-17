@@ -1,13 +1,10 @@
-= @price_ascending.each do |flight|
-  = flight.price
-
 .row.search-padding
   .medium-8.columns.medium-centered
     %h1 Your Flight Results
 .row
   .medium-8.columns.medium-centered
     .row.result-header
-      .medium-2.columns
+      .medium-1.columns
         Flight #
       .medium-2.columns
         Flight Departure
@@ -15,13 +12,15 @@
         Flight Arrival
       .medium-3.columns
         Trip Distance
-      .medium-3.columns
+      .medium-2.columns
+        Trip Duration
+      .medium-2.columns
         Ticket Price
         %br
     - @flights.each do |flight|
       =link_to flight_path(flight.id), :class => 'link' do  
         .row.result-bars
-          .medium-2.columns
+          .medium-1.columns
             = flight.flight_number
           .medium-2.columns
             = flight.departure_time.to_date
@@ -29,5 +28,8 @@
             = flight.arrival_time.to_date
           .medium-3.columns
             = flight.distance
-          .medium-3.columns
+          .medium-2.columns
+            = flight.duration
+          .medium-2.columns
             = "$#{flight.price}"
+        %br

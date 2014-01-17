@@ -11,4 +11,11 @@
       =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
       =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
       %br
+      =radio_button_tag "sort", "price"
+      %span price
+      =radio_button_tag "sort", "date"
+      %span date
+      =radio_button_tag "sort", "duration"
+      %span duration
+      %br
       =submit_tag "Get me off this rock!", :name => nil

@@ -31,17 +31,12 @@ class FlightsController < ApplicationController
   end
 
   def search
-    # @flight_origins = Flight.search_origin(params[:search_origin])
-    # @flight_destinations = Flight.search_destination(params[:search_destination])
-    # Params are arrays of id's
-    @flights = Flight.search_results(params[:origin], params[:destination])
-    @price_ascending = @flights.sort { |a, b| a.price <=> b.price }
-    @price_descending = @price_ascending.reverse
+    @flights = Flight.search_results(params[:origin], params[:destination], params[:sort])
   end
 
   private
 
   def search_params
-    params.require(:flight).permit(:search_destination, :search_origin)
+    params.require(:flight).permit(:search_destination, :search_origin, :sort)
   end
 end
