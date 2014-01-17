@@ -1,4 +1,4 @@
-class Passenger < ActionMailer::Base
+class Notifier < ActionMailer::Base
   default from: "cboette@gmail.com"
 
   def pass_confirm

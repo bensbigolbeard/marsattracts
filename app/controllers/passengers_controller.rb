@@ -28,7 +28,6 @@ class PassengersController < ApplicationController
     @trip = Trip.find(params[:id])
     @passenger = @trip.passenger
     if @passenger.update(passenger_params)
-      Passenger.pass_confirm.deliver
       redirect_to trip_path
     else
       redirect_to :back
