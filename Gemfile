@@ -25,6 +25,11 @@ gem 'simple_form'
 # Use Pg_search to query multiple tables and return filtered results
 gem 'pg_search'
 
+# Used to get coordinates and query current weather
+gem 'figaro'
+gem 'geocoder'
+gem 'forecast_io'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

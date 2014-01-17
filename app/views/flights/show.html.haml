@@ -19,13 +19,30 @@
       %br
       = @ship.capacity
 
+.row.weather.origin
+  .medium-8.medium-centered.columns
+    .medium-2.columns
+      Cloud Cover
+      %br
+      = ForecastIO.forecast(@lat, @long).currently.cloudCover
+    .medium-2.columns
+      Closest Storm
+      %br
+      = "#{ForecastIO.forecast(@lat, @long).currently.nearestStormDistance} miles away"
+    .medium-2.columns
+      Humidity
+      %br
+      = ForecastIO.forecast(@lat, @long).currently.humidity
+    .medium-2.columns
+      Precipitation
+      %br
+      = ForecastIO.forecast(@lat, @long).currently.precipIntensity
+
 .row
   / .medium-2.medium-left.columns
   .medium-5.medium-offset-7.columns
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
 
-%img#graph{:src => "/assets/graph_placeholder_show.png"}
 
-%img#spaceman{:src => "/assets/spaceman_placeholder_show.png"}
 

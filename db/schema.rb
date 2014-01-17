@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20140117173051) do
 
   # These are extensions that must be enabled in order to support this database
@@ -40,6 +41,9 @@ ActiveRecord::Schema.define(version: 20140117173051) do
     t.string   "origin"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "postal_code"
+    t.float    "lat"
+    t.float    "long"
   end
 
   create_table "passengers", force: true do |t|
