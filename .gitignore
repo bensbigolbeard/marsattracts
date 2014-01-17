@@ -15,4 +15,4 @@
 /config/database.yml
 
 # Ignore environment variables
-.env
+/config/application.yml
