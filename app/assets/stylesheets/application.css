@@ -47,20 +47,23 @@
 }
 
 body#background {
-  background: url('background.png') repeat 5% 5%
+  /*background-color: black;*/
+  background: url('graphy-dark.png') repeat 5% 5%;
+  z-index: -3;
 }
-#midground {
+
+/*#midground {*/
   background: url('midground.png') repeat 20% 20%;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: -2;
-}
-#foreground {
+/*}*/
+/*#foreground {*/
   background: url('foreground.png') repeat 40% 110%;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: -1;
-}
+/*}*/
 
 .submit-button {
   width: 70%;
@@ -77,5 +80,5 @@ body#background {
   width: 47%;
 }
 
-input {background-color: transparent !important; color:tomato !important;}
+input {background-color: transparent !important; color:yellow !important;}
 

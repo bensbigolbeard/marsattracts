@@ -1,21 +1,17 @@
-%img#waxing-mars{:src => "/assets/planet_placeholder_index.png"}
-%img#earth{:src => "/assets/earth_placeholder.png"}
-.row
-  .medium-6.medium-centered.columns
-    %h2.index 
-      Mars 
-      %span Attracts!
 .row#landing-search
-  .medium-4.medium-centered.columns
+  .medium-3.medium-9-offset.columns
     =form_tag flights_search_path, :method => "get" do
       =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
       =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
       %br
       =radio_button_tag "sort", "price"
-      %span price
+      %span.sorted price
       =radio_button_tag "sort", "date"
-      %span date
+      %span.sorted date
       =radio_button_tag "sort", "duration"
-      %span duration
+      %span.sorted duration
       %br
       =submit_tag "Get me off this rock!", :name => nil
+
+// Image of orbits generated daily
+// =image_tag('http://humbabe.arc.nasa.gov/MarsToday/UL.gif')

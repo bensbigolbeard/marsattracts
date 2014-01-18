@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.row#landing-search {padding: 8em 0em;}
 
-#origin, #destination {background-color: transparent; color:tomato;}
+// flight#index page
+.row#landing-search {padding: 2em 0em;}
 
 h2.index{
   font-family: 'EmpireState', 'Arial', 'sans-serif';
@@ -17,22 +17,37 @@ h2.index{
   }
 }
 
-#waxing-mars{
-  position: absolute;
-  right:-30px;
-  top:-30px;
-  height:35%;
-  width:auto;
-  z-index: 0;
+#origin, #destination {background-color: transparent; color:yellow;}
+
+// TODO: checkboxes on index page
+// #sort {}
+
+.sorted {
+  color: white;
 }
 
-#earth {
-  position: absolute;
-  left:-250px;
-  bottom:-430px;
-  height:100%;
-  width:auto;
-  z-index: 0;
+// #waxing-mars{
+//   position: absolute;
+//   right:-30px;
+//   top:-30px;
+//   height:35%;
+//   width:auto;
+//   z-index: 0;
+// }
+
+// #earth {
+//   position: absolute;
+//   left:-250px;
+//   bottom:-430px;
+//   height:100%;
+//   width:auto;
+//   z-index: 0;
+// }
+
+// flight#search page
+
+.results {
+  display: none;
 }
 
 .row.result-header {
@@ -90,17 +105,17 @@ h1.show {
   }
 }
 
-#spaceman {
-    position: absolute;
-    bottom: 10px;
-    left: 0px;
-}
+// #spaceman {
+//     position: absolute;
+//     bottom: 10px;
+//     left: 0px;
+// }
 
-#graph {
-  position: absolute;
-  bottom: 10px;
-  right: 140px;
-}
+// #graph {
+//   position: absolute;
+//   bottom: 10px;
+//   right: 140px;
+// }
 
 .weather.origin {
   color: white;
