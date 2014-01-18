@@ -15,6 +15,7 @@ gem 'rails', '4.0.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/ra
 gem 'sass-rails' # Use SCSS for stylesheets
 gem 'simple_form' # Use Simple_form for form formating
 gem 'uglifier' # Use Uglifier as compressor for JavaScript assets
+gem 'unirest' # For MAAS Mars weather API
 
 group :production do
   gem 'rails_12factor' # Add 12 factors best practices to Rails
