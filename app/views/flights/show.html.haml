@@ -32,6 +32,7 @@
     .small-3.columns
       Cloud Cover
       %br
+      %input.dial{"data-fgcolor" => "chartreuse", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@lat, @long).currently.cloudCover}"}
       / = ForecastIO.forecast(@lat, @long).currently.cloudCover
     .small-3.columns
       Closest Storm
@@ -40,11 +41,12 @@
     .small-3.columns
       Humidity
       %br
+        %input.dial{"data-fgcolor" => "chartreuse", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@lat, @long).currently.humidity}"}
       / = ForecastIO.forecast(@lat, @long).currently.humidity
     .small-3.columns
       Precipitation
       %br
-      / = "#{ForecastIO.forecast(@lat, @long).currently.precipIntensity} %"
+        %input.dial{"data-fgcolor" => "chartreuse", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@lat, @long).currently.precipIntensity}"}
 
 .row
   / .small-2.small-left.columns
@@ -52,5 +54,4 @@
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
 
-%input.dial{"data-angleoffset" => "180", "data-fgcolor" => "#C9D4AE", "data-skin" => "tron", "data-thickness" => ".1", "data-width" => "150", type: "text"}
 
