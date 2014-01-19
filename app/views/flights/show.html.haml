@@ -1,53 +1,56 @@
+!!! html
+%head
+  = javascript_include_tag "application" 
+
 .row
-  .medium-6.medium-centered.columns
+  .small-6.small-centered.columns
     %h1.show 
       Flight 
       = @flight.flight_number
 
 .row.info
-  .medium-6.medium-centered.columns
-    .medium-3.columns
+  .small-6.small-centered.columns
+    .small-3.columns
       Ship
       %br
       = @ship.name
-    .medium-3.columns
+    .small-3.columns
       Ship Speed
       %br
       = @ship.speed
-    .medium-3.columns
+    .small-3.columns
       Capacity
       %br
       = @ship.capacity
-    .medium-3.columns
+    .small-3.columns
       Distance
       %br
       = @flight.getDistance
 
 .row.weather.origin
-  .medium-8.medium-centered.columns
-    .medium-2.columns
+  .small-7.small-offset-5.columns
+    .small-3.columns
       Cloud Cover
       %br
-      = ForecastIO.forecast(@lat, @long).currently.cloudCover
-    .medium-2.columns
+      / = ForecastIO.forecast(@lat, @long).currently.cloudCover
+    .small-3.columns
       Closest Storm
       %br
-      = "#{ForecastIO.forecast(@lat, @long).currently.nearestStormDistance} miles away"
-    .medium-2.columns
+      / = "#{ForecastIO.forecast(@lat, @long).currently.nearestStormDistance} miles away"
+    .small-3.columns
       Humidity
       %br
-      = ForecastIO.forecast(@lat, @long).currently.humidity
-    .medium-2.columns
+      / = ForecastIO.forecast(@lat, @long).currently.humidity
+    .small-3.columns
       Precipitation
       %br
-      = ForecastIO.forecast(@lat, @long).currently.precipIntensity
+      / = "#{ForecastIO.forecast(@lat, @long).currently.precipIntensity} %"
 
 .row
-  / .medium-2.medium-left.columns
-  .medium-5.medium-offset-7.columns
+  / .small-2.small-left.columns
+  .small-5.small-offset-7.columns
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
 
-%img#graph{:src => @flight.getImg}
-
+%input.dial{"data-angleoffset" => "180", "data-fgcolor" => "#C9D4AE", "data-skin" => "tron", "data-thickness" => ".1", "data-width" => "150", type: "text"}
 

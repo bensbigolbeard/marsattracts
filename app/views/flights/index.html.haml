@@ -1,13 +1,16 @@
 .row#landing-search
   .medium-3.medium-9-offset.columns
+    %h2.index 
+      Mars
+      %span Attracts!
     =form_tag flights_search_path, :method => "get" do
       =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
       =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
       %br
       =radio_button_tag "sort", "price"
-      %span.sorted price
+      %span.sorted price ||
       =radio_button_tag "sort", "date"
-      %span.sorted date
+      %span.sorted date ||
       =radio_button_tag "sort", "duration"
       %span.sorted duration
       %br

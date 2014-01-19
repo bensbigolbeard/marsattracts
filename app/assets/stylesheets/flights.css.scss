@@ -1,29 +1,46 @@
-// Place all the styles related to the Flights controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
+// Declaring variables for colors
+$menu-color: #86B7C2;
+$header-color: #C9D4AE;
+$white: #FAFAFA;
 
 // flight#index page
 .row#landing-search {padding: 2em 0em;}
 
 h2.index{
-  font-family: 'EmpireState', 'Arial', 'sans-serif';
-  color: white;
-  font-size: 6em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+  color: $white;
+  font-size: 1.5em;
   padding-left: -1em;
   span {
-    color: tomato;
-    padding: 1em;
+    color: $header-color;
   }
 }
 
-#origin, #destination {background-color: transparent; color:yellow;}
+input {
+  background-color: transparent !important; 
+  color:$menu-color !important;
+  font-family: 'Droid', Arial, sans-serif;
+}
+
+#origin, #destination {
+  background-color: transparent; 
+  color:$menu-color;
+  font-family: 'Droid', Arial, sans-serif;
+}
 
 // TODO: checkboxes on index page
 // #sort {}
 
+.sorted {  
+  &:checked + label {
+    color: red;
+  }
+}
+
 .sorted {
-  color: white;
+  color: $white;
+  font-size: 0.75em;
+  font-family: 'Droid', Arial, sans-serif;
 }
 
 // #waxing-mars{
@@ -45,10 +62,6 @@ h2.index{
 // }
 
 // flight#search page
-
-.results {
-  display: none;
-}
 
 .row.result-header {
   background: rgba(255,255,255,1);
@@ -117,6 +130,30 @@ h1.show {
 //   right: 140px;
 // }
 
+
+// Earth Weather Panel
 .weather.origin {
-  color: white;
+  color: $white;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

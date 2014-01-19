@@ -15,35 +15,11 @@
  */
 
 @font-face {
-    font-family: 'EmpireState';
-    src: url('./empire_state/empire_state-webfont.eot?#iefix') format('embedded-opentype'), 
-         url('./empire_state/empire_state-webfont.woff') format('woff'), 
-         url('./empire_state/empire_state-webfont.ttf')  format('truetype'),
-         url('./empire_state/empire_state-webfont.svg#svgFontName') format('svg');
-}
-
-@font-face {
-    font-family: 'Dieheld';
-    src: url('./dieheld/dieheld-webfont.eot?#iefix') format('embedded-opentype'), 
-         url('./dieheld/dieheld-webfont.woff') format('woff'), 
-         url('./dieheld/dieheld-webfont.ttf')  format('truetype'),
-         url('./dieheld/dieheld-webfont.svg#svgFontName') format('svg');
-}
-
-@font-face {
-    font-family: 'Market';
-    src: url('./market/market-webfont.eot?#iefix') format('embedded-opentype'), 
-         url('./market/market-webfont.woff') format('woff'), 
-         url('./market/market-webfont.ttf')  format('truetype'),
-         url('./market/market-webfont.svg#svgFontName') format('svg');
-}
-
-@font-face {
-    font-family: 'Tech';
-    src: url('./tech/tech-webfont.eot?#iefix') format('embedded-opentype'), 
-         url('./tech/tech-webfont.woff') format('woff'), 
-         url('./tech/tech-webfont.ttf')  format('truetype'),
-         url('./tech/tech-webfont.svg#svgFontName') format('svg');
+    font-family: 'Droid';
+    src: url('./droid/droidsansmono-webfont.eot?#iefix') format('embedded-opentype'), 
+         url('./droid/droidsansmono-webfont.woff') format('woff'), 
+         url('./droid/droidsansmono-webfont.ttf')  format('truetype'),
+         url('./droid/droidsansmono-webfont.svg#svgFontName') format('svg');
 }
 
 body#background {
@@ -79,6 +55,4 @@ body#background {
 .name {
   width: 47%;
 }
-
-input {background-color: transparent !important; color:yellow !important;}
 
