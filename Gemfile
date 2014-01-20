@@ -7,6 +7,7 @@ gem 'foundation-rails'
 gem 'geocoder' # Use to get coordinates for weather API
 gem 'haml' # Use Haml for templating 
 gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'jbuilder'
 gem 'mandrill-api' # Mandrill for mailer
 gem 'nokogiri' # Nokogiri for Wolfram API
 gem 'pg' # Use postgresql as the database for Active Record
