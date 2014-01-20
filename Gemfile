@@ -1,20 +1,21 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'figaro' # Figaro for storing mailer credentials
-gem 'forecast_io' # Use to query current weather
-gem 'foundation-rails'
-gem 'geocoder' # Use to get coordinates for weather API
-gem 'haml' # Use Haml for templating 
-gem 'jquery-rails' # Use jquery as the JavaScript library
-gem 'mandrill-api' # Mandrill for mailer
-gem 'nokogiri' # Nokogiri for Wolfram API
-gem 'pg' # Use postgresql as the database for Active Record
-gem 'pg_search' # Use Pg_search to query multiple tables and return filtered results
+gem 'awesome_print' # Print ActiveRecord prettified
+gem 'figaro' # Store mailer credentials
+gem 'forecast_io' # Query current weather
+gem 'foundation-rails' # Front-end framework
+gem 'geocoder' # Get coordinates for weather API
+gem 'haml' # HTML templating 
+gem 'jquery-rails' # DOM JavaScript library
+gem 'mandrill-api' # Mailer
+gem 'nokogiri' # Parsing Wolfram API
+gem 'pg' # Database for Active Record
+gem 'pg_search' # Query multiple tables and return filtered results
 gem 'rails', '4.0.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'sass-rails' # Use SCSS for stylesheets
-gem 'simple_form' # Use Simple_form for form formating
-gem 'uglifier' # Use Uglifier as compressor for JavaScript assets
+gem 'sass-rails' # For stylesheets
+gem 'simple_form' # Form formating
+gem 'uglifier' # Compressor for JavaScript assets
 gem 'unirest' # For MAAS Mars weather API
 
 group :production do
