@@ -1,12 +1,5 @@
-%img#waxing-mars{:src => "/assets/planet_placeholder_index.png"}
-%img#earth{:src => "/assets/earth_placeholder.png"}
 
-%div{:ng_controller =>"DisplayCtrl"}
-  %div{ :ng_repeat=> "el in arr"}
-    %h1
-      {{el.origin}}
-    %p
-      {{el.url}}
+
 
 .row
   .medium-6.medium-centered.columns
@@ -27,3 +20,25 @@
       %span duration
       %br
       =submit_tag "Get me off this rock!", :name => nil
+
+%div{"ng_controller" => "OriginCtrl"}
+  %select{"ng-model"=>"originSelect"}
+    %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
+      {{origin.origin}}
+
+  %div{"ng_controller" => "FlightCtrl"}  
+
+    %table{"id"=>"searchTextResults"}
+      %tr
+        %th
+          Name
+        %th
+          Phone
+      %tr{ "ng-repeat"=>"flight in flights | orderBy:'origin_id' | filter:originSelect"}
+        %td
+          {{flight.origin_id}}
+        %td
+          {{flight.distance}}
+        %td
+          {{flight.price}}    
+  

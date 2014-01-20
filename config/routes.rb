@@ -1,5 +1,8 @@
 MarsAttracts::Application.routes.draw do
   
+  resources :origins, only: [:index, :show]
+  resources :destinations, only: [:index, :show]
+
   root 'flights#index'
   get '/flights/search' => 'flights#search', as: :flights_search
 
