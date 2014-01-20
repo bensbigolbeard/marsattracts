@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'awesome_print' # Print ActiveRecord prettified
 gem 'figaro' # Store mailer credentials
 gem 'forecast_io' # Query current weather
 gem 'foundation-rails' # Front-end framework
@@ -37,6 +36,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'awesome_print' # Print ActiveRecord prettified
   gem 'better_errors' # Creates more descriptive and easier to read errors
   gem 'binding_of_caller' # Creates live shell inside better errors
 end
