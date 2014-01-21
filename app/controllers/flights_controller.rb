@@ -39,7 +39,7 @@ class FlightsController < ApplicationController
 
   private
 
-  def search_params
-    params.require(:flight).permit(:search_destination, :search_origin, :sort)
-  end
+    def search_params
+      params.require(:flight).permit(:search_destination, :search_origin, :sort)
+    end
 end

@@ -40,6 +40,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chunky_png (1.2.9)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -49,6 +50,12 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.1.2)
+      compass (>= 0.12.2)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger (1.6.3)
@@ -80,6 +87,7 @@ GEM
     foundation-rails (5.0.3.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
+    fssm (0.2.10)
     geocoder (1.1.9)
     haml (4.0.5)
       tilt
@@ -218,6 +226,7 @@ DEPENDENCIES
   binding_of_caller
   capybara
   coffee-rails
+  compass-rails
   database_cleaner
   factory_girl_rails
   faker

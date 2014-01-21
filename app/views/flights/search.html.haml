@@ -1,35 +1,35 @@
-.row.search-padding
+.row.search-results
   .medium-8.columns.medium-centered
     %h1 Your Flight Results
 .row
-  .medium-8.columns.medium-centered
+  .medium-10.columns.medium-centered
     .row.result-header
-      .medium-1.columns
+      .medium-2.columns
         Flight #
       .medium-2.columns
-        Flight Departure
+        Departure
       .medium-2.columns 
-        Flight Arrival
-      .medium-3.columns
-        Trip Distance
-      .medium-2.columns
-        Trip Duration
-      .medium-2.columns
-        Ticket Price
+        Arrival
+      .fade.medium-2.columns
+        Distance
+      .fade.medium-2.columns
+        Duration
+      .fade.medium-2.columns
+        Price
         %br
     - @flights.each do |flight|
       =link_to flight_path(flight.id), :class => 'link' do  
         .row.result-bars
-          .medium-1.columns
+          .medium-2.columns
             = flight.flight_number
           .medium-2.columns
-            = flight.departure_time.to_date
+            = flight.departure_time.strftime("%m/%d/%Y")
           .medium-2.columns 
-            = flight.arrival_time.to_date
-          .medium-3.columns
+            = flight.arrival_time.strftime("%m/%d/%Y")
+          .medium-2.columns
             = flight.distance
           .medium-2.columns
-            = flight.duration
+            = "#{((flight.arrival_time - flight.departure_time)/60/60/24/30).to_i} months"
           .medium-2.columns
             = "$#{flight.price}"
         %br

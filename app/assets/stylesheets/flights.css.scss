@@ -1,7 +1,10 @@
+@import 'compass';
 // Declaring variables for colors
-$menu-color: #86B7C2;
-$header-color: #C9D4AE;
+$lt-blue: #86B7C2;       // light blue
+$lt-green: #C9D4AE;     // light green
 $white: #FAFAFA;
+$brown: #5C3515;
+$near-black: #222422;
 
 // flight#index page
 .row#landing-search {padding: 2em 0em;}
@@ -12,24 +15,21 @@ h2.index{
   font-size: 1.5em;
   padding-left: -1em;
   span {
-    color: $header-color;
+    color: $lt-green;
   }
 }
 
 input {
   background-color: transparent !important; 
-  color:$menu-color !important;
+  color:$lt-blue !important;
   font-family: 'Droid', Arial, sans-serif;
 }
 
 #origin, #destination {
   background-color: transparent; 
-  color:$menu-color;
+  color:$lt-blue;
   font-family: 'Droid', Arial, sans-serif;
 }
-
-// TODO: checkboxes on index page
-// #sort {}
 
 .sorted {  
   &:checked + label {
@@ -43,55 +43,49 @@ input {
   font-family: 'Droid', Arial, sans-serif;
 }
 
-// #waxing-mars{
-//   position: absolute;
-//   right:-30px;
-//   top:-30px;
-//   height:35%;
-//   width:auto;
-//   z-index: 0;
-// }
-
-// #earth {
-//   position: absolute;
-//   left:-250px;
-//   bottom:-430px;
-//   height:100%;
-//   width:auto;
-//   z-index: 0;
-// }
-
 // flight#search page
 
+.search-results {
+  margin:3em 0 2em 3em;
+  h1{
+    color: white;
+    font-size: 3em;
+    font-family: 'Droid', 'Arial', 'sans-serif';
+  }
+}
+
 .row.result-header {
-  background: rgba(255,255,255,1);
+  @include filter-gradient(#ffffff, #00ffff, horizontal); // IE6-9 fallback on horizontal gradient
+  @include background-image(linear-gradient(left top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%));
+  .fade {
+    color: white;
+  }
+}
+
+.row.result-header {
+  // background: rgba(255,255,255,1);
+  // background: $lt-blue;
+  font-family: 'Droid', 'Arial', 'sans-serif';
   margin-bottom: 25px;
-  padding: 5px 0;
+  padding: 10px 0;
+  border-radius: 9px 9px 0px 0px;
+  color: $near-black;
 }
 
 .result-bars {
-  background: rgba(255,255,255,.5);
+  transition: background 0.5s ease;
+  background: rgba(255,255,255,.7);
   padding: 15px 0px;
   &:hover {
     background: rgba(255,255,255,1);
   }
 }
 
-.search-padding {
-  margin:5em 0 2em 3em;
-  h1{
-    color: white;
-    font-size: 5em;
-    font-family: 'Tech', 'Arial', 'sans-serif';
-    margin-top: -3em;
-  }
-}
-
 .link {
   text-decoration: none;
-  color: #333333;
-  &:hover{
-    color: tomato;
+  color: $near-black;
+  &:active{
+    color: #333333;
   }
 }
 
@@ -118,22 +112,10 @@ h1.show {
   }
 }
 
-// #spaceman {
-//     position: absolute;
-//     bottom: 10px;
-//     left: 0px;
-// }
-
-// #graph {
-//   position: absolute;
-//   bottom: 10px;
-//   right: 140px;
-// }
-
-
 // Earth Weather Panel
 .weather.origin {
   color: $white;
+  background-color: gray;
 }
 
 
