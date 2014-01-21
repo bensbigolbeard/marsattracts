@@ -97,3 +97,6 @@ Ship.find(3).flights.create!([
     distance: "fifteen million units"},
 
 ]);
+
+
+Ship.find(3).flights.create(flight_number:'006', duration: 5, departure_time: Date.today + 8.months, arrival_time: Date.today + 13.months, origin_id: 1, destination_id: 2, price: 1000, distance: "one million units")

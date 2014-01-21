@@ -12,24 +12,47 @@
   
   = yield
   :javascript
-    function OriginCtrl($scope, $http){
+    function MainCtrl($scope, $http){
       $scope.origins = []
       $http.get('/origins.json').success(function(data){
           $scope.origins = data;
       });
-    }
-    function DestinationCtrl($scope, $http){
+    
       $scope.destinations = []
       $http.get('/destinations.json').success(function(data){
           $scope.destinations = data;
       });
-    }
-    function FlightCtrl($scope, $http){
+    
       $scope.flights = []
       $http.get('/flights.json').success(function(data){
           $scope.flights = data;
       });
 
-      
+    
+      $scope.ships = []
+      $http.get('/ships.json').success(function(data){
+          $scope.ships = data;
+      });
+
+      $scope.myFlight = null;
+      $scope.myShip = null;
+
+      $scope.findFlightInfo = function(flightId){
+        var myFlight = []
+        var myShip = []
+        for (var i = 0; i<$scope.flights.length; i+=1){
+          if ($scope.flights[i].id === flightId){
+            myFlight.push($scope.flights[i]);
+          }
+        }
+        for (var i = 0; i<$scope.ships.length; i+=1){
+          if ($scope.ships[i].id === myFlight[0].ship_id){
+            myShip.push($scope.ships[i]);
+          }
+        }
+        $scope.myFlight = myFlight;
+        $scope.myShip = myShip;
+      }
+
     }
   

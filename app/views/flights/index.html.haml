@@ -1,44 +1,41 @@
 
 
 
-.row
-  .medium-6.medium-centered.columns
-    %h2.index 
-      Mars 
-      %span Attracts!
-.row#landing-search
-  .medium-4.medium-centered.columns
-    =form_tag flights_search_path, :method => "get" do
-      =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
-      =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
+%div{"ng_controller" => "MainCtrl"}
+  .row
+    .medium-4.columns
+      %select{"ng-model"=>"select.orig"}
+        %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
+          {{origin.origin}}
+      %select{"ng-model"=>"select.dest"}
+        %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
+          {{destination.destination}}
+      %div
+        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"price"}
+        %span price
+        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"date"}
+        %span date
+        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"duration"}
+        %span duration
+  .row
+    .medium-6.columns        
+      .row.result-bars{ "ng-repeat"=>"flight in flights | orderBy:sortType | filter:{origin_id:select.orig, destination_id:select.dest}"}
+        %div{"ng-click"=>"findFlightInfo(flight.id)"}  
+          .medium-1.columns
+            {{flight.flight_number}}
+          .medium-2.columns
+            {{flight.departure_time}}
+          .medium-2.columns 
+            {{flight.arrival_time}}
+          .medium-3.columns
+            {{flight.distance}}
+          .medium-2.columns
+            {{flight.duration}}
+          .medium-2.columns
+            ${{flight.price}}
       %br
-      =radio_button_tag "sort", "price"
-      %span price
-      =radio_button_tag "sort", "date"
-      %span date
-      =radio_button_tag "sort", "duration"
-      %span duration
-      %br
-      =submit_tag "Get me off this rock!", :name => nil
-
-%div{"ng_controller" => "OriginCtrl"}
-  %select{"ng-model"=>"originSelect"}
-    %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
-      {{origin.origin}}
-
-  %div{"ng_controller" => "FlightCtrl"}  
-
-    %table{"id"=>"searchTextResults"}
-      %tr
-        %th
-          Name
-        %th
-          Phone
-      %tr{ "ng-repeat"=>"flight in flights | orderBy:'origin_id' | filter:originSelect"}
-        %td
-          {{flight.origin_id}}
-        %td
-          {{flight.distance}}
-        %td
-          {{flight.price}}    
-  
+    .medium-6.columns        
+      %div{ 'ng-show'=>"myFlight"}
+        {{myFlight[0].flight_number}}
+        {{myFlight[0].ship_id}}
+        {{myShip[0].name}}
