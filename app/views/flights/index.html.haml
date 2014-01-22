@@ -13,7 +13,7 @@
       %div
         %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"price"}
         %span price
-        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"date"}
+        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"departure_time"}
         %span date
         %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"duration"}
         %span duration
@@ -39,3 +39,22 @@
         {{myFlight[0].flight_number}}
         {{myFlight[0].ship_id}}
         {{myShip[0].name}}
+        .row.form-padding
+          .medium-6.columns.medium-centered
+            %h1 Passenger Information
+        .row
+          .medium-6.columns
+          %form
+            %fieldset
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250"}
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
+              %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-model'=>"formData.flight_id", 'value'=>{{myFlight[0].id}}, 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
+              %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(formData)"}
+                Create
+              
+     

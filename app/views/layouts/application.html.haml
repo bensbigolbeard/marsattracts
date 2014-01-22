@@ -1,5 +1,5 @@
 !!! 
-%html(ng-app)
+%html{"ng-app"=>"mars"}
 %head
   %title MarsAttracts
   = stylesheet_link_tag    "application", media: "all" 
@@ -7,12 +7,16 @@
   = favicon_link_tag
   = csrf_meta_tags
   = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js'
+  = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.min.js'
 
 %body
   
   = yield
   :javascript
-    function MainCtrl($scope, $http){
+
+    var app = angular.module('mars', []);
+
+    app.controller('MainCtrl', function($scope, $http){
       $scope.origins = []
       $http.get('/origins.json').success(function(data){
           $scope.origins = data;
@@ -34,6 +38,11 @@
           $scope.ships = data;
       });
 
+      $scope.passengers = []
+      $http.get('/passengers.json').success(function(data){
+          $scope.passengers = data;
+      });
+
       $scope.myFlight = null;
       $scope.myShip = null;
 
@@ -53,6 +62,40 @@
         $scope.myFlight = myFlight;
         $scope.myShip = myShip;
       }
+      
+      $scope.formData = {
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        address: '',
+        emergency_contact: '',
+        date_of_birth: ''
+      };
 
-    }
+      $scope.createPassenger = function(formData) {
+        var data;
+          
+          data = {
+            new_passenger: {
+              first_name: formData.first_name,
+              last_name: formData.last_name,
+              date_of_birth: formData.date_of_birth,
+              email: formData.email,
+              phone: formData.phone,
+              address: formData.address,
+              emergency_contact: formData.emergency_contact
+            }
+          };
+          $http.post('./passengers.json', data).success(function(data) {
+            formData.data.passengers.push(data);
+            return console.log('Successfully created post.');
+          }).error(function() {
+            return console.error('Failed to create new post.');
+          });
+          return true;
+
+      };
+      
+    });
   
