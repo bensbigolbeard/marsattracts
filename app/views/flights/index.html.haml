@@ -3,23 +3,26 @@
 
 %div{"ng_controller" => "MainCtrl"}
   .row
-    .medium-4.columns
-      %select{"ng-model"=>"select.orig"}
+    .medium-4.columns.top-padding
+      %select{"ng-model"=>"select.orig", "id"=>"origin"}
         %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
           {{origin.origin}}
-      %select{"ng-model"=>"select.dest"}
+      %select{"ng-model"=>"select.dest", "id"=>"destination"}
         %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
           {{destination.destination}}
+  .row
+    .medium-5.columns.top-padding
       %div
-        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"price"}
-        %span price
-        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"departure_time"}
-        %span date
-        %input{"type"=>"radio", "ng_model" => "sortType", "value"=>"duration"}
-        %span duration
+        %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse", "value"=>"price"}
+          price
+        %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'departure_time'; reverse=!reverse", "value"=>"departure_time"}
+          date
+        %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse", "value"=>"duration"}
+          duration
+        
   .row
     .medium-6.columns        
-      .row.result-bars{ "ng-repeat"=>"flight in flights | orderBy:sortType | filter:{origin_id:select.orig, destination_id:select.dest}"}
+      .row.result-bars{ "ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select.orig, destination_id:select.dest} | limitTo: 6"}
         %div{"ng-click"=>"findFlightInfo(flight.id)"}  
           .medium-1.columns
             {{flight.flight_number}}

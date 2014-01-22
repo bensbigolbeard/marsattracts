@@ -87,5 +87,7 @@ app.controller('MainCtrl', function($scope, $http){
       return true;
 
   };
+
+  reverse = false;
   
 });
