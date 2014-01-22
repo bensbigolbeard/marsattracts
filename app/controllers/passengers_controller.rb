@@ -16,13 +16,13 @@ class PassengersController < ApplicationController
   def create
     @flight = Flight.find(1)
     @new_passenger = @flight.passengers.new
-    @new_passenger.first_name = params[:new_post][:first_name]
-    @new_passenger.last_name = params[:new_post][:last_name]
-    @new_passenger.email = params[:new_post][:email]
-    @new_passenger.phone = params[:new_post][:phone]
-    @new_passenger.address = params[:new_post][:address]
-    @new_passenger.emergency_contact = params[:new_post][:emergency_contact]
-    @new_passenger.date_of_birth = params[:new_post][:date_of_birth]
+    @new_passenger.first_name = params[:first_name]
+    @new_passenger.last_name = params[:last_name]
+    @new_passenger.email = params[:email]
+    @new_passenger.phone = params[:phone]
+    @new_passenger.address = params[:address]
+    @new_passenger.emergency_contact = params[:emergency_contact]
+    @new_passenger.date_of_birth = params[:date_of_birth]
     if @new_passenger.valid?
       @new_passenger.save!
     else
