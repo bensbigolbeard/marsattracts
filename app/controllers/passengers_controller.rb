@@ -23,10 +23,10 @@ class PassengersController < ApplicationController
     @new_passenger.address = params[:new_post][:address]
     @new_passenger.emergency_contact = params[:new_post][:emergency_contact]
     @new_passenger.date_of_birth = params[:new_post][:date_of_birth]
-    if @passenger.save
-      
+    if @new_passenger.valid?
+      @new_passenger.save!
     else
-      redirect_to :back
+      return
     end
     respond_with(@new_passenger) do |format|
       format.json {render json: @new_passenger.as_json }

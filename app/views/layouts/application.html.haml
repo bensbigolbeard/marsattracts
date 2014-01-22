@@ -86,10 +86,11 @@
               emergency_contact: formData.emergency_contact,
             }
           };
-          $http.post('/passengers.json', data).success(function(data) {
+          $http.post('flights/1/passengers.json', data).success(function(data) {
             $scope.passengers.push(data);
             return console.log('Successfully created passenger.');
           }).error(function() {
+            console.log($http);
             return console.error('Failed to create new passenger.');
           });
           return true;
