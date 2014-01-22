@@ -68,6 +68,9 @@ GEM
     hike (1.2.3)
     i18n (0.6.9)
     interception (0.3)
+    jbuilder (1.5.3)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.2.0)
     jist (1.5.1)
       json
     jquery-rails (3.0.4)
@@ -206,6 +209,7 @@ DEPENDENCIES
   foundation-rails
   geocoder
   haml
+  jbuilder
   jquery-rails
   mandrill-api
   nokogiri

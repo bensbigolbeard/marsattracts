@@ -6,6 +6,7 @@ gem 'forecast_io' # Query current weather
 gem 'foundation-rails' # Front-end framework
 gem 'geocoder' # Get coordinates for weather API
 gem 'haml' # HTML templating 
+gem 'jbuilder' # Extracts data from db into JSON to be routed into views for charts
 gem 'jquery-rails' # DOM JavaScript library
 gem 'mandrill-api' # Mailer
 gem 'nokogiri' # Parsing Wolfram API
