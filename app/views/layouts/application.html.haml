@@ -74,9 +74,8 @@
       };
 
       $scope.createPassenger = function(formData) {
-        var data;
           
-          data = {
+          var data = {
             new_passenger: {
               first_name: formData.first_name,
               last_name: formData.last_name,
@@ -84,14 +83,14 @@
               email: formData.email,
               phone: formData.phone,
               address: formData.address,
-              emergency_contact: formData.emergency_contact
+              emergency_contact: formData.emergency_contact,
             }
           };
-          $http.post('./passengers.json', data).success(function(data) {
-            formData.data.passengers.push(data);
-            return console.log('Successfully created post.');
+          $http.post('/passengers.json', data).success(function(data) {
+            $scope.passengers.push(data);
+            return console.log('Successfully created passenger.');
           }).error(function() {
-            return console.error('Failed to create new post.');
+            return console.error('Failed to create new passenger.');
           });
           return true;
 

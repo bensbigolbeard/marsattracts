@@ -14,11 +14,17 @@ class PassengersController < ApplicationController
   end
 
   def create
+    @flight = Flight.find(1)
     @new_passenger = @flight.passengers.new
-    @flight = Flight.find(params[:flight_id])
-    @passenger = @flight.passengers.create(passenger_params)
+    @new_passenger.first_name = params[:new_post][:first_name]
+    @new_passenger.last_name = params[:new_post][:last_name]
+    @new_passenger.email = params[:new_post][:email]
+    @new_passenger.phone = params[:new_post][:phone]
+    @new_passenger.address = params[:new_post][:address]
+    @new_passenger.emergency_contact = params[:new_post][:emergency_contact]
+    @new_passenger.date_of_birth = params[:new_post][:date_of_birth]
     if @passenger.save
-      redirect_to edit_trip_path(:id => @passenger.trips.last)
+      
     else
       redirect_to :back
     end

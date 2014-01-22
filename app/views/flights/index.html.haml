@@ -53,7 +53,6 @@
               %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
               %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
               %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
-              %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-model'=>"formData.flight_id", 'value'=>{{myFlight[0].id}}, 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
               %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(formData)"}
                 Create
               
