@@ -10,6 +10,64 @@
   padding-top:25px;
 }
 
+.bottom-padding{
+  height:300px;
+}
+
+.result-height{
+  height:40px;
+}
+
+.flight-text {
+  font-size: .8em;
+  color:white;
+}
+
+.flight-detail-text {
+  color:white;
+}
+
+.fl-detail-headings{
+  color:tomato;
+
+}
+
+.flight-details {
+  background-color: rgba(30,36,40,.5);
+  height:160px;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.result-bars {
+  background: rgba(30,36,40,.5);
+  padding: 20px 10px;
+  margin: 0 0 5px 0 !important;
+  height: 80px;
+
+  &:hover {
+    background: rgba(255,255,255,1);
+  }
+}
+
+.flight-line-height{
+  line-height:70px;
+}
+.result-bars-bg {
+  background: #111418;
+  background: -moz-linear-gradient(top, #111418 0%, #111a21 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#111418), color-stop(100%,#111a21));
+  background: -webkit-linear-gradient(top, #111418 0%,#111a21 100%);
+  background: -o-linear-gradient(top, #111418 0%,#111a21 100%);
+  background: -ms-linear-gradient(top, #111418 0%,#111a21 100%);
+  background: linear-gradient(to bottom, #111418 0%,#111a21 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111418', endColorstr='#111a21',GradientType=0 );
+  padding: 10px 10px;
+  margin:0 0 0 20px;
+  height:80px;
+}
+
+
 h2.index{
   font-family: 'EmpireState', 'Arial', 'sans-serif';
   color: white;
@@ -45,13 +103,6 @@ h2.index{
   padding: 5px 0;
 }
 
-.result-bars {
-  background: rgba(255,255,255,.5);
-  padding: 15px 0px;
-  &:hover {
-    background: rgba(255,255,255,1);
-  }
-}
 
 .search-padding {
   margin:5em 0 2em 3em;
