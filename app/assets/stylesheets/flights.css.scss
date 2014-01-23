@@ -9,6 +9,126 @@ $near-black: #222422;
 // flight#index page
 .row#landing-search {padding: 2em 0em;}
 
+.top-padding {
+  padding-top:25px;
+}
+
+.bottom-padding{
+  height:300px;
+}
+
+.result-height{
+  height:40px;
+}
+
+.flight-text {
+  font-size: .8em;
+  color:white;
+}
+
+.flight-text-padding {
+  padding-left:20px;
+  
+}
+
+.flight-detail-text {
+  color:white;
+}
+
+.amenity-detail-text {
+  color:white;
+  font-family: Open Sans;
+  font-weight: 400;
+}
+
+.amenity-details{
+  background-color: rgba(30,36,40,.5);
+  text-align: center;
+  margin: 5px 0;
+}
+
+.fl-detail-headings{
+  color:tomato;
+
+}
+
+.dateselect select {
+  width:32.55%;
+  background-color: transparent; 
+  color: #999999;
+}
+
+.form-padding {
+  margin-bottom:4em;
+  h1{
+    color: white;
+    text-align:center;
+  }
+}
+
+
+.flight-details {
+  background-color: rgba(30,36,40,.5);
+  height:160px !important;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.width-90 {
+  width:90%;
+  padding:0;
+  margin: 0 10px;
+}
+
+.distance-width {
+  width: 120px;
+}
+
+.flight-line-height{
+  line-height:70px;
+}
+.flight-box{
+  height:450px;
+  /*overflow-y: scroll*/
+}
+.result-bars {
+  background: rgba(30,36,40,.5);
+  padding: 0px 10px;
+  margin: 0 0 5px 0 !important;
+  &:hover {
+    background: rgba(255,255,255,1);
+  }
+}
+
+.result-bars-bg {
+  background: #111418;
+  background: -moz-linear-gradient(45deg, #111418 0%, #111a21 100%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#111418), color-stop(100%,#111a21));
+  background: -webkit-linear-gradient(45deg, #111418 0%,#111a21 100%);
+  background: -o-linear-gradient(45deg, #111418 0%,#111a21 100%);
+  background: -ms-linear-gradient(45deg, #111418 0%,#111a21 100%);
+  background: linear-gradient(45deg, #111418 0%,#111a21 100%);
+  padding: 10px 10px;
+  margin:0 -20px 0 20px;
+  width:90%;
+}
+
+.route-num-width{
+  width:40px !important;
+}
+.activity-bars {
+  border: 2px solid tomato;
+  border-radius: 10px 10px 10px 0;
+  padding: 5px 15px 0 15px;
+  margin:  10px 0 !important;
+  &:hover {
+    background: tomato;
+    opacity: .8;
+  }
+}
+
+
+
 h2.index{
   font-family: 'Droid', 'Arial', 'sans-serif';
   color: $white;

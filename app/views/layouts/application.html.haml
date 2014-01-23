@@ -1,13 +1,19 @@
-!!! html
+!!! 
+%html{"ng-app"=>"mars"}
 %head
   %title MarsAttracts
   = stylesheet_link_tag "application", media: "all" 
   = favicon_link_tag
   = csrf_meta_tags
+  = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js'
+  = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.min.js'
 
 %body#background
-  #midground
-  #foreground
-  = yield
+  .background
+    = yield
+    = javascript_include_tag "application" 
+    .padding-bottom
 
 
+    
+  

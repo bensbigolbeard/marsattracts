@@ -1,20 +1,158 @@
-.row#landing-search
-  .medium-3.medium-9-offset.columns
-    %h2.index 
-      Mars
-      %span Attracts!
-    =form_tag flights_search_path, :method => "get" do
-      =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
-      =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
-      %br
-      =radio_button_tag "sort", "price"
-      %span.sorted price ||
-      =radio_button_tag "sort", "date"
-      %span.sorted date ||
-      =radio_button_tag "sort", "duration"
-      %span.sorted duration
-      %br
-      =submit_tag "Get me off this rock!", :name => nil
+/ .row#landing-search
+/   .medium-3.medium-9-offset.columns
+/     %h2.index 
+/       Mars
+/       %span Attracts!
+/     =form_tag flights_search_path, :method => "get" do
+/       =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
+/       =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
+/       %br
+/       =radio_button_tag "sort", "price"
+/       %span.sorted price ||
+/       =radio_button_tag "sort", "date"
+/       %span.sorted date ||
+/       =radio_button_tag "sort", "duration"
+/       %span.sorted duration
+/       %br
+/       =submit_tag "Get me off this rock!", :name => nil
 
-// Image of orbits generated daily
-// =image_tag('http://humbabe.arc.nasa.gov/MarsToday/UL.gif')
+
+%div{"ng_controller" => "MainCtrl"}
+  .row.ng-cloak
+    .small-12.medium-6.columns.top-padding
+      .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
+        .medium-10.columns
+          %select{"ng-model"=>"select.orig", "id"=>"origin"}
+            %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
+              {{origin.origin}}
+          %select{"ng-model"=>"select.dest", "id"=>"destination"}
+            %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
+              {{destination.destination}}
+
+      .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
+        .medium-12.columns.top-padding
+          %div
+            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse", "value"=>"price"}
+              price
+            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'departure_time'; reverse=!reverse", "value"=>"departure_time"}
+              date
+            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse", "value"=>"duration"}
+              duration
+        
+        .row.flight-box.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
+          .medium-12.columns.result-bars-bg
+            .row.result-bars{ "ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select.orig, destination_id:select.dest} | limitTo:5"}
+              %div{"ng-click"=>"findFlightInfo(flight.id)"}  
+                %ul.small-block-grid-5.result-height
+                  %li
+                    %p.flight-text.flight-text-padding
+                      ${{flight.price}}
+                  %li
+                    %p.flight-text
+                      {{flight.departure_time}}
+                  %li
+                    %p.flight-text.flight-text-padding
+                      {{flight.duration}}
+                  %li
+                    %p.flight-text.distance-width
+                      {{flight.distance}}
+                  %li
+                    %p.flight-text.flight-text-padding
+                      {{flight.flight_number}}
+            %br
+      .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
+        .medium-12.columns
+          .row.activity-bars{ "ng-repeat"=>"amenity in amenities"}
+            %div{"ng-click"=>"findAmenityInfo(amenity.id)"}
+              .medium-9.columns
+                %h3.amenity-detail-text
+                  {{amenity.activity}}
+              .medium-3.columns
+                %h3.amenity-detail-text
+                  {{amenity.price}}
+              .medium-12.columns
+                %p.amenity-detail-text
+                  {{amenity.details}}
+            
+
+    .small-12.medium-6.columns.ng-cloak      
+      %div.flight-text{ 'ng-show'=>"myFlight"}
+        %ul.small-block-grid-3
+          %li.columns
+            .flight-details
+              .row
+                .medium-12.columns
+                  %h3.fl-detail-headings Route Number
+              .row
+                .medium-12.columns
+                  %h3.flight-detail-text {{myFlight[0].flight_number}}
+          %li.columns
+            .flight-details
+              .row
+                .medium-12.columns
+                  %h3.fl-detail-headings Flight ID
+              .row
+                .medium-12.columns
+                  %h3.flight-detail-text {{myFlight[0].ship_id}}
+          %li.columns
+            .flight-details
+              .row
+                .medium-12.columns
+                  %h3.fl-detail-headings Ship Name
+              .row
+                .medium-12.columns
+                  %h3.flight-detail-text {{myShip[0].name}}
+
+        %button{ 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
+          amenities
+        %button{ 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
+          Book
+
+    .small-12.medium-6.columns.ng-cloak
+      %div{ 'ng-show'=>"myFlight"}
+        %img{ :src=>"/assets/graphplaceholder.png", 'ng-hide'=>"bookFlight" }
+
+      %div.ng-cloak{ 'ng-show'=>"bookFlight" }
+        .row.form-padding
+          .medium-7.columns.medium-centered
+            %h4 Passenger Information
+
+        .row
+          .medium-11.medium-offset-1.columns
+            %form
+              %fieldset
+                .row
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250"}
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
+                .row
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id1",  'maxlength'=>"250"}    
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id2",  'maxlength'=>"250"}    
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id3",  'maxlength'=>"250"}    
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
+                    
+                    %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData, amenityData)"}
+                      Create
+                

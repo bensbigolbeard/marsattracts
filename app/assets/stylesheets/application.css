@@ -30,6 +30,22 @@ body#background {
 
 /*#midground {*/
 /*  background: url('midground.png') repeat 20% 20%;
+=======
+  background: url('background.png') repeat 5% 5%;
+  
+}
+
+.background {
+  width:100%;
+  background-color:rgba(41,44,47,.7);
+  position:fixed;
+  top:0;
+  left:0;
+}
+
+#midground {
+  background: url('midground.png') repeat 20% 20%;
+
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: -2;*/
