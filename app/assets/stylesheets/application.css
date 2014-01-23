@@ -46,8 +46,8 @@
          url('./tech/tech-webfont.svg#svgFontName') format('svg');
 }
 
-body#background {
-  background: url('background.png') repeat 5% 5%
+/*body#background {
+  background: url('background.png') repeat 5% 5%*/
 }
 #midground {
   background: url('midground.png') repeat 20% 20%;

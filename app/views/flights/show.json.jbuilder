@@ -1,1 +1,1 @@
-json.price @flight.id
+json.id @flight.id

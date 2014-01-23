@@ -47,6 +47,8 @@
   .medium-5.medium-offset-7.columns
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
+  
+  = @mars_weather.find_by_id(196)
 
 .row
   .medium-12.medium-centered.columns
