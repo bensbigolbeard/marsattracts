@@ -140,14 +140,14 @@ app.controller('MainCtrl', function($scope, $http){
       };
 
     // Grab amenity form data
-      var tripData = {
-        passenger_id: $scope.passengers[$scope.passengers.length].id,
-        flight_id: $scope.myFlight,
-        amenity1_id: amenityData.amenity_id1,
-        amenity2_id: amenityData.amenity_id2,
-        amenity3_id: amenityData.amenity_id3,
-        amenity4_id: amenityData.amenity_id4
-      };
+      // var tripData = {
+      //   passenger_id: $scope.passengers[$scope.passengers.length].id,
+      //   flight_id: $scope.myFlight,
+      //   amenity1_id: amenityData.amenity_id1,
+      //   amenity2_id: amenityData.amenity_id2,
+      //   amenity3_id: amenityData.amenity_id3,
+      //   amenity4_id: amenityData.amenity_id4
+      // };
 
     // Send formdata via post request 
       $http.post('flights/1/passengers.json', passengerData).success(function(passengerData) {
@@ -158,13 +158,13 @@ app.controller('MainCtrl', function($scope, $http){
         return console.error('Failed to create new passenger.');
       });
 
-      $http.post('trips.json', tripData).success(function(tripData) {
-        $scope.passengers.push(tripData);
-        return console.log('Successfully created passenger.');
-      }).error(function() {
-        console.log($http);
-        return console.error('Failed to create new passenger.');
-      });
+      // $http.post('trips.json', tripData).success(function(tripData) {
+      //   $scope.passengers.push(tripData);
+      //   return console.log('Successfully created passenger.');
+      // }).error(function() {
+      //   console.log($http);
+      //   return console.error('Failed to create new passenger.');
+      // });
       return true;
 
   };
