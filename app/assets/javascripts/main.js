@@ -13,11 +13,7 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.flights = []
   $http.get('/flights.json').success(function(data){
-    for (var i = 0; i < data.length; i+=1){
-      data[i].departure_time = data[i].departure_time.substring(0,10);
-      data[i].arrival_time = data[i].arrival_time.substring(0,10);
-      $scope.flights.push(data[i]);
-    }
+      $scope.flights = data;
   });
   
   $scope.origins = []
@@ -45,19 +41,18 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.myFlight = null;
   $scope.myShip = null;
   $scope.bookFlight = null;
+  $scope.amenitiesInfo = null;
 
   $scope.flightDateConversion = function(flightDate){
     new Date(flightDate);
   }
-
-
 
 // Function to define myFlight and myShip
 
   $scope.findFlightInfo = function(flightId){
     var myFlight = []
     var myShip = []
-    for (var i = 0; i<$scope.flights.length; i+=1){
+    for (var i = 0; i < $scope.flights.length; i += 1){
       if ($scope.flights[i].id === flightId){
         myFlight.push($scope.flights[i]);
       }
@@ -81,13 +76,22 @@ app.controller('MainCtrl', function($scope, $http){
     date_of_birth: ''
   };
 
-// Create new passenger function
+// Toggle passenger info form
 
   $scope.bookPassenger = function(){
     if ($scope.bookFlight != true){
       $scope.bookFlight = true;
     } else {
       $scope.bookFlight = false;
+    }
+  };
+
+
+  $scope.viewAmenities = function(){
+    if ($scope.amenitiesInfo != true){
+      $scope.amenitiesInfo = true;
+    } else {
+      $scope.amenitiesInfo = false;
     }
   };
 

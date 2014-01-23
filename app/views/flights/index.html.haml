@@ -23,27 +23,36 @@
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse", "value"=>"duration"}
               duration
         
-        .row.ng-cloak
+        .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
           .medium-12.columns
             .row.result-bars-bg{ "ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select.orig, destination_id:select.dest} | limitTo: 6"}
               %div.result-bars{"ng-click"=>"findFlightInfo(flight.id)"}  
                 %ul.small-block-grid-5.result-height
                   %li
-                    %p.flight-text
+                    %p.flight-text.flight-text-padding
                       ${{flight.price}}
                   %li
                     %p.flight-text
                       {{flight.departure_time}}
                   %li
-                    %p.flight-text
+                    %p.flight-text.flight-text-padding
                       {{flight.duration}}
                   %li
-                    %p.flight-text
+                    %p.flight-text.distance-width
                       {{flight.distance}}
                   %li
-                    %p.flight-text
+                    %p.flight-text.flight-text-padding
                       {{flight.flight_number}}
             %br
+        .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
+          .medium-12.columns
+            %ul.small-block-grid-3
+              %li.flight-detail-text.flight-details.width-90
+                something bout this one
+              %li.flight-detail-text.flight-details.width-90
+                something bout this one
+              %li.flight-detail-text.flight-details.width-90
+                something bout this one
 
     .small-12.medium-6.columns.ng-cloak      
       %div.flight-text{ 'ng-show'=>"myFlight"}
@@ -73,7 +82,10 @@
                 .medium-12.columns
                   %h3.flight-detail-text {{myShip[0].name}}
 
-        %button{ 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"}
+        %button{ 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
+          amenities
+        %button{ 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
+          Book
 
       %div.ng-cloak{ 'ng-show'=>"bookFlight"}
         .row.form-padding
