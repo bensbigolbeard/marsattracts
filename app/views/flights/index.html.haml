@@ -96,14 +96,27 @@
           .medium-11.medium-offset-1.columns
             %form
               %fieldset
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250"}
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
-                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(formData)"}
-                  Create
-              
+                .row
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250"}
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
+                .row
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
+                  .medium-6.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
+                    
+                    %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(formData)"}
+                      Create
+                
      
