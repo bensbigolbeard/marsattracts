@@ -44,13 +44,18 @@ class PassengersController < ApplicationController
   end
 
   def update
-    @trip = Trip.find(params[:id])
-    @edit_passenger = @trip.passenger
-    if @passenger.update(passenger_params)
+    @flight = Trip.find_by_passenger_id(params[:id]).flight
+    @edit_passenger = @flight.passengers.find(params[:id])
+    @edit_passenger.first_name = params[:first_name]
+    @edit_passenger.last_name = params[:last_name]
+    @edit_passenger.email = params[:email]
+    @edit_passenger.phone = params[:phone]
+    @edit_passenger.address = params[:address]
+    @edit_passenger.emergency_contact = params[:emergency_contact]
+    @edit_passenger.date_of_birth = params[:date_of_birth]
+    if @edit_passenger.valid?
+      @edit_passenger.update!
       Notifier.pass_confirm.deliver
-      redirect_to trip_path
-    else
-      redirect_to :back
     end
     
     respond_with @edit_passenger do |format|

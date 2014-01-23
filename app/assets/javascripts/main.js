@@ -36,12 +36,23 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.passengers = data;
   });
 
+  $scope.amenities = [
+  {id: 1, activity:"Space Walk", details:"Mauris eu lacus mi. Etiam vel fermentum est. In hac habitasse platea dictumst. Phasellus sollicitudin commodo diam, lacinia fringilla nibh molestie sed.", price:500}, 
+  {id: 2, activity:"Astonomy Lesson", details:"Donec interdum eros quis venenatis viverra. Phasellus gravida nisl eu aliquam malesuada. Proin enim urna, dictum ac pulvinar eget, bibendum vitae neque.", price:200},
+  {id: 3, activity:"Artificial Gravity", details:"Quisque id dui eros. Morbi eu nibh condimentum, euismod nisi id, porttitor tellus. Aenean ut turpis sit amet est ultrices fringilla non ut magna.", price:600},
+  {id: 4, activity:"Bone Density Therapy", details:"Etiam adipiscing diam id pharetra condimentum. Ut sed urna mollis, suscipit lacus ut, accumsan tortor. Mauris egestas ipsum sapien, sit amet aliquam.", price:5000}]
+
 // Variables to be set by user interaction
 
   $scope.myFlight = null;
   $scope.myShip = null;
   $scope.bookFlight = null;
   $scope.amenitiesInfo = null;
+  $scope.amenity_id1 = null;
+  $scope.amenity_id2 = null;
+  $scope.amenity_id3 = null;
+  $scope.amenity_id4 = null;
+
 
   $scope.flightDateConversion = function(flightDate){
     new Date(flightDate);
@@ -76,6 +87,24 @@ app.controller('MainCtrl', function($scope, $http){
     date_of_birth: ''
   };
 
+  $scope.findAmenityInfo= function(amenityId){
+    
+    if ($scope.amenities[0].id === amenityId) {
+      $scope.amenity_id1 = amenityId;
+    } else if ($scope.amenities[1].id === amenityId){
+      $scope.amenity_id2 = amenityId;
+    } else if ($scope.amenities[2].id === amenityId){
+      $scope.amenity_id3 = amenityId;
+    } 
+    else if ($scope.amenities[3].id === amenityId){
+      $scope.amenity_id4 = amenityId;
+    }
+    console.log($scope.amenity_id1);
+    console.log($scope.amenity_id2);
+    console.log($scope.amenity_id3);
+    console.log($scope.amenity_id4);
+  }
+
 // Toggle passenger info form
 
   $scope.bookPassenger = function(){
@@ -97,22 +126,40 @@ app.controller('MainCtrl', function($scope, $http){
 
 // Create new passenger function
 
-  $scope.createPassenger = function(formData) {
+  $scope.createPassenger = function(passData, amenityData) {
       
     // Grab passenger form data
-      var data = {
-        first_name: formData.first_name,
-        last_name: formData.last_name,
-        date_of_birth: formData.date_of_birth,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        emergency_contact: formData.emergency_contact
+      var passengerData = {
+        first_name: passData.first_name,
+        last_name: passData.last_name,
+        date_of_birth: passData.date_of_birth,
+        email: passData.email,
+        phone: passData.phone,
+        address: passData.address,
+        emergency_contact: passData.emergency_contact
       };
 
-    // Send data via post request 
-      $http.post('flights/1/passengers.json', data).success(function(data) {
-        $scope.passengers.push(data);
+    // Grab amenity form data
+      var tripData = {
+        passenger_id: $scope.passengers[$scope.passengers.length].id,
+        flight_id: $scope.myFlight,
+        amenity1_id: amenityData.amenity_id1,
+        amenity2_id: amenityData.amenity_id2,
+        amenity3_id: amenityData.amenity_id3,
+        amenity4_id: amenityData.amenity_id4
+      };
+
+    // Send formdata via post request 
+      $http.post('flights/1/passengers.json', passengerData).success(function(passengerData) {
+        $scope.passengers.push(passengerData);
+        return console.log('Successfully created passenger.');
+      }).error(function() {
+        console.log($http);
+        return console.error('Failed to create new passenger.');
+      });
+
+      $http.post('trips.json', tripData).success(function(tripData) {
+        $scope.passengers.push(tripData);
         return console.log('Successfully created passenger.');
       }).error(function() {
         console.log($http);
@@ -122,5 +169,23 @@ app.controller('MainCtrl', function($scope, $http){
 
   };
 
+  $scope.confirmTrip = function(data) {
+    // Grab the passenger data from the previous form and populate new form
+    // Grab by /flights/1/passengers/(passengers.length - 1).json
+      var id = $scope.passengers.length + 1;
+      console.log($scope.passengers[$scope.passengers.length - 1].first_name);
+
+      $http.put('flights/1/passengers/' + id + '.json', data)
+              .success(function(data) {
+        // show form and populate it
+        if (data != formData) {
+          $scope.passengers.pop();
+          $scope.passengers.push(formData);
+        } else {
+          console.log("No changes made. Now you can book your flight.")
+        }
+        // change button to 'book'
+      });
+    };
   
 });
