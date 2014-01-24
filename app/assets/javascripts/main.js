@@ -141,7 +141,35 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
 // Create new passenger function
 
-  $scope.createPassenger = function(passData, amenityData) {
+  $scope.addAmenities = function(amenityData) {
+
+    // Grab amenity form data
+      var tripData = {
+        amenity1_id: $scope.amenity_id1,
+        amenity2_id: $scope.amenity_id2,
+        amenity3_id: $scope.amenity_id3,
+        amenity4_id: $scope.amenity_id4
+      };
+
+    // Grab id of last trip
+      var tripId = $scope.passengers[$scope.passengers.length-1].trips[0].id;
+      console.log(tripId);
+
+    // Send update to trip with amenities
+
+      $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
+        $scope.passengers.push(tripData);
+        return console.log('Successfully created passenger.');
+      }).error(function() {
+        console.log($http);
+        return console.error('Failed to create new passenger.');
+      });
+      
+      return true;
+  };
+  // Create new passenger function
+      
+  $scope.createPassenger = function(passData) {
       
     // Grab passenger form data
       var passengerData = {
@@ -154,13 +182,6 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
         emergency_contact: passData.emergency_contact
       };
 
-    // Grab amenity form data
-      var tripData = {
-        amenity1_id: $scope.amenity_id1,
-        amenity2_id: $scope.amenity_id2,
-        amenity3_id: $scope.amenity_id3,
-        amenity4_id: $scope.amenity_id4
-      };
 
     // Send formdata via post request 
       $http.post('flights/1/passengers.json', passengerData).success(function(passengerData) {
@@ -171,20 +192,6 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
         return console.error('Failed to create new passenger.');
       });
 
-      setTimeout(function() {
-
-        var tripId = $scope.passengers[$scope.passengers.length-1].trips[0].id;
-        console.log(tripId);
-
-        $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
-          $scope.passengers.push(tripData);
-          return console.log('Successfully created passenger.');
-        }).error(function() {
-          console.log($http);
-          return console.error('Failed to create new passenger.');
-        });
-
-      }, 2000);
       return true;
 
   };

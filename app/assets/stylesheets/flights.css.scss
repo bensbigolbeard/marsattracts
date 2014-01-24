@@ -122,6 +122,10 @@
     background: tomato;
     opacity: .8;
   }
+  &:active {
+    background: tomato;
+    opacity: .8;
+  }
 }
 
 
@@ -218,3 +222,66 @@ h1.show {
 .weather.origin {
   color: white;
 }
+
+.wrap {
+  position: relative;
+  -webkit-transition: all 0.3s ease-out;  
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.wrap.active {
+  right: 22em;
+}
+a.menu-link {
+    float: right;
+    display: block;
+    padding: 1em;
+}
+nav[role=navigation] {
+  background: #808080;
+  color: #fff;
+  padding: 1em;
+  clear: both;
+  overflow: hidden;
+}
+.js nav[role=navigation] {
+  width: 22em;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -22em;
+}
+.lorem {
+  clear: both;
+}
+
+/*@media screen and (min-width: 48.25em) {
+  a.menu-link {
+     display: none;
+  }
+  .js nav[role=navigation] {
+    position: static;
+    float: right;
+    width: 30%;
+    height: 100%;
+    
+  }
+  .wrap.active {
+    left: 0;
+  }
+  nav[role=navigation] ul {
+    margin: 0;
+    border: 0;
+  }
+  
+  
+  nav[role=navigation] li a {
+    border: 0;
+  }
+  .lorem {
+    clear: none;
+    margin-right: 30%;
+  }
+}*/
