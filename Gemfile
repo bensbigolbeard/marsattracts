@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+gem 'awesome_print' # Pretty printing
 gem 'figaro' # Figaro for storing mailer credentials
 gem 'forecast_io' # Use to query current weather
 gem 'foundation-rails'
