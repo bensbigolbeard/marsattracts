@@ -108,14 +108,16 @@
         %button{'ng-click'=>"hideFlightSearch()", 'ng-hide'=>'pickItButton'}
           Pick this flight!
 
-          // Buttons for displaying amenities and booking
-          %button{'ng-show'=>'amenitiesButton', 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
-            Show Me the Amenities
-            %i{ 'class' => 'fi-arrow-right'}
+    // Collecting the buttons for showing amenities and booking form
+    .small-6.medium-6.columns
+      // Buttons for displaying amenities and booking
+      %button{'ng-show'=>'amenitiesButton', 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
+        Show Me the Amenities
+        %i{ 'class' => 'fi-arrow-right'}
 
-          %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
-            Just Book the Flight
-            %i{ 'class' => 'fi-arrow-right'}
+      %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
+        Just Book the Flight
+        %i{ 'class' => 'fi-arrow-right'}
 
     // Graph placeholder for weather
     .small-12.medium-6.columns.ng-cloak
@@ -141,7 +143,7 @@
     %div.ng-cloak{ 'ng-show'=>"bookFlight" }
       .row
         .medium-7.columns.medium-centered
-          %h4.passenger-header Passenger Information
+          %h4.medium-4.columns.passenger-header Passenger Information
 
         .row
           .small-6.medium-6.small-offset-6.medium-offset-6.columns

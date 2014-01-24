@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <title>Blasted off without you. Sorry. (404)</title>
   <style>
-  body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-  }
+
+  /* Credit due to http://css-tricks.com/css-animation-tricks/ */
 
   div.dialog {
     width: 25em;
@@ -20,13 +16,14 @@
     border-top: #B00100 solid 4px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
-    background-color: white;
+    background-color: black;
     padding: 7px 4em 0 4em;
   }
 
   h1 {
     font-size: 100%;
-    color: #730E15;
+    font-family: 'Droid', 'Arial', 'sans-serif';
+    color: white;
     line-height: 1.5em;
   }
 
@@ -41,18 +38,164 @@
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     border-top-color: #DADADA;
-    color: #666;
+    color: white;
     box-shadow:0 3px 8px rgba(50, 50, 50, 0.17);
   }
+
+body { background:black; overflow:hidden; }
+
+#gif {
+  background:black;
+  padding:10px;
+  height:80px;
+  width:80px;
+  border-radius:50%;
+  position:absolute;
+  top:calc(50% - 40px);
+  left:calc(50% - 40px);
+  box-shadow:
+    178px 0 0 -25px black,
+    178px 0 0 -20px white,
+    -178px 0 0 -25px black,
+    -178px 0 0 -20px white, 
+    0 0 0 20px black,
+    0 0 0 30px white,
+    0 0 0 130px black,
+    0 0 0 135px white;
+  -webkit-animation: rotate 3s linear infinite;
+  animation: rotate 3s linear infinite;
+}
+#gif:before {
+  content: " ";
+  position: absolute;
+  height:50px;
+  width:50px;
+  border-radius:50%;
+  top: -155px;
+  left: 20px;
+  background:black;
+  border: 5px solid white;
+  box-shadow:
+    0 355px 0 -5px black,
+    0 355px 0 0px white;
+  -webkit-animation: reverseRotate 3s linear infinite;
+  animation: reverseRotate 3s linear infinite;
+}
+#gif:after {
+  /* Segmented circle code goes here */
+  content: " ";
+  position: absolute;
+  height:280px;
+  width:280px;
+  left:-90px;
+  top:-90px;
+  background-image: url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSAiaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDEwMCAxMDAiID4NCiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlLWRhc2hhcnJheT0iMC45NTIiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIvPg0KPC9zdmc+");
+  background-repeat: no-repeat;
+  z-index:2;
+  -webkit-animation: segmentRotate 300s linear infinite;
+  animation: segmentRotate 300s linear infinite;
+}
+@keyframes rotate {
+  0%   { transform: rotate(  0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; 
+    box-shadow:
+      178px 0 0 -25px black,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px black,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; 
+    box-shadow:
+      178px 0 0 -25px white,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px white,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }    
+  100% { transform: rotate(360deg); }
+}
+@keyframes reverseRotate {
+  0%   { transform: translateY(178px) rotate(0deg) translateY(-178px) rotate(0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; box-shadow: 0 355px 0 -5px black, 0 355px 0 0px white; 
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; box-shadow: 0 355px 0 -5px white, 0 355px 0 0px white; 
+  }    
+  100% { transform: translateY(178px) rotate(-720deg) translateY(-178px) rotate(0deg); }
+}
+@keyframes segmentRotate {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(-32000deg); }
+}
+
+
+@-webkit-keyframes rotate {
+  0%   { -webkit-transform: rotate(  0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; 
+    box-shadow:
+      178px 0 0 -25px black,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px black,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; 
+    box-shadow:
+      178px 0 0 -25px white,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px white,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }    
+  100% { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes reverseRotate {
+  0%   { -webkit-transform: translateY(178px) rotate(0deg) translateY(-178px) rotate(0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; box-shadow: 0 355px 0 -5px black, 0 355px 0 0px white; 
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; box-shadow: 0 355px 0 -5px white, 0 355px 0 0px white; 
+  }    
+  100% { -webkit-transform: translateY(178px) rotate(-720deg) translateY(-178px) rotate(0deg); }
+}
+@-webkit-keyframes segmentRotate {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(-32000deg); }
+}
   </style>
 </head>
 
 <body>
+
+  <div id='gif'></div>
+
   <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <h1>The ship you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the ship may have left the planet.</p>
+  <div class="row medium-6 medium-centered columns"> 
+    <div class="dialog medium-6 medium-centered columns">
+      <h1>The ship you were looking for doesn't exist.</h1>
+      <p>You may have mistyped the address or the ship may have left the planet.</p>
+    </div>
+    <p>If you are the application owner check the departure logs for more information.</p>
   </div>
-  <p>If you are the application owner check the departure logs for more information.</p>
+
 </body>
 </html>
