@@ -52,10 +52,36 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.amenity_id2 = null;
   $scope.amenity_id3 = null;
   $scope.amenity_id4 = null;
-
+  $scope.priceArrow = 'down';
+  $scope.dateArrow = 'down';
+  $scope.durationArrow = 'down';
 
   $scope.flightDateConversion = function(flightDate){
     new Date(flightDate);
+  }
+
+  $scope.priceArwToggle = function(){
+    if ($scope.priceArrow === 'down'){
+      $scope.priceArrow = 'up'
+    } else {
+      $scope.priceArrow = 'down'
+    }
+  }
+
+  $scope.dateArwToggle = function(){
+    if ($scope.dateArrow === 'down'){
+      $scope.dateArrow = 'up'
+    } else {
+      $scope.dateArrow = 'down'
+    }
+  }
+
+  $scope.durationArwToggle = function(){
+    if ($scope.durationArrow === 'down'){
+      $scope.durationArrow = 'up'
+    } else {
+      $scope.durationArrow = 'down'
+    }
   }
 
 // Function to define myFlight and myShip

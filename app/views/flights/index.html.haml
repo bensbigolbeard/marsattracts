@@ -3,18 +3,7 @@
     %h2.index 
       Mars
       %span Attracts!
-    / =form_tag flights_search_path, :method => "get" do
-    /   =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
-    /   =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
-    /   %br
-    /   =radio_button_tag "sort", "price"
-    /   %span.sorted price ||
-    /   =radio_button_tag "sort", "date"
-    /   %span.sorted date ||
-    /   =radio_button_tag "sort", "duration"
-    /   %span.sorted duration
-    /   %br
-    /   =submit_tag "Get me off this rock!", :name => nil
+    
 
 
 %div{"ng_controller" => "MainCtrl"}
@@ -37,15 +26,15 @@
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
         .medium-12.columns.top-padding
           %div
-            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse", "value"=>"price"}
+            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()", "value"=>"price"}
               price 
-              %i{ 'class' => 'fi-arrow-down'}
-            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'departure_time'; reverse=!reverse", "value"=>"departure_time"}
+              %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
+            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()", "value"=>"departure_time"}
               date
-              %i{ 'class' => 'fi-arrow-down'}
-            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse", "value"=>"duration"}
+              %i#dateToggle{ 'class' => 'fi-arrow-{{dateArrow}}'}
+            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()", "value"=>"duration"}
               duration
-              %i{ 'class' => 'fi-arrow-down'}
+              %i#durationToggle{ 'class' => 'fi-arrow-{{durationArrow}}'}
 
         // Header for flight search results
         .flight-search.animate-show{"ng-show"=>"revealSearch"}
