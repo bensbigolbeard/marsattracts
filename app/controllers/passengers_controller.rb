@@ -4,7 +4,7 @@ class PassengersController < ApplicationController
   def index
     @passengers = Passenger.all
     respond_with(@passengers) do |format|
-      format.json {render json: @passengers.as_json }
+      format.json {render json: @passengers.as_json(:include => [:flights, :trips]) }
     end
   end
 

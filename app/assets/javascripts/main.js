@@ -7,7 +7,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', function($scope, $http){
+app.controller('MainCtrl', function($scope, $http, $timeout){
 
 // Services to grab database content
 
@@ -36,11 +36,10 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.passengers = data;
   });
 
-  $scope.amenities = [
-  {id: 1, activity:"Space Walk", details:"Mauris eu lacus mi. Etiam vel fermentum est. In hac habitasse platea dictumst. Phasellus sollicitudin commodo diam, lacinia fringilla nibh molestie sed.", price:500}, 
-  {id: 2, activity:"Astonomy Lesson", details:"Donec interdum eros quis venenatis viverra. Phasellus gravida nisl eu aliquam malesuada. Proin enim urna, dictum ac pulvinar eget, bibendum vitae neque.", price:200},
-  {id: 3, activity:"Artificial Gravity", details:"Quisque id dui eros. Morbi eu nibh condimentum, euismod nisi id, porttitor tellus. Aenean ut turpis sit amet est ultrices fringilla non ut magna.", price:600},
-  {id: 4, activity:"Bone Density Therapy", details:"Etiam adipiscing diam id pharetra condimentum. Ut sed urna mollis, suscipit lacus ut, accumsan tortor. Mauris egestas ipsum sapien, sit amet aliquam.", price:5000}]
+  $scope.amenities = []
+  $http.get('/amenities.json').success(function(data){
+      $scope.amenities = data;
+  });
 
 // Variables to be set by user interaction
 
@@ -90,14 +89,30 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.findAmenityInfo= function(amenityId){
     
     if ($scope.amenities[0].id === amenityId) {
-      $scope.amenity_id1 = amenityId;
+      if ($scope.amenity_id1 = amenityId){
+        $scope.amenity_id1 = null;
+      } else { 
+        $scope.amenity_id1 = amenityId 
+      }
     } else if ($scope.amenities[1].id === amenityId){
-      $scope.amenity_id2 = amenityId;
+      if ($scope.amenity_id2 = amenityId){
+        $scope.amenity_id2 = null;
+      } else {
+        $scope.amenity_id2 = amenityId;
+      }    
     } else if ($scope.amenities[2].id === amenityId){
-      $scope.amenity_id3 = amenityId;
+      if ($scope.amenity_id3 = amenityId){
+        $scope.amenity_id3 = null;
+      } else {
+        $scope.amenity_id3 = amenityId;
+      } 
     } 
     else if ($scope.amenities[3].id === amenityId){
-      $scope.amenity_id4 = amenityId;
+      if ($scope.amenity_id4 = amenityId){
+        $scope.amenity_id4 = null;
+      } else {
+        $scope.amenity_id4 = amenityId;
+      } 
     }
     console.log($scope.amenity_id1);
     console.log($scope.amenity_id2);
@@ -140,14 +155,12 @@ app.controller('MainCtrl', function($scope, $http){
       };
 
     // Grab amenity form data
-      // var tripData = {
-      //   passenger_id: $scope.passengers[$scope.passengers.length].id,
-      //   flight_id: $scope.myFlight,
-      //   amenity1_id: amenityData.amenity_id1,
-      //   amenity2_id: amenityData.amenity_id2,
-      //   amenity3_id: amenityData.amenity_id3,
-      //   amenity4_id: amenityData.amenity_id4
-      // };
+      var tripData = {
+        amenity1_id: $scope.amenity_id1,
+        amenity2_id: $scope.amenity_id2,
+        amenity3_id: $scope.amenity_id3,
+        amenity4_id: $scope.amenity_id4
+      };
 
     // Send formdata via post request 
       $http.post('flights/1/passengers.json', passengerData).success(function(passengerData) {
@@ -158,13 +171,18 @@ app.controller('MainCtrl', function($scope, $http){
         return console.error('Failed to create new passenger.');
       });
 
-      // $http.post('trips.json', tripData).success(function(tripData) {
-      //   $scope.passengers.push(tripData);
-      //   return console.log('Successfully created passenger.');
-      // }).error(function() {
-      //   console.log($http);
-      //   return console.error('Failed to create new passenger.');
-      // });
+      
+
+      var tripId = $scope.passengers[$scope.passengers.length-1].trips[0].id;
+      console.log(tripId);
+
+      $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
+        $scope.passengers.push(tripData);
+        return console.log('Successfully created passenger.');
+      }).error(function() {
+        console.log($http);
+        return console.error('Failed to create new passenger.');
+      });
       return true;
 
   };

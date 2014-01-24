@@ -56,7 +56,7 @@
                   {{amenity.price}}
               .medium-12.columns
                 %p.amenity-detail-text
-                  {{amenity.details}}
+                  {{amenity.description}}
             
 
     .small-12.medium-6.columns.ng-cloak      
@@ -99,7 +99,7 @@
       %div.ng-cloak{ 'ng-show'=>"bookFlight" }
         .row.form-padding
           .medium-7.columns.medium-centered
-            %h4 Passenger Information
+            
 
         .row
           .medium-11.medium-offset-1.columns
@@ -124,7 +124,18 @@
                 .row
                   .medium-12.columns
                     %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
-                
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-value'=>"amenity_id1",  'maxlength'=>"250"}    
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id2",  'maxlength'=>"250"}    
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id3",  'maxlength'=>"250"}    
+                .row
+                  .medium-12.columns
+                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
                     
                     %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData, amenityData)"}
                       Create
