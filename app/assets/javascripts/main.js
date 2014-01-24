@@ -105,6 +105,16 @@ app.controller('MainCtrl', function($scope, $http){
     console.log($scope.amenity_id4);
   }
 
+// Displays results of flight search
+
+  $scope.showFlights = function () {
+    if ($scope.revealSearch != true) {
+      $scope.revealSearch = true;
+    } else {
+      $scope.revealSearch = false;
+    }
+  };
+
 // Toggle passenger info form
 
   $scope.bookPassenger = function(){
@@ -115,6 +125,7 @@ app.controller('MainCtrl', function($scope, $http){
     }
   };
 
+// Toggle view of amenities
 
   $scope.viewAmenities = function(){
     if ($scope.amenitiesInfo != true){

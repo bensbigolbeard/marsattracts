@@ -3,7 +3,6 @@
     %h2.index 
       Mars
       %span Attracts!
-      %i{"class" => "fi-trees"}
     / =form_tag flights_search_path, :method => "get" do
     /   =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
     /   =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
@@ -31,23 +30,25 @@
           %select{"ng-model"=>"select.dest", "id"=>"destination"}
             %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
               {{destination.destination}}
-          %button{"ng-model" => "reveal_search"}
+          %button{'ng-click'=>"showFlights()"}
             Get me off this rock!
-          %input{"type"=>"checkbox", "ng-model"=>"reveal_search"}
 
       // Sorting of search results 
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
         .medium-12.columns.top-padding
           %div
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse", "value"=>"price"}
-              price
+              price 
+              %i{ 'class' => 'fi-arrow-down'}
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'departure_time'; reverse=!reverse", "value"=>"departure_time"}
               date
+              %i{ 'class' => 'fi-arrow-down'}
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse", "value"=>"duration"}
               duration
+              %i{ 'class' => 'fi-arrow-down'}
 
         // Header for flight search results
-        .flight-search.animate-show{"ng-show"=>"reveal_search"}
+        .flight-search.animate-show{"ng-show"=>"revealSearch"}
           .row
             .small-12.medium-12.columns
               .row.result-header
@@ -132,9 +133,11 @@
 
         // Buttons for displaying amenities and booking
         %button{ 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
-          amenities
+          Show Me the Amenities
+          %i{ 'class' => 'fi-arrow-right'}
         %button{ 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
-          Book
+          Just Book the Flight
+          %i{ 'class' => 'fi-arrow-right'}
 
     // Graph placeholder for weather
     .small-12.medium-6.columns.ng-cloak
