@@ -7,7 +7,7 @@ $brown: #5C3515;
 $near-black: #222422;
 
 // flight#index page
-.row#landing-search {padding: 2em 0em;}
+.row#landing-search {padding: 0px;}
 
 .top-padding {
   padding-top:25px;
@@ -49,7 +49,6 @@ $near-black: #222422;
 
 .fl-detail-headings{
   color:tomato;
-
 }
 
 .dateselect select {
@@ -127,8 +126,6 @@ $near-black: #222422;
   }
 }
 
-
-
 h2.index{
   font-family: 'Droid', 'Arial', 'sans-serif';
   color: $white;
@@ -165,6 +162,10 @@ input {
 
 // flight#search page
 
+.flight-search {
+  // display: none;
+}
+
 .search-results {
   margin:3em 0 2em 3em;
   h1{
@@ -175,21 +176,13 @@ input {
 }
 
 .row.result-header {
-  @include filter-gradient(#ffffff, #00ffff, horizontal); // IE6-9 fallback on horizontal gradient
-  @include background-image(linear-gradient(left top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%));
-  .fade {
-    color: white;
-  }
-}
-
-.row.result-header {
   // background: rgba(255,255,255,1);
   // background: $lt-blue;
   font-family: 'Droid', 'Arial', 'sans-serif';
-  margin-bottom: 25px;
-  padding: 10px 0;
+  font-size: 1em;
+  margin-bottom: 5px;
   border-radius: 9px 9px 0px 0px;
-  color: $near-black;
+  color: $white;
 }
 
 .result-bars {
@@ -238,6 +231,28 @@ h1.show {
   background-color: gray;
 }
 
+
+// CSS taken from Angular docs
+
+.animate-show {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+  line-height:20px;
+  opacity:1;
+  padding:10px;
+  border:1px solid black;
+}
+ 
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+  display:block!important;
+}
+ 
+.animate-show.ng-hide {
+  line-height:0;
+  opacity:0;
+  padding:0 10px;
+}
 
 
 

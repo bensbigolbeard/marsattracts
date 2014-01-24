@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-
-gem 'coffee-rails' # Activates Coffeescript for Rails
-gem 'compass-rails' # For transparent backgrounds
+gem 'compass-rails' # For styling
 gem 'figaro' # Figaro for storing mailer credentials
 gem 'forecast_io' # Use to query current weather
+gem 'foundation-icons-sass-rails'
 gem 'foundation-rails'
 gem 'geocoder' # Use to get coordinates for weather API
 gem 'haml' # Use Haml for templating 
@@ -27,18 +26,6 @@ group :production do
 end
 
 group :test do
-    gem 'rspec-rails' # R-spec for testing
-    gem 'capybara' # Testing views and user interaction
-    gem 'factory_girl_rails' # Creates custom data records
-    gem 'database_cleaner' # Cleans database
-    gem 'faker' # Creates fake data
-    gem 'vcr' # Pulls in API data to file so calls don't have to be made for each test
-  end
-
-group :development, :test do
-  gem 'pry-plus' # Pry-plus for debugging
-  gem 'pry-rails'
-  # awesomeprint?
   gem 'rspec-rails' # R-spec for testing
   #gem 'factory_girl_rails' # Creates custom data records
   #gem 'database_cleaner' # Cleans database
@@ -46,6 +33,11 @@ group :development, :test do
   #gem 'vcr' # Pulls in API data to file so calls don't have to be made for each test
 end
 
+group :development, :test do
+  gem 'pry-plus' # Pry-plus for debugging
+  gem 'pry-rails'
+  # awesomeprint?
+end
 
 group :development do
   gem 'better_errors' # Creates more descriptive and easier to read errors

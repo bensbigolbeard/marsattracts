@@ -1,24 +1,27 @@
-/ .row#landing-search
-/   .medium-3.medium-9-offset.columns
-/     %h2.index 
-/       Mars
-/       %span Attracts!
-/     =form_tag flights_search_path, :method => "get" do
-/       =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
-/       =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
-/       %br
-/       =radio_button_tag "sort", "price"
-/       %span.sorted price ||
-/       =radio_button_tag "sort", "date"
-/       %span.sorted date ||
-/       =radio_button_tag "sort", "duration"
-/       %span.sorted duration
-/       %br
-/       =submit_tag "Get me off this rock!", :name => nil
+.row#landing-search
+  .medium-3.medium-9-offset.columns
+    %h2.index 
+      Mars
+      %span Attracts!
+      %i{"class" => "fi-trees"}
+    / =form_tag flights_search_path, :method => "get" do
+    /   =select_tag "origin", options_from_collection_for_select(@origins, "id", "origin")
+    /   =select_tag "destination", options_from_collection_for_select(@destinations, "id", "destination")
+    /   %br
+    /   =radio_button_tag "sort", "price"
+    /   %span.sorted price ||
+    /   =radio_button_tag "sort", "date"
+    /   %span.sorted date ||
+    /   =radio_button_tag "sort", "duration"
+    /   %span.sorted duration
+    /   %br
+    /   =submit_tag "Get me off this rock!", :name => nil
 
 
 %div{"ng_controller" => "MainCtrl"}
   .row.ng-cloak
+
+    // Search fields that get overlaid by amenities after selecting flight
     .small-12.medium-6.columns.top-padding
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
         .medium-10.columns
@@ -28,7 +31,11 @@
           %select{"ng-model"=>"select.dest", "id"=>"destination"}
             %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
               {{destination.destination}}
+          %button{"ng-model" => "reveal_search"}
+            Get me off this rock!
+          %input{"type"=>"checkbox", "ng-model"=>"reveal_search"}
 
+      // Sorting of search results 
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
         .medium-12.columns.top-padding
           %div
@@ -38,28 +45,48 @@
               date
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse", "value"=>"duration"}
               duration
-        
-        .row.flight-box.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
-          .medium-12.columns.result-bars-bg
-            .row.result-bars{ "ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select.orig, destination_id:select.dest} | limitTo:5"}
-              %div{"ng-click"=>"findFlightInfo(flight.id)"}  
-                %ul.small-block-grid-5.result-height
-                  %li
-                    %p.flight-text.flight-text-padding
-                      ${{flight.price}}
-                  %li
-                    %p.flight-text
-                      {{flight.departure_time}}
-                  %li
-                    %p.flight-text.flight-text-padding
-                      {{flight.duration}}
-                  %li
-                    %p.flight-text.distance-width
-                      {{flight.distance}}
-                  %li
-                    %p.flight-text.flight-text-padding
-                      {{flight.flight_number}}
+
+        // Header for flight search results
+        .flight-search.animate-show{"ng-show"=>"reveal_search"}
+          .row
+            .small-12.medium-12.columns
+              .row.result-header
+                .small-2.medium-2.columns
+                  Price
+                .small-3.medium-3.columns
+                  Departure
+                .small-3.medium-3.columns
+                  Duration
+                .small-2.medium-2.columns
+                  Distance
+                .small-2.medium-2.columns
+                  Flight #
+                  %br
+
+          // Rows of flight search results
+          .row.flight-box.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
+            .medium-12.columns.result-bars-bg
+              .row.result-bars{"ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select.orig, destination_id:select.dest} | limitTo:5"}
+                %div{"ng-click"=>"findFlightInfo(flight.id)"}  
+                  %ul.small-block-grid-5.result-height
+                    %li
+                      %p.flight-text.flight-text-padding
+                        ${{flight.price}}
+                    %li
+                      %p.flight-text
+                        {{flight.departure_time.slice(0,10)}}
+                    %li
+                      %p.flight-text.flight-text-padding
+                        {{flight.duration}} months
+                    %li
+                      %p.flight-text.distance-width
+                        {{flight.distance}}
+                    %li
+                      %p.flight-text.flight-text-padding
+                        {{flight.flight_number}}
             %br
+
+      // Amenities that will get shown later
       .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
         .medium-12.columns
           .row.activity-bars{ "ng-repeat"=>"amenity in amenities"}
@@ -74,7 +101,7 @@
                 %p.amenity-detail-text
                   {{amenity.details}}
             
-
+    // Specific flight results
     .small-12.medium-6.columns.ng-cloak      
       %div.flight-text{ 'ng-show'=>"myFlight"}
         %ul.small-block-grid-3
@@ -103,15 +130,18 @@
                 .medium-12.columns
                   %h3.flight-detail-text {{myShip[0].name}}
 
+        // Buttons for displaying amenities and booking
         %button{ 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
           amenities
         %button{ 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
           Book
 
+    // Graph placeholder for weather
     .small-12.medium-6.columns.ng-cloak
       %div{ 'ng-show'=>"myFlight"}
         %img{ :src=>"/assets/graphplaceholder.png", 'ng-hide'=>"bookFlight" }
 
+      // Form for passenger booking
       %div.ng-cloak{ 'ng-show'=>"bookFlight" }
         .row.form-padding
           .medium-7.columns.medium-centered
@@ -130,7 +160,7 @@
                   .medium-6.columns
                     %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
                   .medium-6.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"10"}
                 .row
                   .medium-12.columns
                     %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
