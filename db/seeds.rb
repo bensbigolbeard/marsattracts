@@ -98,4 +98,9 @@ Ship.find(3).flights.create!([
 
 ]);
 
-
+Amenity.create!([
+    {id: 1, activity:"Space Walk", description:"Mauris eu lacus mi. Etiam vel fermentum est. In hac habitasse platea dictumst. Phasellus sollicitudin commodo diam, lacinia fringilla nibh molestie sed.", price:500}, 
+    {id: 2, activity:"Astronomy Lesson", description:"Donec interdum eros quis venenatis viverra. Phasellus gravida nisl eu aliquam malesuada. Proin enim urna, dictum ac pulvinar eget, bibendum vitae neque.", price:200},
+    {id: 3, activity:"Artificial Gravity", description:"Quisque id dui eros. Morbi eu nibh condimentum, euismod nisi id, porttitor tellus. Aenean ut turpis sit amet est ultrices fringilla non ut magna.", price:600},
+    {id: 4, activity:"Bone Density Therapy", description:"Etiam adipiscing diam id pharetra condimentum. Ut sed urna mollis, suscipit lacus ut, accumsan tortor. Mauris egestas ipsum sapien, sit amet aliquam.", price:5000}
+]);

@@ -76,7 +76,6 @@
                         {{flight.flight_number}}
             %br
             
-    // Specific flight results
     .small-12.medium-6.columns.ng-cloak      
       %div.flight-text{ 'ng-show'=>"myFlight"}
         %ul.small-block-grid-3
@@ -104,6 +103,7 @@
               .row
                 .medium-12.columns
                   %h3.flight-detail-text {{myShip[0].name}}
+
 
         %button{'ng-click'=>"hideFlightSearch()", 'ng-hide'=>'pickItButton'}
           Pick this flight!
@@ -184,3 +184,18 @@
                     %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData, amenityData)"}
                       Book It!
               
+        %button{ 'class'=>"btn btn-primary", 'ng-click'=>"addAmenities(amenityData)"}
+          Add Amenities!
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id1",  'maxlength'=>"250"}    
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id2",  'maxlength'=>"250"}    
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id3",  'maxlength'=>"250"}    
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
+                

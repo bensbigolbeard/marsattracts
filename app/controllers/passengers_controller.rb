@@ -4,7 +4,8 @@ class PassengersController < ApplicationController
   def index
     @passengers = Passenger.all
     respond_with(@passengers) do |format|
-      format.json {render json: @passengers.as_json }
+
+      format.json {render json: @passengers.as_json(:include => [:flights, :trips]) }
     end
   end
 
@@ -15,16 +16,17 @@ class PassengersController < ApplicationController
 
   def create
     @flight = Flight.find(1)
-    @new_passenger = @flight.passengers.new
-    @new_passenger.first_name = params[:first_name]
-    @new_passenger.last_name = params[:last_name]
-    @new_passenger.email = params[:email]
-    @new_passenger.phone = params[:phone]
-    @new_passenger.address = params[:address]
-    @new_passenger.emergency_contact = params[:emergency_contact]
-    @new_passenger.date_of_birth = params[:date_of_birth]
+
+    @new_passenger = @flight.passengers.create(
+      :first_name => params[:first_name], 
+      :last_name => params[:last_name], :email => params[:email], 
+      :phone => params[:phone], 
+      :address => params[:address], 
+      :emergency_contact => params[:emergency_contact], 
+      :date_of_birth => params[:date_of_birth])
     if @new_passenger.valid?
-      @new_passenger.save!
+      # @new_passenger.save!
+
     else
       return
     end
@@ -35,8 +37,10 @@ class PassengersController < ApplicationController
 
   def show
     @passenger = Passenger.find(params[:id])
+    @flight = @passenger.flights
     respond_with(@passenger) do |format|
-      format.json {render json: @passenger.as_json }
+      format.json {render json: @passenger.as_json(:include => [:flights, :trips]) }
+
     end
   end
 
