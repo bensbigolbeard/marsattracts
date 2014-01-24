@@ -9,8 +9,9 @@ $near-black: #222422;
 // flight#index page
 .row#landing-search {padding: 0px;}
 
-.top-padding {
-  padding-top:25px;
+.boss {
+  // background-color: $lt-blue;
+  // display: none;
 }
 
 .bottom-padding{
@@ -133,6 +134,23 @@ h2.index{
   padding-left: -1em;
   span {
     color: $lt-green;
+  }
+}
+
+button {
+  color: $near-black;
+  background-color: $white;
+  border-radius: 7px;
+  transition: opacity 0.3s; 
+  opacity: 0.7;
+  &:hover {
+    color: $near-black;
+    background-color: $white;
+    opacity: 1.0;
+  }
+  &:active {
+    color: $white;
+    background-color: $near-black;
   }
 }
 

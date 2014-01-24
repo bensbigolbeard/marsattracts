@@ -115,6 +115,34 @@ app.controller('MainCtrl', function($scope, $http){
     }
   };
 
+// Move flight search & results off to the side, reveal buttons for toggling passenger info and showing of amenities
+
+  $scope.hideFlightSearch = function () {
+    if ($scope.flightSearch != true) {
+      $scope.flightSearch = true;
+    } else {
+      $scope.flightSearch = false;
+    }
+
+    if ($scope.amenitiesButton != true) {
+      $scope.amenitiesButton = true;
+    } else {
+      $scope.amenitiesButton = false;
+    }
+
+    if ($scope.bookButton != true) {
+      $scope.bookButton = true; 
+    } else {
+      $scope.bookButton = false;
+    }
+
+    if ($scope.pickItButton != true) {
+      $scope.pickItButton = true;
+    } else {
+      $scope.pickItButton = false;
+    }
+  };
+
 // Toggle passenger info form
 
   $scope.bookPassenger = function(){
