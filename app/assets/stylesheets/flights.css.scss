@@ -180,10 +180,6 @@ input {
 
 // flight#search page
 
-.flight-search {
-  // display: none;
-}
-
 .search-results {
   margin:3em 0 2em 3em;
   h1{
@@ -247,6 +243,13 @@ h1.show {
 .weather.origin {
   color: $white;
   background-color: gray;
+}
+
+// Booking a passenger
+
+h4.passenger-header {
+  color: white;
+  font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
 

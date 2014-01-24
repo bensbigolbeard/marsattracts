@@ -75,21 +75,6 @@
                       %p.flight-text.flight-text-padding
                         {{flight.flight_number}}
             %br
-
-      // Amenities that will get shown later
-      .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
-        .medium-12.columns
-          .row.activity-bars{ "ng-repeat"=>"amenity in amenities"}
-            %div{"ng-click"=>"findAmenityInfo(amenity.id)"}
-              .medium-9.columns
-                %h3.amenity-detail-text
-                  {{amenity.activity}}
-              .medium-3.columns
-                %h3.amenity-detail-text
-                  {{amenity.price}}
-              .medium-12.columns
-                %p.amenity-detail-text
-                  {{amenity.details}}
             
     // Specific flight results
     .small-12.medium-6.columns.ng-cloak      
@@ -123,28 +108,43 @@
         %button{'ng-click'=>"hideFlightSearch()", 'ng-hide'=>'pickItButton'}
           Pick this flight!
 
-        // Buttons for displaying amenities and booking
-        %button{'ng-show'=>'amenitiesButton', 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
-          Show Me the Amenities
-          %i{ 'class' => 'fi-arrow-right'}
+          // Buttons for displaying amenities and booking
+          %button{'ng-show'=>'amenitiesButton', 'class'=>"btn btn-info", 'ng-click'=>"viewAmenities()"} 
+            Show Me the Amenities
+            %i{ 'class' => 'fi-arrow-right'}
 
-        %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
-          Just Book the Flight
-          %i{ 'class' => 'fi-arrow-right'}
+          %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
+            Just Book the Flight
+            %i{ 'class' => 'fi-arrow-right'}
 
     // Graph placeholder for weather
     .small-12.medium-6.columns.ng-cloak
       %div{ 'ng-show'=>"myFlight"}
         %img{ :src=>"/assets/graphplaceholder.png", 'ng-hide'=>"bookFlight" }
 
-      // Form for passenger booking
-      %div.ng-cloak{ 'ng-show'=>"bookFlight" }
-        .row.form-padding
-          .medium-7.columns.medium-centered
-            %h4 Passenger Information
+    // Amenities that are shown on button click
+    .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
+      .medium-12.columns
+        .row.activity-bars{ "ng-repeat"=>"amenity in amenities"}
+          %div{"ng-click"=>"findAmenityInfo(amenity.id)"}
+            .medium-9.columns
+              %h3.amenity-detail-text
+                {{amenity.activity}}
+            .medium-3.columns
+              %h3.amenity-detail-text
+                {{amenity.price}}
+            .medium-12.columns
+              %p.amenity-detail-text
+                {{amenity.details}}
+
+    // Form for passenger booking
+    %div.ng-cloak{ 'ng-show'=>"bookFlight" }
+      .row
+        .medium-7.columns.medium-centered
+          %h4.passenger-header Passenger Information
 
         .row
-          .medium-11.medium-offset-1.columns
+          .small-6.medium-6.small-offset-6.medium-offset-6.columns
             %form
               %fieldset
                 .row
@@ -180,5 +180,5 @@
                     %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
                     
                     %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData, amenityData)"}
-                      Create
-                
+                      Book It!
+              

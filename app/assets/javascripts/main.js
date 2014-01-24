@@ -177,6 +177,9 @@ app.controller('MainCtrl', function($scope, $http){
     } else {
       $scope.bookFlight = false;
     }
+    if ($scope.amenitiesInfo = true){
+      $scope.amenitiesInfo = false;
+    }
   };
 
 // Toggle view of amenities

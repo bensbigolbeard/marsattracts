@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  default from: "cboette@gmail.com"
+  default from: "noprely@marsattracts.com"
 
   def pass_confirm
       @greeting = "Hi"
