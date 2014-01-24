@@ -6,6 +6,8 @@ MarsAttracts::Application.routes.draw do
   root 'flights#index'
   get '/flights/search' => 'flights#search', as: :flights_search
   get '/passengers' => 'passengers#index', as: :passengers
+  get '/amenities' => 'amenities#index', as: :amenities
+
 
   resources :flights do
     resources :passengers

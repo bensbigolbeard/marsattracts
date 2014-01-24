@@ -1,14 +1,42 @@
 class TripsController < ApplicationController
+  respond_to :json
+
   def index
+    @trips = Trip.all
+    respond_with(@trips) do |format|
+      format.json {render json: @trips.as_json }
+    end  
   end
 
   def new
+
   end
 
   def create
+    # @flight = Flight.find(1)
+    # @new_passenger = @flight.passengers.new
+    # @new_passenger.first_name = params[:first_name]
+    # @new_passenger.last_name = params[:last_name]
+    # @new_passenger.email = params[:email]
+    # @new_passenger.phone = params[:phone]
+    # @new_passenger.address = params[:address]
+    # @new_passenger.emergency_contact = params[:emergency_contact]
+    # @new_passenger.date_of_birth = params[:date_of_birth]
+    # if @new_passenger.valid?
+    #   @new_passenger.save!
+    # else
+    #   return
+    # end
+    # respond_with(@new_passenger) do |format|
+    #   format.json {render json: @new_passenger.as_json }
+    # end  
   end
 
   def show
+    @trip = Trip.find(params[:id])
+    respond_with(@trip) do |format|
+      format.json {render json: @trip.as_json }
+    end 
   end
 
   def edit
@@ -19,6 +47,23 @@ class TripsController < ApplicationController
   end
 
   def update
+    if params[:amenity1_id]
+      @trip = @trip.amenities << Amenity.find(params[:amenity1_id])
+    elsif params[:amenity2_id]
+      @trip = @trip.amenities << Amenity.find(params[:amenity2_id])
+    elsif params[:amenity3_id]
+      @trip = @trip.amenities << Amenity.find(params[:amenity3_id])
+    elsif params[:amenity4_id]
+      @trip = @trip.amenities << Amenity.find(params[:amenity4_id])
+    end
+
+    if @new_passenger.valid?
+      # @new_passenger.save!
+    else
+    end
+    respond_with(@new_passenger) do |format|
+      format.json {render json: @new_passenger.as_json }
+    end  
   end
 
   def destroy

@@ -77,6 +77,7 @@
             %br
 
       // Amenities that will get shown later
+
       .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
         .medium-12.columns
           .row.activity-bars{ "ng-repeat"=>"amenity in amenities"}
@@ -89,9 +90,8 @@
                   {{amenity.price}}
               .medium-12.columns
                 %p.amenity-detail-text
-                  {{amenity.details}}
+                  {{amenity.description}}
             
-    // Specific flight results
     .small-12.medium-6.columns.ng-cloak      
       %div.flight-text{ 'ng-show'=>"myFlight"}
         %ul.small-block-grid-3
@@ -120,6 +120,7 @@
                 .medium-12.columns
                   %h3.flight-detail-text {{myShip[0].name}}
 
+
         %button{'ng-click'=>"hideFlightSearch()", 'ng-hide'=>'pickItButton'}
           Pick this flight!
 
@@ -145,40 +146,44 @@
 
         .row
           .medium-11.medium-offset-1.columns
-            %form
-              %fieldset
-                .row
-                  .medium-6.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250"}
-                  .medium-6.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
-                .row
-                  .medium-6.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
-                  .medium-6.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"10"}
-                .row
-                  .medium-12.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
-                .row
-                  .medium-12.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
-                .row
-                  .medium-12.columns
-                    %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
-                .row
-                  .medium-12.columns
-                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id1",  'maxlength'=>"250"}    
-                .row
-                  .medium-12.columns
-                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id2",  'maxlength'=>"250"}    
-                .row
-                  .medium-12.columns
-                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id3",  'maxlength'=>"250"}    
-                .row
-                  .medium-12.columns
-                    %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
-                    
-                    %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData, amenityData)"}
-                      Create
+            .row
+            .medium-12.columns
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250"}
+          .row
+            .medium-12.columns
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
+          .row
+            .medium-12.columns
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
+          .row  
+            .medium-12.columns
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+          .row
+            .medium-12.columns
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
+          .row
+            .medium-12.columns
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
+          .row
+            .medium-12.columns
+              %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
+          .row
+            .medium-3.columns.medium-centered    
+              %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData)"}
+                Book!
+
+        %button{ 'class'=>"btn btn-primary", 'ng-click'=>"addAmenities(amenityData)"}
+          Add Amenities!
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id1",  'maxlength'=>"250"}    
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id2",  'maxlength'=>"250"}    
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id3",  'maxlength'=>"250"}    
+        .row
+          .medium-12.columns
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
                 
