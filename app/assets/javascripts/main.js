@@ -89,29 +89,29 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
   $scope.findAmenityInfo= function(amenityId){
     
     if ($scope.amenities[0].id === amenityId) {
-      if ($scope.amenity_id1 = amenityId){
-        $scope.amenity_id1 = null;
-      } else { 
+      if ($scope.amenity_id1 != amenityId){
         $scope.amenity_id1 = amenityId 
+      } else { 
+        $scope.amenity_id1 = null;
       }
     } else if ($scope.amenities[1].id === amenityId){
-      if ($scope.amenity_id2 = amenityId){
-        $scope.amenity_id2 = null;
-      } else {
+      if ($scope.amenity_id2 != amenityId){
         $scope.amenity_id2 = amenityId;
+      } else {
+        $scope.amenity_id2 = null;
       }    
     } else if ($scope.amenities[2].id === amenityId){
-      if ($scope.amenity_id3 = amenityId){
-        $scope.amenity_id3 = null;
-      } else {
+      if ($scope.amenity_id3 != amenityId){
         $scope.amenity_id3 = amenityId;
+      } else {
+        $scope.amenity_id3 = null;
       } 
     } 
     else if ($scope.amenities[3].id === amenityId){
-      if ($scope.amenity_id4 = amenityId){
-        $scope.amenity_id4 = null;
-      } else {
+      if ($scope.amenity_id4 != amenityId){
         $scope.amenity_id4 = amenityId;
+      } else {
+        $scope.amenity_id4 = null;
       } 
     }
     console.log($scope.amenity_id1);
@@ -171,18 +171,20 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
         return console.error('Failed to create new passenger.');
       });
 
-      
+      setTimeout(function() {
 
-      var tripId = $scope.passengers[$scope.passengers.length-1].trips[0].id;
-      console.log(tripId);
+        var tripId = $scope.passengers[$scope.passengers.length-1].trips[0].id;
+        console.log(tripId);
 
-      $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
-        $scope.passengers.push(tripData);
-        return console.log('Successfully created passenger.');
-      }).error(function() {
-        console.log($http);
-        return console.error('Failed to create new passenger.');
-      });
+        $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
+          $scope.passengers.push(tripData);
+          return console.log('Successfully created passenger.');
+        }).error(function() {
+          console.log($http);
+          return console.error('Failed to create new passenger.');
+        });
+
+      }, 2000);
       return true;
 
   };
