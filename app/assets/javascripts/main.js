@@ -141,6 +141,9 @@ app.controller('MainCtrl', function($scope, $http){
       } else {
         $scope.amenity_id4 = null;
       } 
+    }
+  }; 
+
 
 // Displays results of flight search
 
@@ -275,6 +278,6 @@ app.controller('MainCtrl', function($scope, $http){
         }
         // change button to 'book'
       });
-    };
+  };
   
 });
