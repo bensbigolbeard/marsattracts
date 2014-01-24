@@ -79,6 +79,7 @@
       // Amenities that will get shown later
 
       .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
+        %h4 Amenities
         .medium-12.columns
           .row.activity-bars{ "ng-repeat"=>"amenity in amenities"}
             %div{"ng-click"=>"findAmenityInfo(amenity.id)"}
