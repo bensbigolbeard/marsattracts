@@ -103,20 +103,6 @@ $near-black: #222422;
   }
 }
 
-
-.result-bars-bg {
-  background: #111418;
-  background: -moz-linear-gradient(45deg, #111418 0%, #111a21 100%);
-  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#111418), color-stop(100%,#111a21));
-  background: -webkit-linear-gradient(45deg, #111418 0%,#111a21 100%);
-  background: -o-linear-gradient(45deg, #111418 0%,#111a21 100%);
-  background: -ms-linear-gradient(45deg, #111418 0%,#111a21 100%);
-  background: linear-gradient(45deg, #111418 0%,#111a21 100%);
-  padding: 10px 10px;
-  margin:0 -20px 0 20px;
-  width:90%;
-}
-
 .route-num-width{
   width:40px !important;
 }
@@ -212,6 +198,7 @@ input {
 }
 
 .result-bars {
+  font-family: 'Droid', 'Arial', 'sans-serif';
   transition: background 0.5s ease;
   background: rgba(255,255,255,.7);
   padding: 15px 0px;
@@ -264,28 +251,24 @@ h4.passenger-header {
   font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
-
-// CSS taken from Angular docs
-
-.animate-show {
+// CSS for sliding in the search results
+.a-flight {
   -webkit-transition:all linear 0.5s;
   transition:all linear 0.5s;
-  line-height:20px;
   opacity:1;
-  padding:10px;
-  border:1px solid black;
 }
  
-.animate-show.ng-hide-add,
-.animate-show.ng-hide-remove {
+.a-flight.ng-hide-add,
+.a-flight.ng-hide-remove {
   display:block!important;
 }
  
-.animate-show.ng-hide {
+.a-flight.ng-hide {
   line-height:0;
   opacity:0;
   padding:0 10px;
 }
+
 
 // CSS for repeated-item test
 
@@ -295,8 +278,7 @@ h4.passenger-header {
   for the element that has the .repeated-item
   class
 */
-.repeated-item.ng-enter, .repeated-item.ng-move,
-.myFlight.ng-add, .myFlight.ng-remove {
+.repeated-item.ng-enter, .repeated-item.ng-move {
   -webkit-transition:0.5s linear all;
   -moz-transition:0.5s linear all;
   -o-transition:0.5s linear all;
@@ -311,9 +293,7 @@ h4.passenger-header {
  animate.
 */
 .repeated-item.ng-enter.ng-enter-active,
-.repeated-item.ng-move.ng-move-active,
-.myFlight.ng-add.ng-add-active,
-.myFlight.ng-remove.ng-remove-active {
+.repeated-item.ng-move.ng-move-active{
   opacity:1;
 }
  
@@ -322,8 +302,7 @@ h4.passenger-header {
   the leave event is triggered for the element
   that has the .repeated-item class
 */
-.repeated-item.ng-leave,
-.myFlight.ng-leave {
+.repeated-item.ng-leave {
   -webkit-animation:0.5s my_animation;
   -moz-animation:0.5s my_animation;
   -o-animation:0.5s my_animation;
