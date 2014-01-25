@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+
 gem 'compass-rails' # For styling
 gem 'figaro' # Figaro for storing mailer credentials
 gem 'forecast_io' # Use to query current weather
@@ -20,6 +21,7 @@ gem 'sass-rails' # Use SCSS for stylesheets
 gem 'simple_form' # Use Simple_form for form formating
 gem 'uglifier' # Use Uglifier as compressor for JavaScript assets
 gem 'unirest' # For MAAS Mars weather API
+gem 'awesome_print'
 
 group :production do
   gem 'rails_12factor' # Add 12 factors best practices to Rails
