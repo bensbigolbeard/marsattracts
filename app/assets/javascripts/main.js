@@ -43,6 +43,10 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.amenities = []
   $http.get('/amenities.json').success(function(data){
       $scope.amenities = data;
+
+      for (var i = 0; i<$scope.amenities.length; i+=1) { 
+        $scope.amenities[i].amenityToggle = 'none'
+      }
   });
 
 // Variables to be set by user interaction
@@ -86,6 +90,17 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.durationArrow = 'down'
     }
   }
+
+  $scope.amenityToggle = function(id){
+    if ($scope.amenities[id-1].amenityToggle === 'none'){
+      $scope.amenities[id-1].amenityToggle = 'act-bars-active'
+      console.log($scope.amenities[id-1].amenityToggle)
+    } else {
+      $scope.amenities[id-1].amenityToggle = 'none'
+    }
+  }
+
+  
 
 // Function to define myFlight and myShip
 
@@ -166,11 +181,7 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.flightSearch = false;
     }
 
-    if ($scope.amenitiesButton != true) {
-      $scope.amenitiesButton = true;
-    } else {
-      $scope.amenitiesButton = false;
-    }
+    
 
     if ($scope.bookButton != true) {
       $scope.bookButton = true; 
@@ -214,12 +225,24 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.addAmenities = function(amenityData) {
 
+      var flightId = $scope.myFlight[0].id;
+      var tripId = $scope.passengers.length-3;
+
+      var passTripData = {
+        flight_id: flightId,
+        passenger_id: $scope.passengers[$scope.passengers.length-1].id,
+        id: tripId
+      };
+
+      $scope.passengers[$scope.passengers.length-1].trips = [passTripData];
+      
     // Grab amenity form data
       var tripData = {
         amenity1_id: $scope.amenity_id1,
         amenity2_id: $scope.amenity_id2,
         amenity3_id: $scope.amenity_id3,
-        amenity4_id: $scope.amenity_id4
+        amenity4_id: $scope.amenity_id4,
+        id: $scope.passengers.length
       };
 
     // Grab id of last trip
@@ -241,7 +264,31 @@ app.controller('MainCtrl', function($scope, $http){
   // Create new passenger function
       
   $scope.createPassenger = function(passData) {
+
+      var tripIndex = $scope.passengers.length-1;
+      console.log(tripIndex);
       
+    // Grab id of last trip
+      var tripId = $scope.passengers[tripIndex].trips[0].id;
+      console.log(tripId);
+
+    // Send update to trip with amenities
+
+      $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
+        $scope.passengers.push(tripData);
+        return console.log('Successfully updated trip.');
+      }).error(function() {
+        console.log($http);
+        return console.error('Failed to update trip.');
+      });
+      
+      return true;
+  };
+  // Create new passenger function
+      
+  $scope.createPassenger = function(passData) {
+
+    
     // Grab passenger form data
       var passengerData = {
         first_name: passData.first_name,
@@ -258,7 +305,6 @@ app.controller('MainCtrl', function($scope, $http){
         $scope.passengers.push(passengerData);
         return console.log('Successfully created passenger.');
       }).error(function() {
-        console.log($http);
         return console.error('Failed to create new passenger.');
       });
 

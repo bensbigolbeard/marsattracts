@@ -47,6 +47,7 @@ class TripsController < ApplicationController
   end
 
   def update
+<<<<<<< HEAD
     if params[:amenity1_id]
       @trip = @trip.amenities << Amenity.find(params[:amenity1_id])
     elsif params[:amenity2_id]
@@ -61,6 +62,23 @@ class TripsController < ApplicationController
       # @new_passenger.save!
     else
     end
+=======
+    @trip = Trip.find_by_passenger_id(params[:id])
+    if params[:amenity1_id]
+      @trip.amenities << Amenity.find(params[:amenity1_id])
+    end
+    if params[:amenity2_id]
+      @trip.amenities << Amenity.find(params[:amenity2_id])
+    end
+    if params[:amenity3_id]
+      @trip.amenities << Amenity.find(params[:amenity3_id])
+    end
+    if params[:amenity4_id]
+      @trip.amenities << Amenity.find(params[:amenity4_id])
+    end
+
+    
+>>>>>>> toggle highlight class on click for amenities
     respond_with(@new_passenger) do |format|
       format.json {render json: @new_passenger.as_json }
     end  

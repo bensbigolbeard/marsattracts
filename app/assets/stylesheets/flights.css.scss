@@ -111,10 +111,12 @@ $near-black: #222422;
   border-radius: 10px 10px 10px 0;
   padding: 5px 15px 0 15px;
   margin:  10px 0 !important;
-  &:hover {
+  
+}
+
+.act-bars-active {
     background: tomato;
     opacity: .8;
-  }
 }
 
 h2.index{
@@ -268,7 +270,6 @@ h4.passenger-header {
   opacity:0;
   padding:0 10px;
 }
-
 
 // CSS for repeated-item test
 
