@@ -127,7 +127,7 @@
     // Amenities that are shown on button click
     .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
       .medium-12.columns
-        .row.activity-bars{ "ng-repeat"=>"amenity in amenities", 'class'=> '{{amenity.amenityToggle}}', 'ng-click'=>"amToggle(amenity.id)"}
+        .row.activity-bars{ "ng-repeat"=>"amenity in amenities", 'class'=> '{{amenity.amenityToggle}}', 'ng-click'=>"amenityToggle(amenity.id)"}
           %div{"ng-click"=>"findAmenityInfo(amenity.id) "}
             .medium-9.columns
               %h3.amenity-detail-text
