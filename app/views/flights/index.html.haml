@@ -13,10 +13,10 @@
     .small-12.medium-6.columns.top-padding.boss{'ng-hide'=>"flightSearch"}
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
         .medium-10.columns
-          %select{"ng-model"=>"select.orig", "id"=>"origin"}
+          %select{"ng-model"=>"select1.orig", "id"=>"origin", "data-placeholder"=>"Select a launch site..."}
             %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
               {{origin.origin}}
-          %select{"ng-model"=>"select.dest", "id"=>"destination"}
+          %select{"ng-model"=>"select2.dest", "id"=>"destination", "data-placeholder"=>"Select a Mars colony..."}
             %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
               {{destination.destination}}
           %button{'ng-click'=>"showFlights()"}
@@ -56,7 +56,7 @@
           // Rows of flight search results
           .row.flight-box.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
             .medium-12.columns.result-bars-bg
-              .row.result-bars{"ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select.orig, destination_id:select.dest} | limitTo:5"}
+              .row.result-bars{"ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select1.orig, destination_id:select2.dest} | limitTo:5"}
                 %div{"ng-click"=>"findFlightInfo(flight.id)"}  
                   %ul.small-block-grid-5.result-height
                     %li
