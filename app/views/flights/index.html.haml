@@ -15,7 +15,7 @@
           %select{"ng-model"=>"select1.orig", "id"=>"origin", "data-placeholder"=>"Select a launch site..."}
             %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
               {{origin.origin}}
-          %select{"ng-model"=>"select2.dest", "id"=>"destination", "data-placeholder"=>"Select a Mars colony..."}
+          %select{"ng-model"=>"select2.dest", "id"=>"destination", "data-placeholder"=>"Select a Martian colony..."}
             %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
               {{destination.destination}}
           %button{'ng-click'=>"showFlights()"}
@@ -159,13 +159,13 @@
                   %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
               .row
                 .medium-12.columns
-                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
+                  %input{ 'type'=>"email", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
               .row  
                 .medium-12.columns
-                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+                  %input{ 'type'=>"tel", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Comm SHA", 'maxlength'=>"10"}
               .row
                 .medium-12.columns
-                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
+                  %input{ 'type'=>"date", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Date of Birth", 'maxlength'=>"250"}
               .row
                 .medium-12.columns
                   %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
