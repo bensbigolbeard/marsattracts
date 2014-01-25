@@ -235,7 +235,7 @@ app.controller('MainCtrl', function($scope, $http){
     }
   };
 
-// Create new passenger function
+// Add amenities to trip function
 
 
   $scope.addAmenities = function(amenityData) {
@@ -290,6 +290,7 @@ app.controller('MainCtrl', function($scope, $http){
         emergency_contact: passData.emergency_contact
       };
 
+      $scope.formData = passengerData;
 
     // Send formdata via post request 
       $http.post('flights/1/passengers.json', passengerData).success(function(passengerData) {

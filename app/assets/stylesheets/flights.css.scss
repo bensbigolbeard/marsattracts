@@ -125,7 +125,10 @@ $near-black: #222422;
   border-radius: 10px 10px 10px 0;
   padding: 5px 15px 0 15px;
   margin:  10px 0 !important;
-  
+  &:hover {
+    background: tomato;
+    opacity: .8;
+  }  
 }
 
 .act-bars-active {
@@ -264,8 +267,12 @@ h1.show {
 h4.passenger-header {
   color: white;
   font-family: 'Droid', 'Arial', 'sans-serif';
+  text-align: center !important;
 }
 
+.btn-center {
+  text-align:center;
+}
 
 // CSS taken from Angular docs
 
@@ -354,4 +361,14 @@ h4.passenger-header {
 @-o-keyframes my_animation {
   from { opacity:1; }
   to { opacity:0; }
+}
+
+.info-review-panel {
+  background-color: rgba(30,36,40,.7);
+  padding: 50px;
+  height: 100%;
+  color: white;
+  h3, h5 {
+    color: tomato;
+  }
 }
