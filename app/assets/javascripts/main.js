@@ -1,4 +1,6 @@
-var app = angular.module('mars', []);
+var app = angular.module('mars', [
+  'ngAnimate'
+  ]);
 
 app.config([
   "$httpProvider", function($httpProvider) {

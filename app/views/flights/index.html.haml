@@ -1,11 +1,9 @@
 .row#landing-search
   .medium-3.medium-9-offset.columns
-    %h2.index 
+    %h2.index
       Mars
       %span Attracts!
-    
-
-
+      
 %div{"ng_controller" => "MainCtrl"}
   .row.ng-cloak
 
@@ -23,7 +21,7 @@
             Get me off this rock!
 
       // Sorting of search results 
-      .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
+      .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo" }
         .medium-12.columns.top-padding
           %div
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()", "value"=>"price"}
@@ -75,8 +73,9 @@
                       %p.flight-text.flight-text-padding
                         {{flight.flight_number}}
             %br
-            
-    .small-12.medium-6.columns.ng-cloak      
+    
+    // Specific Flight Information      
+    .small-12.medium-6.columns.ng-cloak.flight-info      
       %div.flight-text{ 'ng-show'=>"myFlight"}
         %ul.small-block-grid-3
           %li.columns
