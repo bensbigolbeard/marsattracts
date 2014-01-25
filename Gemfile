@@ -21,6 +21,7 @@ gem 'sass-rails' # Use SCSS for stylesheets
 gem 'simple_form' # Use Simple_form for form formating
 gem 'uglifier' # Use Uglifier as compressor for JavaScript assets
 gem 'unirest' # For MAAS Mars weather API
+gem 'awesome_print'
 
 group :production do
   gem 'rails_12factor' # Add 12 factors best practices to Rails

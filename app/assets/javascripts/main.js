@@ -22,12 +22,17 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.origins = []
   $http.get('/origins.json').success(function(data){
       $scope.origins = data;
+      $scope.origins.unshift( {id: '', origin:"Select a launch site..."});
+      $scope.select1 = {orig: $scope.origins[0].id};
   });
 
   $scope.destinations = []
   $http.get('/destinations.json').success(function(data){
       $scope.destinations = data;
+      $scope.destinations.unshift( {id: '', destination:"Select a Mars colony..."});
+      $scope.select2 = {dest: $scope.destinations[0].id};
   });
+    
 
   $scope.ships = []
   $http.get('/ships.json').success(function(data){
@@ -39,11 +44,21 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.passengers = data;
   });
 
+  $scope.trips = []
+  $http.get('/trips.json').success(function(data){
+      $scope.trips = data;
+  });
+
 
   $scope.amenities = []
   $http.get('/amenities.json').success(function(data){
       $scope.amenities = data;
+      // Adds a base class to amenity toggles
+      for (var i = 0; i<$scope.amenities.length; i+=1) { 
+        $scope.amenities[i].amenityToggle = 'none'
+      }
   });
+  
 
 // Variables to be set by user interaction
 
@@ -86,6 +101,17 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.durationArrow = 'down'
     }
   }
+
+  $scope.amenityToggle = function(id){
+    if ($scope.amenities[id-1].amenityToggle === 'none'){
+      $scope.amenities[id-1].amenityToggle = 'act-bars-active'
+      console.log($scope.amenities[id-1].amenityToggle)
+    } else {
+      $scope.amenities[id-1].amenityToggle = 'none'
+    }
+  }
+
+  
 
 // Function to define myFlight and myShip
 
@@ -144,6 +170,10 @@ app.controller('MainCtrl', function($scope, $http){
         $scope.amenity_id4 = null;
       } 
     }
+    console.log($scope.amenity_id1);
+    console.log($scope.amenity_id2);
+    console.log($scope.amenity_id3);
+    console.log($scope.amenity_id4);
   }; 
 
 
@@ -166,11 +196,7 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.flightSearch = false;
     }
 
-    if ($scope.amenitiesButton != true) {
-      $scope.amenitiesButton = true;
-    } else {
-      $scope.amenitiesButton = false;
-    }
+    
 
     if ($scope.bookButton != true) {
       $scope.bookButton = true; 
@@ -214,26 +240,36 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.addAmenities = function(amenityData) {
 
+      var flightId = $scope.myFlight[0].id;
+      var tripId = $scope.trips[$scope.trips.length-1].id + 1;
+      var passenger = $scope.passengers[$scope.passengers.length-1]
+
+      var passTripData = {
+        flight_id: flightId,
+        passenger_id: passenger.id,
+        id: tripId
+      };
+
+      passenger.trips = [passTripData];
+      
     // Grab amenity form data
       var tripData = {
         amenity1_id: $scope.amenity_id1,
         amenity2_id: $scope.amenity_id2,
         amenity3_id: $scope.amenity_id3,
-        amenity4_id: $scope.amenity_id4
+        amenity4_id: $scope.amenity_id4,
+        id: $scope.passengers.length
       };
-
-    // Grab id of last trip
-      var tripId = $scope.passengers[$scope.passengers.length-1].trips[0].id;
-      console.log(tripId);
+      
 
     // Send update to trip with amenities
 
       $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
         $scope.passengers.push(tripData);
-        return console.log('Successfully created passenger.');
+        return console.log('Successfully updated trip.');
       }).error(function() {
         console.log($http);
-        return console.error('Failed to create new passenger.');
+        return console.error('Failed to update trip.');
       });
       
       return true;
@@ -241,7 +277,8 @@ app.controller('MainCtrl', function($scope, $http){
   // Create new passenger function
       
   $scope.createPassenger = function(passData) {
-      
+
+    
     // Grab passenger form data
       var passengerData = {
         first_name: passData.first_name,
@@ -253,12 +290,12 @@ app.controller('MainCtrl', function($scope, $http){
         emergency_contact: passData.emergency_contact
       };
 
+
     // Send formdata via post request 
       $http.post('flights/1/passengers.json', passengerData).success(function(passengerData) {
         $scope.passengers.push(passengerData);
         return console.log('Successfully created passenger.');
       }).error(function() {
-        console.log($http);
         return console.error('Failed to create new passenger.');
       });
 
