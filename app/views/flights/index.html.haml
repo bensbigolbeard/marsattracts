@@ -120,8 +120,8 @@
 
     // Graph placeholder for weather
     .small-12.medium-6.columns.ng-cloak
-      %div{ 'ng-show'=>"myFlight"}
-        %img{ :src=>"/assets/graphplaceholder.png", 'ng-hide'=>"bookFlight" }
+      %div{"ng-controller" => "ChartCtrl"}
+        %div{"dx-chart" => "chartOptions", 'ng-show'=>'myFlight'}
 
     // Amenities that are shown on button click
     .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
@@ -197,7 +197,4 @@
         .row
           .medium-12.columns
             %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}
-
-%div{"ng-controller" => "ChartCtrl"}
-  %div{"dx-chart" => "chartOptions"}
                 
