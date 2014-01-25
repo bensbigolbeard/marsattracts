@@ -60,7 +60,6 @@ class TripsController < ApplicationController
     if params[:amenity4_id]
       @trip.amenities << Amenity.find(params[:amenity4_id])
     end
-
     
     respond_with(@new_passenger) do |format|
       format.json {render json: @new_passenger.as_json }

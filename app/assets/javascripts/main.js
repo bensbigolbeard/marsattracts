@@ -41,6 +41,7 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.amenities = []
   $http.get('/amenities.json').success(function(data){
       $scope.amenities = data;
+      // Adds a base class to amenity toggles
       for (var i = 0; i<$scope.amenities.length; i+=1) { 
         $scope.amenities[i].amenityToggle = 'none'
       }
@@ -282,7 +283,6 @@ app.controller('MainCtrl', function($scope, $http){
         address: passData.address,
         emergency_contact: passData.emergency_contact
       };
-
 
 
     // Send formdata via post request 
