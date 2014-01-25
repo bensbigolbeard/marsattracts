@@ -1,24 +1,23 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-gem 'awesome_print' # Pretty printing
 gem 'compass-rails' # For styling
 gem 'figaro' # Figaro for storing mailer credentials
 gem 'forecast_io' # Use to query current weather
-gem 'foundation-icons-sass-rails'
-gem 'foundation-rails'
+gem 'foundation-icons-sass-rails' # Sass icons
+gem 'foundation-rails' #Foundation
 gem 'geocoder' # Use to get coordinates for weather API
 gem 'haml' # Use Haml for templating 
-gem 'jbuilder'
-gem 'coffee-script'
+gem 'jbuilder' # jBuilder for creating JSON objects
+gem 'coffee-script' # Coffeescript for something???
 gem 'mandrill-api' # Mandrill for mailer
 gem 'nokogiri' # Nokogiri for Wolfram API
 gem 'pg' # Use postgresql as the database for Active Record
 gem 'pg_search' # Use Pg_search to query multiple tables and return filtered results
 gem 'rails', '4.0.2' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'sass-rails' # Use SCSS for stylesheets
-gem 'simple_form' # Use Simple_form for form formating
-gem 'uglifier' # Use Uglifier as compressor for JavaScript assets
+gem 'sass-rails' # For stylesheets
+gem 'simple_form' # Form formating
+gem 'uglifier' # Compressor for JavaScript assets
 gem 'unirest' # For MAAS Mars weather API
 
 group :production do
@@ -34,9 +33,9 @@ group :test do
 end
 
 group :development, :test do
+  gem 'awesome_print' # Pretty printing
   gem 'pry-plus' # Pry-plus for debugging
-  gem 'pry-rails'
-  # awesomeprint?
+  gem 'pry-rails' # Pry for Rails
 end
 
 group :development do

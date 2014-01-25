@@ -47,7 +47,8 @@
   .small-5.small-offset-7.columns
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
-
+  
+  = @mars_weather.find_by_id(196)
 
 / , value: "#{ForecastIO.forecast(@lat, @long).currently.cloudCover}"
 / , value: "#{ForecastIO.forecast(@lat, @long).currently.humidity}"
@@ -57,3 +58,4 @@
 /   Closest Storm
 /   %br
 / = "#{ForecastIO.forecast(@lat, @long).currently.nearestStormDistance} miles away"
+
