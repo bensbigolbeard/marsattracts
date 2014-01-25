@@ -54,6 +54,7 @@ app.controller('MainCtrl', function($scope, $http){
   $http.get('/amenities.json').success(function(data){
       $scope.amenities = data;
       // Adds a base class to amenity toggles
+
       for (var i = 0; i<$scope.amenities.length; i+=1) { 
         $scope.amenities[i].amenityToggle = 'none'
       }
@@ -170,10 +171,6 @@ app.controller('MainCtrl', function($scope, $http){
         $scope.amenity_id4 = null;
       } 
     }
-    console.log($scope.amenity_id1);
-    console.log($scope.amenity_id2);
-    console.log($scope.amenity_id3);
-    console.log($scope.amenity_id4);
   }; 
 
 
@@ -278,6 +275,21 @@ app.controller('MainCtrl', function($scope, $http){
       
   $scope.createPassenger = function(passData) {
 
+    // Send update to trip with amenities
+
+      $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
+        $scope.passengers.push(tripData);
+        return console.log('Successfully updated trip.');
+      }).error(function() {
+        console.log($http);
+        return console.error('Failed to update trip.');
+      });
+      
+      return true;
+  };
+  // Create new passenger function
+      
+  $scope.createPassenger = function(passData) {
     
     // Grab passenger form data
       var passengerData = {

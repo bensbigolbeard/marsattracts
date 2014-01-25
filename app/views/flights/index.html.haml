@@ -1,8 +1,9 @@
 .row#landing-search
   .medium-3.medium-9-offset.columns
-    %h2.index
-      Mars
-      %span Attracts!
+    %a{ :href => '/'}
+      %h2.index
+        Mars
+        %span Attracts!
       
 %div{"ng_controller" => "MainCtrl"}
   .row.ng-cloak
@@ -23,7 +24,7 @@
       // Sorting of search results 
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo" }
         .medium-12.columns.top-padding
-          %div
+          %div.animate-show{"ng-show"=>"revealSearch"}
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()", "value"=>"price"}
               price 
               %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
@@ -53,7 +54,7 @@
 
           // Rows of flight search results
           .row.flight-box.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
-            .medium-12.columns.result-bars-bg
+            .medium-12.columns
               .row.result-bars{"ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select1.orig, destination_id:select2.dest} | limitTo:5"}
                 %div{"ng-click"=>"findFlightInfo(flight.id)"}  
                   %ul.small-block-grid-5.result-height
@@ -75,8 +76,8 @@
             %br
     
     // Specific Flight Information      
-    .small-12.medium-6.columns.ng-cloak.flight-info      
-      %div.flight-text{ 'ng-show'=>"myFlight"}
+    .small-12.medium-6.columns.ng-cloak
+      %div.flight-text{'class'=>'a-flight', 'ng-show'=>"myFlight"}
         %ul.small-block-grid-3
           %li.columns
             .flight-details
@@ -188,4 +189,3 @@
           .row
             .medium-12.columns
               %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
-              
