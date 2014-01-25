@@ -9,7 +9,6 @@ gem 'foundation-icons-sass-rails'
 gem 'foundation-rails'
 gem 'geocoder' # Use to get coordinates for weather API
 gem 'haml' # Use Haml for templating 
-gem 'jquery-rails' # Use jquery as the JavaScript library
 gem 'jbuilder'
 gem 'coffee-script'
 gem 'mandrill-api' # Mandrill for mailer

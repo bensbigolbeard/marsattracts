@@ -4,7 +4,7 @@
       Mars
       %span Attracts!
       
-%div{"ng_controller" => "MainCtrl"}
+%div{"ng-controller" => "MainCtrl"}
   .row.ng-cloak
 
     // Search fields that get overlaid by amenities after selecting flight
@@ -196,5 +196,8 @@
             %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id3",  'maxlength'=>"250"}    
         .row
           .medium-12.columns
-            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
+            %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}
+
+%div{"ng-controller" => "ChartCtrl"}
+  %div{"dx-chart" => "chartOptions"}
                 
