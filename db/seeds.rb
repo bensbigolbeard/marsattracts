@@ -7,9 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Ship.create!([
-  {speed:1200, capacity:300, name: "Serenity"},
-  {speed:900, capacity:400, name: "Enterprise"},
-  {speed:1700, capacity:250, name: "Millenium Falcon"}
+  {speed:50000, capacity:2058, name: "Targus", propulsion:"Ion", plating:"Graphene-adamantium composite"},
+  {speed:10000, capacity:318, name: "Phoenix", propulsion:"Electromagnetic", plating:"Tungsten-steel alloy"},
+  {speed:50000, capacity:1023, name: "Samson", propulsion:"Ion", plating:"Silicon carbide"},
+  {speed:5000000, capacity:1729, name: "Canbrius", propulsion:"Nuclear fusion", plating:"Graphene-adamantium composite"},
 ]);
 
 Destination.create!([

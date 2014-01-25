@@ -47,19 +47,18 @@ class TripsController < ApplicationController
   end
 
   def update
+    @trip = Trip.find_by_passenger_id(params[:id])
     if params[:amenity1_id]
-      @trip = @trip.amenities << Amenity.find(params[:amenity1_id])
-    elsif params[:amenity2_id]
-      @trip = @trip.amenities << Amenity.find(params[:amenity2_id])
-    elsif params[:amenity3_id]
-      @trip = @trip.amenities << Amenity.find(params[:amenity3_id])
-    elsif params[:amenity4_id]
-      @trip = @trip.amenities << Amenity.find(params[:amenity4_id])
+      @trip.amenities << Amenity.find(params[:amenity1_id])
     end
-
-    if @new_passenger.valid?
-      # @new_passenger.save!
-    else
+    if params[:amenity2_id]
+      @trip.amenities << Amenity.find(params[:amenity2_id])
+    end
+    if params[:amenity3_id]
+      @trip.amenities << Amenity.find(params[:amenity3_id])
+    end
+    if params[:amenity4_id]
+      @trip.amenities << Amenity.find(params[:amenity4_id])
     end
     respond_with(@new_passenger) do |format|
       format.json {render json: @new_passenger.as_json }
