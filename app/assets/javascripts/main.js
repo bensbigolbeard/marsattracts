@@ -22,12 +22,17 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.origins = []
   $http.get('/origins.json').success(function(data){
       $scope.origins = data;
+      $scope.origins.unshift( {id: '', origin:"Select a launch site..."});
+      $scope.select1 = {orig: $scope.origins[0].id};
   });
 
   $scope.destinations = []
   $http.get('/destinations.json').success(function(data){
       $scope.destinations = data;
+      $scope.destinations.unshift( {id: '', destination:"Select a Mars colony..."});
+      $scope.select2 = {dest: $scope.destinations[0].id};
   });
+    
 
   $scope.ships = []
   $http.get('/ships.json').success(function(data){
@@ -226,7 +231,7 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.addAmenities = function(amenityData) {
 
       var flightId = $scope.myFlight[0].id;
-      var tripId = $scope.passengers.length-3;
+      var tripId = $scope.passengers.length-1;
 
       var passTripData = {
         flight_id: flightId,
