@@ -212,11 +212,8 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-<<<<<<< HEAD
   coffee-script
   compass-rails
-=======
->>>>>>> marsweather
   figaro
   forecast_io
   foundation-icons-sass-rails
