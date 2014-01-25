@@ -44,6 +44,11 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.passengers = data;
   });
 
+  $scope.trips = []
+  $http.get('/trips.json').success(function(data){
+      $scope.trips = data;
+  });
+
 
   $scope.amenities = []
   $http.get('/amenities.json').success(function(data){
@@ -236,15 +241,16 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.addAmenities = function(amenityData) {
 
       var flightId = $scope.myFlight[0].id;
-      var tripId = $scope.passengers.length-1;
+      var tripId = $scope.trips[$scope.trips.length-1].id + 1;
+      var passenger = $scope.passengers[$scope.passengers.length-1]
 
       var passTripData = {
         flight_id: flightId,
-        passenger_id: $scope.passengers[$scope.passengers.length-1].id,
+        passenger_id: passenger.id,
         id: tripId
       };
 
-      $scope.passengers[$scope.passengers.length-1].trips = [passTripData];
+      passenger.trips = [passTripData];
       
     // Grab amenity form data
       var tripData = {
@@ -255,13 +261,6 @@ app.controller('MainCtrl', function($scope, $http){
         id: $scope.passengers.length
       };
       
-
-      var tripIndex = $scope.passengers.length-1;
-      console.log(tripIndex);
-      
-    // Grab id of last trip
-      var tripId = $scope.passengers[tripIndex].trips[0].id;
-      console.log(tripId);
 
     // Send update to trip with amenities
 
