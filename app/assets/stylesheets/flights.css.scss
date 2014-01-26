@@ -11,11 +11,6 @@ $near-black: #222422;
 // flight#index page
 .row#landing-search {padding: 0px;}
 
-.boss {
-  // background-color: $lt-blue;
-  // display: none;
-}
-
 .bottom-padding{
   height:300px;
 }
@@ -279,7 +274,20 @@ h4.passenger-header {
   for the element that has the .repeated-item
   class
 */
-.repeated-item.ng-enter, .repeated-item.ng-move {
+
+
+
+.repeated-item.ng-enter, .repeated-item.ng-move,
+.animate-show.ng-enter, .animate-show.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+.repeated-item.ng-hide-add, .repeated-item.ng-hide-remove,
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
   -webkit-transition:0.5s linear all;
   -moz-transition:0.5s linear all;
   -o-transition:0.5s linear all;
@@ -294,7 +302,16 @@ h4.passenger-header {
  animate.
 */
 .repeated-item.ng-enter.ng-enter-active,
-.repeated-item.ng-move.ng-move-active{
+.repeated-item.ng-move.ng-move-active,
+.animate-show.ng-enter.ng-enter-active,
+.animate-show.ng-move.ng-move-active{
+  opacity:1;
+}
+
+.repeated-item.ng-hide-add.ng-hide-add-active,
+.repeated-item.ng-move.ng-move-active,
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-move.ng-move-active{
   opacity:1;
 }
  
@@ -303,14 +320,24 @@ h4.passenger-header {
   the leave event is triggered for the element
   that has the .repeated-item class
 */
-.repeated-item.ng-leave {
-  -webkit-animation:0.5s my_animation;
-  -moz-animation:0.5s my_animation;
-  -o-animation:0.5s my_animation;
-  animation:0.5s my_animation;
+
+.repeated-item.ng-remove,
+.animate-show.ng-remove {
+  -webkit-animation:0.5s animated_search_results;
+  -moz-animation:0.5s animated_search_results;
+  -o-animation:0.5s animated_search_results;
+  animation:0.5s animated_search_results;
 }
  
-@keyframes my_animation {
+.repeated-item.ng-hide-remove,
+.animate-show.ng-hide-remove {
+  -webkit-animation:0.5s animated_search_results;
+  -moz-animation:0.5s animated_search_results;
+  -o-animation:0.5s animated_search_results;
+  animation:0.5s animated_search_results;
+}
+
+@keyframes animated_search_results {
   from { opacity:1; }
   to { opacity:0; }
 }
@@ -319,17 +346,79 @@ h4.passenger-header {
   Unfortunately each browser vendor requires
   its own definition of keyframe animation code...
 */
-@-webkit-keyframes my_animation {
+@-webkit-keyframes animated_search_results {
   from { opacity:1; }
   to { opacity:0; }
 }
  
-@-moz-keyframes my_animation {
+@-moz-keyframes animated_search_results {
   from { opacity:1; }
   to { opacity:0; }
 }
  
-@-o-keyframes my_animation {
+@-o-keyframes animated_search_results {
   from { opacity:1; }
   to { opacity:0; }
+}
+
+// Kick that flight search off the screen
+
+// .a-flight {
+//   -webkit-transition:all linear 0.5s;
+//   transition:all linear 0.5s;
+//   opacity:1;
+// }
+ 
+// .a-flight.ng-hide-add,
+// .a-flight.ng-hide-remove {
+//   display:block!important;
+// }
+ 
+// .a-flight.ng-hide {
+//   line-height:0;
+//   opacity:0;
+//   padding:0 10px;
+// }
+
+.flightSearch.ng-hide-remove { 
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+ }
+.flightSearch.ng-hide-remove.ng-hide-remove-active { 
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+ }
+.flightSearch.ng-hide-add { 
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+ }
+.flightSearch.ng-hide-add.ng-hide-add-active { 
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+ }
+
+@-moz-keyframes slidein {
+  from {
+    margin-left:10%;
+    width:100%;
+  } to {
+    margin-left:-100%;
+    width:0%;
+  }
+}
+
+@-webkit-keyframes slidein {
+  from {
+    width:100%;
+  } to {
+    width:0%;
+  }
 }
