@@ -25,9 +25,9 @@
 }
 
 body#background {
-  background: url('graphy-dark.png') repeat 15% 15%;
-  background-color: #180000;
   z-index: -3;
+  background: url('hexgrid.png') repeat 5% 5%;
+  background-color: #202020;
 }
 
 /*#midground {*/
