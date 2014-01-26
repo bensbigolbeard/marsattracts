@@ -122,7 +122,7 @@
           %i{ 'class' => 'fi-arrow-right'}
 
     // Graph placeholder for weather
-    .small-12.medium-6.columns.ng-cloak
+    .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
       %div{"ng-controller" => "ChartCtrl"}
         %div{"dx-chart" => "chartOptions", 'ng-show'=>'myFlight'}
 
@@ -142,12 +142,12 @@
                 %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
             .row
               .medium-12.columns
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Stardate of Birth", 'maxlength'=>"250"}
+                %input{ 'type'=>"date", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Stardate of Birth", 'maxlength'=>"250"}
             .row
               .medium-6.columns
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
+                %input{ 'type'=>"email", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
               .medium-6.columns
-                %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+                %input{ 'type'=>"tel", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
             .row
               .medium-12.columns
                 %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
