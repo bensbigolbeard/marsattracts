@@ -333,22 +333,17 @@ app.controller('MainCtrl', function($scope, $http){
   
 });
 
-app.controller('ChartCtrl', function ($scope) {
+
+
+app.controller('ChartCtrl', function ($scope, $http) {
+  $scope.weather = [];
+    $http.get('/marsweathers.json').success(function(data){
+      $scope.weather = data;
+  });
+
+
   $scope.chartOptions = {
-    dataSource: [
-    {
-        year: 1950, costs: 34
-    },
-    {
-        year: 1951, costs: 37
-    },
-    {
-        year: 1952, costs: 23
-    },
-    {
-        year: 1953, costs: 63
-    }
-    ],
+    dataSource: $scope.weather,
         series: {valueField: 'costs', argumentField: 'year'} 
     };
 });

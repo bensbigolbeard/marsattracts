@@ -1,0 +1,8 @@
+%html
+  %head
+  %title
+  %body
+  %p
+    - @mars_weather.each do |weather|
+      =weather.min_temp_fahrenheit
+      =weather.max_temp_fahrenheit
