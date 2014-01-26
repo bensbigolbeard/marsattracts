@@ -1,4 +1,4 @@
-var app = angular.module('mars', [
+var app = angular.module('mars', [ 'dx',
   'ngAnimate'
   ]);
 
@@ -14,19 +14,19 @@ app.controller('MainCtrl', function($scope, $http){
 
 // Services to grab database content
 
-  $scope.flights = []
+  $scope.flights = [];
   $http.get('/flights.json').success(function(data){
       $scope.flights = data;
   });
   
-  $scope.origins = []
+  $scope.origins = [];
   $http.get('/origins.json').success(function(data){
       $scope.origins = data;
       $scope.origins.unshift( {id: '', origin:"Select a launch site..."});
       $scope.select1 = {orig: $scope.origins[0].id};
   });
 
-  $scope.destinations = []
+  $scope.destinations = [];
   $http.get('/destinations.json').success(function(data){
       $scope.destinations = data;
       $scope.destinations.unshift( {id: '', destination:"Select a Martian colony..."});
@@ -34,12 +34,12 @@ app.controller('MainCtrl', function($scope, $http){
   });
     
 
-  $scope.ships = []
+  $scope.ships = [];
   $http.get('/ships.json').success(function(data){
       $scope.ships = data;
   });
 
-  $scope.passengers = []
+  $scope.passengers = [];
   $http.get('/passengers.json').success(function(data){
       $scope.passengers = data;
   });
@@ -50,7 +50,7 @@ app.controller('MainCtrl', function($scope, $http){
   });
 
 
-  $scope.amenities = []
+  $scope.amenities = [];
   $http.get('/amenities.json').success(function(data){
       $scope.amenities = data;
       // Adds a base class to amenity toggles
@@ -77,31 +77,31 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.flightDateConversion = function(flightDate){
     new Date(flightDate);
-  }
+  };
 
   $scope.priceArwToggle = function(){
     if ($scope.priceArrow === 'down'){
-      $scope.priceArrow = 'up'
+      $scope.priceArrow = 'up';
     } else {
-      $scope.priceArrow = 'down'
+      $scope.priceArrow = 'down';
     }
-  }
+  };
 
   $scope.dateArwToggle = function(){
     if ($scope.dateArrow === 'down'){
-      $scope.dateArrow = 'up'
+      $scope.dateArrow = 'up';
     } else {
-      $scope.dateArrow = 'down'
+      $scope.dateArrow = 'down';
     }
-  }
+  };
 
   $scope.durationArwToggle = function(){
     if ($scope.durationArrow === 'down'){
-      $scope.durationArrow = 'up'
+      $scope.durationArrow = 'up';
     } else {
-      $scope.durationArrow = 'down'
+      $scope.durationArrow = 'down';
     }
-  }
+  };
 
   $scope.amenityToggle = function(id){
     if ($scope.amenities[id-1].amenityToggle === 'none'){
@@ -117,8 +117,8 @@ app.controller('MainCtrl', function($scope, $http){
 // Function to define myFlight and myShip
 
   $scope.findFlightInfo = function(flightId){
-    var myFlight = []
-    var myShip = []
+    var myFlight = [];
+    var myShip = [];
     for (var i = 0; i < $scope.flights.length; i += 1){
       if ($scope.flights[i].id === flightId){
         myFlight.push($scope.flights[i]);
@@ -131,7 +131,7 @@ app.controller('MainCtrl', function($scope, $http){
     }
     $scope.myFlight = myFlight;
     $scope.myShip = myShip;
-  }
+  };
   
   $scope.formData = {
     first_name: '',
@@ -147,7 +147,7 @@ app.controller('MainCtrl', function($scope, $http){
     
     if ($scope.amenities[0].id === amenityId) {
       if ($scope.amenity_id1 != amenityId){
-        $scope.amenity_id1 = amenityId 
+        $scope.amenity_id1 = amenityId;
       } else { 
         $scope.amenity_id1 = null;
       }
@@ -177,7 +177,7 @@ app.controller('MainCtrl', function($scope, $http){
 // Displays results of flight search
 
   $scope.showFlights = function () {
-    if ($scope.revealSearch != true) {
+    if ($scope.revealSearch !== true) {
       $scope.revealSearch = true;
     } else {
       $scope.revealSearch = false;
@@ -187,19 +187,19 @@ app.controller('MainCtrl', function($scope, $http){
 // Move flight search & results off to the side, reveal buttons for toggling passenger info and showing of amenities
 
   $scope.hideFlightSearch = function () {
-    if ($scope.flightSearch != true) {
+    if ($scope.flightSearch !== true) {
       $scope.flightSearch = true;
     } else {
       $scope.flightSearch = false;
     }
 
-    if ($scope.bookButton != true) {
+    if ($scope.bookButton !== true) {
       $scope.bookButton = true; 
     } else {
       $scope.bookButton = false;
     }
 
-    if ($scope.pickItButton != true) {
+    if ($scope.pickItButton !== true) {
       $scope.pickItButton = true;
     } else {
       $scope.pickItButton = false;
@@ -210,7 +210,7 @@ app.controller('MainCtrl', function($scope, $http){
 // Toggle passenger info form
 
   $scope.bookPassenger = function(){
-    if ($scope.bookFlight != true){
+    if ($scope.bookFlight !== true){
       $scope.bookFlight = true;
     } else {
       $scope.bookFlight = false;
@@ -223,7 +223,7 @@ app.controller('MainCtrl', function($scope, $http){
 // Toggle view of amenities
 
   $scope.viewAmenities = function(){
-    if ($scope.amenitiesInfo != true){
+    if ($scope.amenitiesInfo !== true){
       $scope.amenitiesInfo = true;
     } else {
       $scope.amenitiesInfo = false;
@@ -327,10 +327,30 @@ app.controller('MainCtrl', function($scope, $http){
           $scope.passengers.pop();
           $scope.passengers.push(formData);
         } else {
-          console.log("No changes made. Now you can book your flight.")
+          console.log("No changes made. Now you can book your flight.");
         }
         // change button to 'book'
       });
   };
   
+});
+
+app.controller('ChartCtrl', function ($scope) {
+  $scope.chartOptions = {
+    dataSource: [
+    {
+        year: 1950, costs: 34
+    },
+    {
+        year: 1951, costs: 37
+    },
+    {
+        year: 1952, costs: 23
+    },
+    {
+        year: 1953, costs: 63
+    }
+    ],
+        series: {valueField: 'costs', argumentField: 'year'} 
+    };
 });

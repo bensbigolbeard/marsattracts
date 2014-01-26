@@ -5,7 +5,7 @@
         Mars
         %span Attracts!
       
-%div{"ng_controller" => "MainCtrl"}
+%div{"ng-controller" => "MainCtrl"}
   .row.ng-cloak
 
     // Search fields that get overlaid by amenities after selecting flight
@@ -123,8 +123,8 @@
 
     // Graph placeholder for weather
     .small-12.medium-6.columns.ng-cloak
-      %div{ 'ng-show'=>"myFlight"}
-        %img{ :src=>"/assets/graphplaceholder.png", 'ng-hide'=>"bookFlight" }
+      %div{"ng-controller" => "ChartCtrl"}
+        %div{"dx-chart" => "chartOptions", 'ng-show'=>'myFlight'}
 
    
     // Form for passenger booking
