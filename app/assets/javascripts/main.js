@@ -29,7 +29,7 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.destinations = []
   $http.get('/destinations.json').success(function(data){
       $scope.destinations = data;
-      $scope.destinations.unshift( {id: '', destination:"Select a Mars colony..."});
+      $scope.destinations.unshift( {id: '', destination:"Select a Martian colony..."});
       $scope.select2 = {dest: $scope.destinations[0].id};
   });
     
@@ -192,8 +192,6 @@ app.controller('MainCtrl', function($scope, $http){
     } else {
       $scope.flightSearch = false;
     }
-
-    
 
     if ($scope.bookButton != true) {
       $scope.bookButton = true; 
