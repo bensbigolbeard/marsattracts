@@ -128,6 +128,10 @@ $near-black: #222422;
   &:hover {
     background: tomato;
     opacity: .8;
+  }
+  p {
+    font-size: .7em;
+    margin-bottom: .8em;
   }  
 }
 
@@ -365,10 +369,66 @@ h4.passenger-header {
 
 .info-review-panel {
   background-color: rgba(30,36,40,.7);
-  padding: 50px;
-  height: 100%;
+  padding: 20px 10px 10px 25px ;
+  height: 560px;
   color: white;
-  h3, h5 {
+  h1, h2, h3, h4, h5 {
     color: tomato;
   }
+  h1{
+    line-height: 50%;
+    padding-top: 15px;
+  }
+  p {
+    font-size: .8em;
+    margin-bottom: 5px; 
+  }
 }
+
+.ship-pic{
+  width:70%;
+  height:auto;
+}
+
+.img-background{
+  background-color: rgba(255,255,255,.7);
+  text-align: center;
+}
+  
+.img-container{  
+  padding:10px,0px,10px,10px;
+}  
+
+dd {
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 151px;
+  text-align: center;
+}
+
+.tabs dd > a {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.tabs dd.active a {
+  background-color: rgba(30,36,40,.7);
+  color:white;
+}
+
+.tabs dd a {
+  background-color: rgba(255,255,255,0);
+  color:white;
+}
+
+.tabs-content > .content {
+  padding: 0;
+}
+
+.content {
+  width: 100%;
+  .active {
+
+  }
+}
+

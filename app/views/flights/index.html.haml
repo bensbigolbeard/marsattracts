@@ -124,78 +124,11 @@
       %div{ 'ng-show'=>"myFlight"}
         %img{ :src=>"/assets/graphplaceholder.png", 'ng-hide'=>"bookFlight" }
 
-    // Amenities that are shown on button click
-    .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
-      .medium-6.columns
-        .row.activity-bars{ "ng-repeat"=>"amenity in amenities", 'class'=> '{{amenity.amenityToggle}}', 'ng-click'=>"amenityToggle(amenity.id)"}
-          %div{"ng-click"=>"findAmenityInfo(amenity.id) "}
-            .medium-9.columns
-              %h3.amenity-detail-text
-                {{amenity.activity}}
-            .medium-3.columns
-              %h3.amenity-detail-text
-                {{amenity.price}}
-            .medium-12.columns
-              %p.amenity-detail-text
-                {{amenity.description}}
-        %button{ 'class'=>"btn btn-primary", 'ng-click'=>"addAmenities(amenityData)"}
-          Add Amenities!
-      .medium-5.columns.medium-offset-1.info-review-panel
-        .row
-          .medium-12.columns
-            %span Full Name: 
-            .row
-              .medium-10.columns.medium-offset-1
-                %h3 {{formData.first_name}} {{formData.last_name}}
-        .row
-          .medium-6.columns
-            %span Comm-SHA: 
-            .row
-              .medium-10.columns.medium-offset-2
-                %h3 {{formData.phone}}
-          .medium-6.columns
-            %span Stardate of Birth: 
-            .row
-              .medium-10.columns.medium-offset-2
-                %h3 {{formData.date_of_birth}}
-        .row
-          .medium-12.columns
-            %span Email: 
-            .row
-              .medium-10.columns.medium-offset-1
-                %h3 {{formData.email}}
-        .row
-          .medium-12.columns
-            %span Earth Address: 
-            .row
-              .medium-10.columns.medium-offset-1
-                %h3 {{formData.emergency_contact}}
-        .row
-          .medium-12.columns
-            %span Emergency Contact: 
-            .row
-              .medium-10.columns.medium-offset-1
-                %h3 {{formData.emergency_contact}}
-        .row
-          .medium-12.columns{'ng-show'=>'amenity_id1 || amenity_id2 || amenity_id3 || amenity_id4'}
-            %span Amenities: 
-            .row{'ng-show'=>'amenity_id1'}
-              .medium-10.columns.medium-offset-1
-                %h5 {{amenities[amenity_id1-1].activity}}
-            .row{'ng-show'=>'amenity_id2'}
-              .medium-10.columns.medium-offset-1
-                %h5 {{amenities[amenity_id2-1].activity}}
-            .row{'ng-show'=>'amenity_id3'}
-              .medium-10.columns.medium-offset-1
-                %h5 {{amenities[amenity_id3-1].activity}}
-            .row{'ng-show'=>'amenity_id4'}
-              .medium-10.columns.medium-offset-1
-                %h5 {{amenities[amenity_id4-1].activity}}
-
+   
     // Form for passenger booking
   %div.ng-cloak{ 'ng-show'=>"bookFlight" }
     .row
-      .medium-5.columns.medium-offset-7{ 'ng-hide'=>'amenitiesInfo'}
+      .medium-5.columns{ 'ng-hide'=>'amenitiesInfo'}
         .row
           %h4.medium-12.columns.passenger-header Passenger Information
         .row
@@ -219,7 +152,13 @@
             .row
               .medium-12.columns
                 %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
-            .row
+        .row
+          .medium-11.medium-offset-1.columns    
+            .row{ 'ng-show'=>'UPDATEInfo'}
+              .medium-12.columns.medium-centered.btn-center    
+                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"updatePassenger(passengerData)"}
+                  Update!
+            .row{ 'ng-hide'=>'amenitiesInfo'}
               .medium-12.columns.medium-centered.btn-center    
                 %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData); viewAmenities()"}
                   Book!
@@ -237,3 +176,138 @@
               .medium-12.columns
                 %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
             
+    // Amenities that are shown on button click
+    .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
+      .medium-4.columns
+        %dl.tabs(data-tab)
+          %dd.active
+            %a{ "href"=>"#panel2-1"} Passenger Info
+          %dd
+            %a{ "href"=>"#panel2-2"} Flight Info
+        .tabs-content
+          #panel2-1.content.active
+            .medium-12.columns.info-review-panel
+              
+              .row
+                .medium-6.columns
+                  .row
+                    .medium-10.columns.medium-offset-1
+                      %h2 {{formData.first_name}}
+                      %h2 {{formData.last_name}}
+              
+                
+              .row
+                .medium-6.columns
+                  %p Comm-SHA: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h5 {{formData.phone}}
+              
+                .medium-6.columns
+                  %p Stardate of Birth: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h5 {{formData.date_of_birth}}
+              .row
+                .medium-12.columns
+                  %p Email: 
+                  .row
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{formData.email}}
+              .row
+                .medium-12.columns
+                  %p Earth Address: 
+                  .row
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{formData.address}}
+              .row
+                .medium-12.columns
+                  %p Emergency Contact: 
+                  .row
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{formData.emergency_contact}}
+              
+          #panel2-2.content
+            .info-review-panel
+              .row
+                .medium-5.columns
+                  %p Launch Site: 
+                  .row
+                    .medium-10.columns.medium-offset-1
+                      %h4 {{origins[myFlight[0].origin_id].origin}}
+             
+                .medium-7.columns
+                  %p Martian Colony: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h4 {{destinations[myFlight[0].destination_id].destination}}
+              .row
+                .medium-5.columns
+                  %p Launch Date: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h3 {{myFlight[0].departure_time}}
+                .medium-7.columns
+                  %p Arrival Date: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h3 {{myShip[0].arrival_time}}
+              .row
+                .medium-5.columns
+                  %p Flight#: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h3 {{myFlight[0].flight_number}}
+                .medium-7.columns
+                  %p Ship: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h3 {{myShip[0].name}}
+              .row
+                .medium-5.columns
+                  %p Capacity: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h3 {{myShip[0].capacity}}
+                .medium-7.columns
+                  %p Speed: 
+                  .row
+                    .medium-10.columns.medium-offset-2
+                      %h3 {{myShip[0].speed}}
+              .row
+                .medium-12.columns{'ng-show'=>'amenity_id1 || amenity_id2 || amenity_id3 || amenity_id4'}
+                  %p Amenities: 
+                  .row{'ng-show'=>'amenity_id1'}
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{amenities[amenity_id1-1].activity}}
+                  .row{'ng-show'=>'amenity_id2'}
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{amenities[amenity_id2-1].activity}}
+                  .row{'ng-show'=>'amenity_id3'}
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{amenities[amenity_id3-1].activity}}
+                  .row{'ng-show'=>'amenity_id4'}
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{amenities[amenity_id4-1].activity}}
+      .medium-4.columns.img-container
+        .img-background
+          .row
+            .medium-12.columns
+              %h2 Living Quarters
+          .row
+            .medium-12.columns
+              =image_tag 'targus.png', :class=>'ship-pic'
+      .medium-4.columns
+        .row.activity-bars{ "ng-repeat"=>"amenity in amenities", 'class'=> '{{amenity.amenityToggle}}', 'ng-click'=>"amenityToggle(amenity.id)"}
+          %div{"ng-click"=>"findAmenityInfo(amenity.id) "}
+            .medium-9.columns
+              %h5.amenity-detail-text
+                {{amenity.activity}}
+            .medium-3.columns
+              %h5.amenity-detail-text
+                {{amenity.price}}
+            .medium-12.columns
+              %p.amenity-detail-text
+                {{amenity.description}}
+        %button{ 'class'=>"btn btn-primary", 'ng-click'=>"addAmenities(amenityData)"}
+          Add Amenities!
