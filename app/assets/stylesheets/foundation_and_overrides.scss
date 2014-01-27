@@ -251,9 +251,9 @@
 // $f-dropdown-border-color: darken(#fff, 20%);
 
 // We use these to style the triangle pip.
-// $f-dropdown-triangle-size: 6px;
+$f-dropdown-triangle-size: 0px;
 // $f-dropdown-triangle-color: #fff;
-// $f-dropdown-triangle-side-offset: 10px;
+$f-dropdown-triangle-side-offset: 0px;
 
 // We use these to control styles for the list elements.
 // $f-dropdown-list-style: none;
@@ -989,5 +989,5 @@
 
 // Sticky Class
 // $topbar-sticky-class: ".sticky";
-// $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
+$topbar-arrows: false; //Set false to remove the triangle icon from the menu item
 @import 'foundation';

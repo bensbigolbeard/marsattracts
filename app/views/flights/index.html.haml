@@ -1,5 +1,10 @@
+/ .row
+/   .vid.small-12.medium-12.large-12.columns
+/     = video_tag "stars.ogv", :autoplay => false, :loop => true
+/ /   / via https://archive.org/details/StarsTimeLapse
+
 .row#landing-search
-  .medium-3.medium-9-offset.columns
+  .medium-4.medium-8-offset.columns
     %a{ :href => '/'}
       %h2.index
         Mars
@@ -19,8 +24,8 @@
             %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
               {{destination.destination}}
           %button{'ng-click'=>"showFlights()"}
-            Get me off this rock!
-
+            Take me to the future!
+            %i{class: "fi-ticket"}
       // Buttons for the sorting of search results 
       .row.ng-cloak.animate-show.repeated-item{ 'ng-hide'=>"amenitiesInfo" }
         .medium-12.columns.top-padding
@@ -40,16 +45,16 @@
           .row
             .small-12.medium-12.columns
               .row.result-header
-                .small-2.medium-2.columns
-                  Price
+                .small-3.medium-3.columns
+                  Flight #
                 .small-3.medium-3.columns
                   Departure
                 .small-3.medium-3.columns
                   Duration
-                .small-2.medium-2.columns
-                  Distance
-                .small-2.medium-2.columns
-                  Flight #
+                  / .small-2.medium-2.columns
+                  / Distance
+                .small-3.medium-3.columns
+                  Price
                   %br
 
           // Rows of flight search results
@@ -57,22 +62,22 @@
             .medium-12.columns
               .row.result-bars{"ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select1.orig, destination_id:select2.dest} | limitTo:5", "class"=>"repeated-item"}
                 %div{"ng-click"=>"findFlightInfo(flight.id)"}  
-                  %ul.small-block-grid-5.result-height
-                    %li
-                      %p.flight-text.flight-text-padding
-                        ${{flight.price}}
-                    %li
-                      %p.flight-text
-                        {{flight.departure_time.slice(0,10)}}
-                    %li
-                      %p.flight-text.flight-text-padding
-                        {{flight.duration}} months
-                    %li
-                      %p.flight-text.distance-width
-                        {{flight.distance}}
+                  %ul.small-block-grid-4.result-height
                     %li
                       %p.flight-text.flight-text-padding
                         {{flight.flight_number}}
+                    %li
+                      %p.flight-text
+                        {{flight.departure_time.slice(5,7)}}/{{flight.departure_time.slice(8,10)}}/{{flight.departure_time.slice(0,4)}}
+                    %li
+                      %p.flight-text.flight-text-padding
+                        {{flight.duration}} months
+                      / %li
+                      / %p.flight-text.distance-width
+                      / {{flight.distance}}
+                    %li
+                      %p.flight-text.flight-text-padding
+                        ${{flight.price}}
             %br
 
     // Specific Flight Information      

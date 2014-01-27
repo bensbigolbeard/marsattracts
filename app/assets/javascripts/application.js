@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require excanvas
+//= require js/jquery.knob
 //= require foundation
 //= require_tree .
 
