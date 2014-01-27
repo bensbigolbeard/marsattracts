@@ -141,7 +141,7 @@ app.controller('MainCtrl', function($scope, $http){
   
   // Global form data to be accessed later by the form on update
   $scope.formData = {
-    first_name: 'Segourney',
+    first_name: 'Sigorney',
     last_name: 'Weaver',
     email: 'AlienGrimReaper@zuul.biz',
     phone: '4d84r6s8f4d584hg',

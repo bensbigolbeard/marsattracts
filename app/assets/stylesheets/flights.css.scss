@@ -45,7 +45,10 @@ video {
 }
 
 .flight-text-padding {
-  padding-left:0px;  
+  padding-left: 0px;
+  padding-top: 25px;
+  font-size: 1.3em;
+  margin-bottom: 5px;
 }
 
 .flight-detail-text {
@@ -90,6 +93,7 @@ hr {
   color:tomato;
   font-size: 1.2em;
   margin-bottom:0;
+  font-weight: 600;
 }
 
 .ship-detail-text{
@@ -252,7 +256,7 @@ input {
   font-size: 1.5em;
   border-radius: 8px 0px;
   transition: background 1s ease;
-  background: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.5);
   padding: 0px;
   &:hover {
     background: rgba(255,255,255,0);
@@ -613,7 +617,21 @@ dd {
   background: -ms-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   background: linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   padding:20px;
+  margin: 0 20px 20px 40px;
+  border-radius: 20px 0;
+}
+
+.flight-card-2 {
+  background: #0e3328;
+  background: -moz-linear-gradient(25deg, #0e3328 7%, #115b5e 50%, #0e3328 87%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(7%,#0e3328), color-stop(50%,#115b5e), color-stop(87%,#0e3328));
+  background: -webkit-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  background: -o-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  background: -ms-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  background: linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  padding:20px;
   margin: 0 20px 50px 40px;
+  border-radius: 20px 0;
 }
 
 .ship-card {
@@ -625,4 +643,12 @@ dd {
 .fl-det-p {
   padding-top: 10px;
   margin-bottom: 8px;
+}
+
+.neg-right-margin-40{
+  margin: 0 -40px 0 0;
+}
+
+.neg-left-margin-20 {
+  margin-left: -20px
 }

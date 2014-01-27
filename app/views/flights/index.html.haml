@@ -54,10 +54,10 @@
                       %p.flight-text.flight-text-padding
                         {{flight.flight_number}}
                     %li
-                      %p.flight-text
+                      %p.flight-text.flight-text-padding.neg-left-margin-20
                         {{flight.departure_time.slice(5,7)}}/{{flight.departure_time.slice(8,10)}}/{{flight.departure_time.slice(0,4)}}
                     %li
-                      %p.flight-text.flight-text-padding
+                      %p.flight-text.flight-text-padding.neg-right-margin-40
                         {{flight.duration}} months
                       / %li
                       / %p.flight-text.distance-width
@@ -99,9 +99,10 @@
             .medium-12.columns.center-text
               %hr
               %hr
+        .flight-card-2
           .row
             .medium-7.columns.right-align
-              %p.fl-detail-headings.fl-det-p SHIP NAME
+              %p.ship-detail-headings.fl-det-p SHIP NAME
               %h3.flight-detail-text {{myShip[0].name}}
               %br
               %br
