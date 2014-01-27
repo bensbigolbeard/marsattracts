@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+gem 'coffee-rails'  # Coffeescript + Rails = BZZZZZZZZ
+gem 'coffee-script' # Coffeescript for something???
 gem 'compass-rails' # For styling
 gem 'figaro' # Figaro for storing mailer credentials
 gem 'forecast_io' # Use to query current weather
@@ -9,7 +11,6 @@ gem 'foundation-rails' #Foundation
 gem 'geocoder' # Use to get coordinates for weather API
 gem 'haml' # Use Haml for templating 
 gem 'jbuilder' # jBuilder for creating JSON objects
-gem 'coffee-script' # Coffeescript for something???
 gem 'mandrill-api' # Mandrill for mailer
 gem 'nokogiri' # Nokogiri for Wolfram API
 gem 'pg' # Use postgresql as the database for Active Record

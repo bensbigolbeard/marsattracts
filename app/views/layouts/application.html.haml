@@ -1,7 +1,7 @@
 !!! 
 %html{"ng-app"=>"mars"}
 %head
-  %title MarsAttracts
+  %title Mars Attracts!
 
   = stylesheet_link_tag "application", media: "all" 
 
@@ -17,6 +17,16 @@
 
 %body#background
   .background
+    .row
+      / .small-12.medium-12.large-12.columns
+      .grid
+        = image_tag "hexgrid.png"
+
+    .row
+      / .vid.small-12.medium-12.large-12.columns
+      = video_tag "stars.ogv", :autoplay => false, :loop => true
+      / via https://archive.org/details/StarsTimeLapse
+
     = yield
     = javascript_include_tag "application" 
     .padding-bottom

@@ -20,7 +20,7 @@ This project was built by students at [MakerSquare](http://themakersquare.com), 
 
 #####Frontend
 - Angular.js
-- Zurb Foundation
+- ZURB Foundation
 - CSS3
 - jQuery
 

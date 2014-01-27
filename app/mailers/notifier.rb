@@ -1,14 +1,14 @@
 class Notifier < ActionMailer::Base
   default from: "the_captain@marsattracts.com"
 
-  def pass_confirm
-      @greeting = "Hi"
-      # @passenger = passenger
+  def pass_confirm(passenger)
+    @greeting = "Ahoy"
+    @passenger = passenger
 
-      mail(:to => "mars.attracts.app@gmail.com",
-             :name => "Passenger",
-             :subject => "You're going to Mars!" 
-             )
+    mail(:to => @passenger.email,
+           :name => @passenger.first_name,
+           :subject => "Your ticket to Mars!" 
+           )
   end
 
 end

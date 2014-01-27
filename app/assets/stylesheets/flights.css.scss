@@ -1,32 +1,51 @@
 @import 'compass';
 // Declaring variables for colors
-$lt-blue: #86B7C2;       // light blue
-$lt-green: #C9D4AE;     // light green
 $white: #FAFAFA;
+$eggshell: #D5D1B4;
+$lt-blue: #86B7C2;
+$turquoise: #208B93;
+$lt-green: #C9D4AE; 
+$bluegreen: #081C1A;
+$salmon: #C28876;
+$clayface: #C6813C;
+$brick: #730B14;
 $brown: #5C3515;
 $near-black: #222422;
 
 // Powered by Angular.js, Slayer, and black coffee
 
-// flight#index page
-.row#landing-search {padding: 0px;}
+// flight/index page
+
+video {
+      position: absolute;
+      z-index: -4;
+      // width: 100%;
+      // height: 100%;
+      background-size: 100% 100%;
+      top: 0;
+      left: 0;
+  }
+
+.row#landing-search {
+  padding: 0px;
+}
 
 .bottom-padding{
   height:300px;
 }
 
 .result-height{
-  height:40px;
+  height:30px;
 }
 
 .flight-text {
-  font-size: .8em;
-  color:white;
+  font-size: 1em;
+  color:$white;
+  text-align: center;
 }
 
 .flight-text-padding {
-  padding-left:20px;
-  
+  padding-left:0px;  
 }
 
 .flight-detail-text {
@@ -49,7 +68,7 @@ hr {
 }
 
 .amenity-detail-text {
-  color:white;
+  color:$white;
   font-family: Open Sans;
   font-weight: 400;
 }
@@ -83,7 +102,7 @@ hr {
 .form-padding {
   margin-bottom:4em;
   h1{
-    color: white;
+    color: $white;
     text-align:center;
   }
 }
@@ -108,7 +127,7 @@ hr {
 }
 .result-bars {
   background: rgba(30,36,40,.5);
-  padding: 0px 10px;
+  padding: 0px 0px;
   margin: 0 0 5px 0 !important;
   &:hover {
     background: rgba(255,255,255,1);
@@ -151,9 +170,9 @@ h2.index{
 button {
   color: $near-black;
   background-color: $white;
-  border-radius: 7px;
+  border-radius: 8px 0px;
   transition: opacity 0.3s; 
-  opacity: 0.7;
+  opacity: 0.9;
   &:hover {
     color: $near-black;
     background-color: $white;
@@ -175,13 +194,16 @@ button {
 
 input {
   background-color: transparent !important; 
-  color:$lt-blue !important;
+  color:$salmon !important;
   font-family: 'Droid', Arial, sans-serif;
+  &:active {
+    background-color: $lt-blue;
+  }
 }
 
 #origin, #destination {
   background-color: transparent; 
-  color:$lt-blue;
+  color:$salmon;
   font-family: 'Droid', Arial, sans-serif;
 }
 
@@ -213,18 +235,22 @@ input {
   // background: $lt-blue;
   font-family: 'Droid', 'Arial', 'sans-serif';
   font-size: 1em;
-  margin-bottom: 5px;
-  border-radius: 9px 9px 0px 0px;
+  margin-bottom: 15px;
   color: $white;
 }
 
 .result-bars {
   font-family: 'Droid', 'Arial', 'sans-serif';
-  transition: background 0.5s ease;
+  font-size: 1.5em;
+  border-radius: 8px 0px;
+  transition: background 1s ease;
   background: rgba(255,255,255,.7);
-  padding: 15px 0px;
+  padding: 0px;
   &:hover {
-    background: rgba(255,255,255,1);
+    background: rgba(255,255,255,0);
+  }
+  &:active {
+    background: rgba(255,255,255,0);
   }
 }
 
@@ -292,7 +318,7 @@ h4.passenger-header {
 .a-flight.ng-hide {
   line-height:0;
   opacity:0;
-  padding:0 10px;
+  padding:0 5px;
 }
 
 // CSS for repeated-item test
