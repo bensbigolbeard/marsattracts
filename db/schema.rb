@@ -45,6 +45,27 @@ ActiveRecord::Schema.define(version: 20140124003326) do
     t.integer  "duration"
   end
 
+  create_table "mars_weathers", force: true do |t|
+    t.string   "terrestrial_date"
+    t.integer  "sol"
+    t.integer  "ls"
+    t.integer  "min_temp"
+    t.integer  "min_temp_fahrenheit"
+    t.integer  "max_temp"
+    t.integer  "max_temp_fahrenheit"
+    t.integer  "pressure"
+    t.string   "pressure_string"
+    t.integer  "abs_humidity"
+    t.integer  "wind_speed"
+    t.string   "wind_direction"
+    t.string   "atmo_opacity"
+    t.string   "season"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "sunrise"
+    t.string   "sunset"
+  end
+
   create_table "origins", force: true do |t|
     t.string   "origin"
     t.datetime "created_at"

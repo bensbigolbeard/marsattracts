@@ -113,7 +113,14 @@ $near-black: #222422;
   border-radius: 10px 10px 10px 0;
   padding: 5px 15px 0 15px;
   margin:  10px 0 !important;
-  
+  &:hover {
+    background: tomato;
+    opacity: .8;
+  }
+  p {
+    font-size: .7em;
+    margin-bottom: .8em;
+  }  
 }
 
 .act-bars-active {
@@ -253,6 +260,11 @@ h1.show {
 h4.passenger-header {
   color: white;
   font-family: 'Droid', 'Arial', 'sans-serif';
+  text-align: center !important;
+}
+
+.btn-center {
+  text-align:center;
 }
 
 // CSS for sliding in the search results
@@ -368,6 +380,71 @@ h4.passenger-header {
   to { opacity:0; }
 }
 
+.info-review-panel {
+  background-color: rgba(30,36,40,.7);
+  padding: 20px 10px 10px 25px ;
+  height: 560px;
+  color: white;
+  h1, h2, h3, h4, h5 {
+    color: tomato;
+  }
+  h1{
+    line-height: 50%;
+    padding-top: 15px;
+  }
+  p {
+    font-size: .8em;
+    margin-bottom: 5px; 
+  }
+}
+
+.ship-pic{
+  width:70%;
+  height:auto;
+}
+
+.img-background{
+  background-color: rgba(255,255,255,.7);
+  text-align: center;
+}
+  
+.img-container{  
+  padding:10px,0px,10px,10px;
+}  
+
+dd {
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 151px;
+  text-align: center;
+}
+
+.tabs dd > a {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.tabs dd.active a {
+  background-color: rgba(30,36,40,.7);
+  color:white;
+}
+
+.tabs dd a {
+  background-color: rgba(255,255,255,0);
+  color:white;
+}
+
+.tabs-content > .content {
+  padding: 0;
+}
+
+.content {
+  width: 100%;
+  .active {
+
+  }
+}
+
 // Kick that flight search off the screen
 
 // .a-flight {
@@ -428,4 +505,27 @@ h4.passenger-header {
   } to {
     width:0%;
   }
+}
+
+.amenity-preview-panel {
+  height:618px;
+  background-color: $lt-blue;
+  text-align: center;
+}
+
+.amenity-preview-text {
+  color: tomato;
+}
+
+.button-pad {
+  margin: 10px 20px;
+  width: 280px;
+}
+
+.center-btns {
+  text-align: center;
+}
+
+.congrats-text {
+  color: white;
 }
