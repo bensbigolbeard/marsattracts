@@ -9,7 +9,7 @@
   .row.ng-cloak
 
     // Search fields that get overlaid by amenities after selecting flight
-    .small-12.medium-6.columns.top-padding{'ng-hide'=>"flightSearch"}
+    .small-12.medium-6.columns{'ng-hide'=>"flightSearch"}
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
         .medium-10.columns
           %select{"ng-model"=>"select1.orig", "id"=>"origin"}
@@ -326,4 +326,10 @@
             Confirm Trip
     .row{"ng-show"=>"tripConfirmed"}
       .medium-12.columns
-        %h1.congrats-text congratulations. you are going to mars! Lift off is in a mere 80 years!
+        %hr
+        %hr
+          .congrats-heading
+            Ahoy, {{ formData.first_name }}!
+          .congrats-text
+            %p= "In a few[ish] short days, you're taking off for Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees."
+

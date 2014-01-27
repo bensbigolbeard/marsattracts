@@ -1,5 +1,6 @@
 var app = angular.module('mars', [ 'dx',
-  'ngAnimate'
+  'ngAnimate',
+  'angularSlideables'
   ]);
 
 app.config([
