@@ -25,10 +25,18 @@
 }
 
 body#background {
+  // position: absolute;
+  // z-index: 0;
+  // background: url('hexgrid.png') repeat 5% 5%;
+  background-color: #222422;
+}
+
+.grid {
   position: absolute;
   z-index: 0;
-  background: url('hexgrid.png') repeat 5% 5%;
-  background-color: #222422;
+  // background: url('hexgrid.png') repeat 5% 5%;
+  background-repeat: repeat-x;
+  width: 100%;
 }
 
 .vid {
