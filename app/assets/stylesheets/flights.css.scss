@@ -39,7 +39,7 @@ video {
 }
 
 .flight-text {
-  font-size: 1em;
+  font-size: .8em;
   color:$white;
   text-align: center;
 }
@@ -56,10 +56,11 @@ video {
   -moz-transform:scale(1,1.7); /* Firefox */
   -ms-transform:scale(1,1.7); /* IE 9 */
   -o-transform:scale(1,1.7); /* Opera */
+  font-size: 1.5em;
 }
 
 h1.flight-detail-text {
-  font-size: 7em;
+  font-size: 5em;
 }
 
 hr {
@@ -71,6 +72,7 @@ hr {
   color:$white;
   font-family: Open Sans;
   font-weight: 400;
+
 }
 
 .amenity-details{
@@ -81,12 +83,18 @@ hr {
 
 .fl-detail-headings{
   color:tomato;
+  font-size: 1.13em;
 }
 
 .ship-detail-headings{
   color:tomato;
   font-size: 1.2em;
   margin-bottom:0;
+}
+
+.ship-detail-text{
+  font-size: 1.2em;
+  margin-bottom:5px;
 }
 
 .fl-margin {
@@ -234,7 +242,7 @@ input {
   // background: rgba(255,255,255,1);
   // background: $lt-blue;
   font-family: 'Droid', 'Arial', 'sans-serif';
-  font-size: 1em;
+  font-size: .8em;
   margin-bottom: 15px;
   color: $white;
 }
@@ -578,7 +586,7 @@ dd {
 }
 
 .neg-margin-top-3 {
-  margin-top: -3px;
+  margin-top: -0.5px;
 }
 
 .no-pad {
@@ -605,11 +613,16 @@ dd {
   background: -ms-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   background: linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   padding:20px;
-  margin: 0 30px 50px 30px;
+  margin: 0 20px 50px 40px;
 }
 
 .ship-card {
 
   height: 258px;
   border-radius: 20px 0;
+}
+
+.fl-det-p {
+  padding-top: 10px;
+  margin-bottom: 8px;
 }
