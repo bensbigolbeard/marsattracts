@@ -141,13 +141,13 @@ app.controller('MainCtrl', function($scope, $http){
   
   // Global form data to be accessed later by the form on update
   $scope.formData = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    address: '',
-    emergency_contact: '',
-    date_of_birth: ''
+    first_name: 'Segourney',
+    last_name: 'Weaver',
+    email: 'AlienGrimReaper@zuul.biz',
+    phone: '4d84r6s8f4d584hg',
+    address: '888 Earth Major Ln',
+    emergency_contact: 'Me, My Bad-ass Self, and I',
+    date_of_birth: '01/01/0001'
   };
 
   // Finds one of 4 amenities, adds it to the associated global variable

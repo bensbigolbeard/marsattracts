@@ -22,33 +22,24 @@
             Get me off this rock!
 
       // Buttons for the sorting of search results 
+      // Header for flight search results
       .row.ng-cloak.animate-show.repeated-item{ 'ng-hide'=>"amenitiesInfo" }
-        .medium-12.columns.top-padding
-          %div.animate-show.repeated-item{"ng-show"=>"revealSearch"}
-            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()", "value"=>"price"}
-              price 
-              %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
-            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()", "value"=>"departure_time"}
-              date
-              %i#dateToggle{ 'class' => 'fi-arrow-{{dateArrow}}'}
-            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()", "value"=>"duration"}
-              duration
-              %i#durationToggle{ 'class' => 'fi-arrow-{{durationArrow}}'}
-
-        // Header for flight search results
         .flight-search.animate-show.repeated-item{"ng-show"=>"revealSearch"}
           .row
             .small-12.medium-12.columns
               .row.result-header
-                .small-2.medium-2.columns
+                .small-2.medium-2.columns.no-pad-right{'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()"}
                   Price
-                .small-3.medium-3.columns
+                  %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
+                .small-3.medium-3.columns{'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()"}
                   Departure
-                .small-3.medium-3.columns
+                  %i#dateToggle{ 'class' => 'fi-arrow-{{dateArrow}}'}
+                .small-3.medium-3.columns{'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()"}
                   Duration
-                .small-2.medium-2.columns
+                  %i#durationToggle{ 'class' => 'fi-arrow-{{durationArrow}}'}
+                .small-2.medium-2.columns.no-pad-left
                   Distance
-                .small-2.medium-2.columns
+                .small-2.medium-2.columns.no-pad-left
                   Flight #
                   %br
 
@@ -136,7 +127,7 @@
       
 
       %div{'ng-hide'=>'updateInfo'}  
-        %div{'ng-hide'=>'amenitiesInfo'}  
+        %div{'ng-hide'=>'bookFlight'}  
           %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
             Book My Flight
             %i{ 'class' => 'fi-arrow-right'}
@@ -160,36 +151,36 @@
             %div{ 'ng-hide'=>'tripConfirmed'}  
               .row
                 .medium-6.columns
-                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250"}
+                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.first_name", 'placeholder'=>"First Name", 'maxlength'=>"250", 'ng-value'=>'{{formData.first_name}}'}
                 .medium-6.columns
-                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
+                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.last_name", 'placeholder'=>"Last Name", 'maxlength'=>"250"}
               .row
                 .medium-12.columns
-                  %input{ 'type'=>"date", 'class'=>"span12", 'ng-model'=>"passengerData.date_of_birth", 'placeholder'=>"Stardate of Birth", 'maxlength'=>"250"}
+                  %input{ 'type'=>"date", 'class'=>"span12", 'ng-model'=>"formData.date_of_birth", 'placeholder'=>"Stardate of Birth", 'maxlength'=>"250"}
               .row
                 .medium-6.columns
-                  %input{ 'type'=>"email", 'class'=>"span12", 'ng-model'=>"passengerData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
+                  %input{ 'type'=>"email", 'class'=>"span12", 'ng-model'=>"formData.email", 'placeholder'=>"Email", 'maxlength'=>"250"}
                 .medium-6.columns
-                  %input{ 'type'=>"tel", 'class'=>"span12", 'ng-model'=>"passengerData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
+                  %input{ 'type'=>"tel", 'class'=>"span12", 'ng-model'=>"formData.phone", 'placeholder'=>"Phone", 'maxlength'=>"250"}
               .row
                 .medium-12.columns
-                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
+                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.address", 'placeholder'=>"Address", 'maxlength'=>"250"}
               .row
                 .medium-12.columns
-                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
+                  %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"formData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
         // Submit buttons
         .row
           .medium-11.medium-offset-1.columns    
             .row{ 'ng-show'=>'updateInfo'}
-            // Create passenger submit button
-            .row{ 'ng-hide'=>'amenitiesInfo; updateInfo'}
-              .medium-12.columns.medium-centered.btn-center    
-                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData); viewAmenities()"}
-                  Book!
               // Update passenger submit button
-              .medium-12.columns.medium-centered.btn-center{"ng-hide"=>"tripConfirmed; bookFlight"}   
-                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"congratsPage(); updatePassenger(passengerData); addAmenities(amenityData); "}
+              .medium-12.columns.medium-centered.btn-center{"ng-hide"=>"tripConfirmed"}   
+                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"congratsPage(); updatePassenger(formData); addAmenities(amenityData)", 'ng-show'=>'updateInfo'}
                   Update your info!
+            .row
+              // Create passenger submit button
+              .medium-12.columns.medium-centered.btn-center{ 'ng-hide'=>"updateInfo"}   
+                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(formData); viewAmenities()"}
+                  Book!
           // Hidden fields for adding Amenities to trip
           .medium-7.columns
             .row
@@ -259,7 +250,7 @@
                       %h5 {{formData.emergency_contact}}
               
           #panel2-2.content
-          // Info panel 2
+            // Info panel 2
             .info-review-panel
               .row
                 .medium-5.columns
