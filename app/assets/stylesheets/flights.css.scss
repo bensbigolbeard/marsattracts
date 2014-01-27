@@ -1,15 +1,23 @@
 @import 'compass';
 // Declaring variables for colors
-$lt-blue: #86B7C2;       // light blue
-$lt-green: #C9D4AE;     // light green
 $white: #FAFAFA;
+$eggshell: #D5D1B4;
+$lt-blue: #86B7C2;
+$turquoise: #208B93;
+$lt-green: #C9D4AE; 
+$bluegreen: #081C1A;
+$salmon: #C28876;
+$clayface: #C6813C;
+$brick: #730B14;
 $brown: #5C3515;
 $near-black: #222422;
 
 // Powered by Angular.js, Slayer, and black coffee
 
 // flight#index page
-.row#landing-search {padding: 0px;}
+.row#landing-search {
+  padding: 0px;
+}
 
 .bottom-padding{
   height:300px;
@@ -21,20 +29,19 @@ $near-black: #222422;
 
 .flight-text {
   font-size: .8em;
-  color:white;
+  color:$white;
 }
 
 .flight-text-padding {
-  padding-left:20px;
-  
+  padding-left:20px;  
 }
 
 .flight-detail-text {
-  color:white;
+  color:$white;
 }
 
 .amenity-detail-text {
-  color:white;
+  color:$white;
   font-family: Open Sans;
   font-weight: 400;
 }
@@ -58,7 +65,7 @@ $near-black: #222422;
 .form-padding {
   margin-bottom:4em;
   h1{
-    color: white;
+    color: $white;
     text-align:center;
   }
 }
