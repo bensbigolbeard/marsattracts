@@ -79,7 +79,7 @@
 
     .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>'amenitiesInfo; '}
       %div.flight-text{'class'=>'a-flight', 'ng-show'=>"myFlight"}
-        .flight-card{ 'ng-hide'=>'updateInfo; bookFlight'}
+        .flight-card{ 'ng-hide'=>'updateInfo;pickItButton; bookFlight','ng-click'=>"hideFlightSearch()"}
           .row
             .medium-4.columns.center-text.no-pad-right
               %hr
@@ -108,22 +108,23 @@
               %hr
               %hr
           .row
-            .medium-7.columns
+            .medium-7.columns.right-align
               %p.fl-detail-headings Ship Name
               %h3.flight-detail-text {{myShip[0].name}}
               %br
               %br
-              %p.ship-detail-headings PLATING STYLE
-              %span.ship-detail-text {{myShip[0].plating}}
-              %br
-              %p.ship-detail-headings PROPULSION SYSTEM
-              %span.ship-detail-text {{myShip[0].propulsion}}
-              %br
-              %p.ship-detail-headings SPEED
-              %span.ship-detail-text {{myShip[0].speed}} m/s
-              %br
-              %p.ship-detail-headings CAPACITY
-              %span.ship-detail-text {{myShip[0].capacity}} passengers
+              .ship-card
+                %p.ship-detail-headings PLATING STYLE
+                %span.ship-detail-text {{myShip[0].plating}}
+                %br
+                %p.ship-detail-headings PROPULSION SYSTEM
+                %span.ship-detail-text {{myShip[0].propulsion}}
+                %br
+                %p.ship-detail-headings SPEED
+                %span.ship-detail-text {{myShip[0].speed}} m/s
+                %br
+                %p.ship-detail-headings CAPACITY
+                %span.ship-detail-text {{myShip[0].capacity}} passengers
             .medium-5.columns.center-text
               =image_tag 'targus_full.png', :class=>'ship-pic-1'
           .row
@@ -143,10 +144,8 @@
     // Graph placeholder for weather
     .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
       %div{"ng-controller" => "ChartCtrl"}
-        %div{"dx-chart" => "chartOptions", 'ng-show'=>'myFlight'}
+        %div{"dx-chart" => "chartOptions", 'ng-show'=>'flightSearch'}
 
-      %button{'ng-click'=>"hideFlightSearch()", 'ng-hide'=>'pickItButton'}
-        Pick this flight!
    
     // Form for passenger booking
   %div.ng-cloak{ 'ng-show'=>"bookFlight" }
