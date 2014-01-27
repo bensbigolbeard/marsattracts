@@ -30,15 +30,15 @@
       .row.ng-cloak.animate-show.repeated-item{ 'ng-hide'=>"amenitiesInfo" }
         .medium-12.columns.top-padding
           %div.animate-show.repeated-item{"ng-show"=>"revealSearch"}
-            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()", "value"=>"price"}
-              price 
-              %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()", "value"=>"departure_time"}
-              date
+              departure
               %i#dateToggle{ 'class' => 'fi-arrow-{{dateArrow}}'}
             %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()", "value"=>"duration"}
               duration
               %i#durationToggle{ 'class' => 'fi-arrow-{{durationArrow}}'}
+            %button{ 'class'=>"btn btn-warning", 'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()", "value"=>"price"}
+              price 
+              %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
 
         // Header for flight search results
         .flight-search.animate-show.repeated-item{"ng-show"=>"revealSearch"}
