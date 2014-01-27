@@ -335,15 +335,23 @@ app.controller('MainCtrl', function($scope, $http){
 
 
 
-app.controller('ChartCtrl', function ($scope, $http) {
-  $scope.weather = [];
-    $http.get('/marsweathers.json').success(function(data){
-      $scope.weather = data;
-  });
-
-
+// Populates the chart with dummy data for now
+app.controller('ChartCtrl', function ($scope) {
   $scope.chartOptions = {
-    dataSource: $scope.weather,
+    dataSource: [
+    {
+        year: 1950, costs: 34
+    },
+    {
+        year: 1951, costs: 37
+    },
+    {
+        year: 1952, costs: 23
+    },
+    {
+        year: 1953, costs: 63
+    }
+    ],
         series: {valueField: 'costs', argumentField: 'year'} 
     };
 });
