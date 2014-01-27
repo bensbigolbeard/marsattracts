@@ -177,16 +177,20 @@
               .row
                 .medium-12.columns
                   %input{ 'type'=>"text", 'class'=>"span12", 'ng-model'=>"passengerData.emergency_contact", 'placeholder'=>"Emergency Contact", 'maxlength'=>"250"}
+        // Submit buttons
         .row
           .medium-11.medium-offset-1.columns    
             .row{ 'ng-show'=>'updateInfo'}
-              .medium-12.columns.medium-centered.btn-center{"ng-hide"=>"tripConfirmed; bookFlight"}   
-                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"congratsPage(); updatePassenger(passengerData); addAmenities(amenityData); "}
-                  Update your info!
+            // Create passenger submit button
             .row{ 'ng-hide'=>'amenitiesInfo; updateInfo'}
               .medium-12.columns.medium-centered.btn-center    
                 %button{ 'class'=>"btn btn-primary", 'ng-click'=>"createPassenger(passengerData); viewAmenities()"}
                   Book!
+              // Update passenger submit button
+              .medium-12.columns.medium-centered.btn-center{"ng-hide"=>"tripConfirmed; bookFlight"}   
+                %button{ 'class'=>"btn btn-primary", 'ng-click'=>"congratsPage(); updatePassenger(passengerData); addAmenities(amenityData); "}
+                  Update your info!
+          // Hidden fields for adding Amenities to trip
           .medium-7.columns
             .row
               .medium-12.columns
@@ -201,7 +205,7 @@
               .medium-12.columns
                 %input{ 'type'=>"hidden", 'class'=>"span12", 'ng-value'=>"amenity_id4",  'maxlength'=>"250"}    
             
-    // Amenities that are shown on button click
+    // Passenger information panel after form submit
     
     .row.ng-cloak{ 'ng-show'=>"amenitiesInfo"}
       .medium-4.columns{'ng-hide'=>'tripConfirmed'}
@@ -211,6 +215,7 @@
           %dd
             %a{ "href"=>"#panel2-2"} Flight Info
         .tabs-content
+          // Info panel 1
           #panel2-1.content.active
             .medium-12.columns.info-review-panel
               
@@ -254,6 +259,7 @@
                       %h5 {{formData.emergency_contact}}
               
           #panel2-2.content
+          // Info panel 2
             .info-review-panel
               .row
                 .medium-5.columns
@@ -300,6 +306,7 @@
                   .row
                     .medium-10.columns.medium-offset-2
                       %h3 {{myShip[0].speed}}
+              // Auto-populating list of selected Amenities
               .row
                 .medium-12.columns{'ng-show'=>'amenity_id1 || amenity_id2 || amenity_id3 || amenity_id4'}
                   %p Amenities: 
@@ -315,6 +322,7 @@
                   .row{'ng-show'=>'amenity_id4'}
                     .medium-10.columns.medium-offset-1
                       %h5 {{amenities[amenity_id4-1].activity}}
+      // Ship diagram indicating seating arrangement
       .medium-4.columns.img-container{'ng-hide'=>'tripConfirmed'}
         .img-background
           .row
@@ -323,12 +331,14 @@
           .row
             .medium-12.columns
               =image_tag 'targus.png', :class=>'ship-pic'
+      // Amenity preview button
       .medium-4.columns{'ng-hide'=>'tripConfirmed'}
         .amenity-preview-panel{"ng-click"=>"showAmenities()", "ng-hide"=>"amenityList"}
           .amenity-preview-text
             %h1 View
             %h1 Available
             %h1 Amenities
+        // Amenity list
         .row.activity-bars{ "ng-show"=>"amenityList", "ng-repeat"=>"amenity in amenities", 'class'=> '{{amenity.amenityToggle}}', 'ng-click'=>"amenityToggle(amenity.id)"}
           %div{"ng-click"=>"findAmenityInfo(amenity.id) "}
             .medium-9.columns
@@ -342,10 +352,13 @@
                 {{amenity.description}}
       .row{'ng-hide'=>'tripConfirmed'}
         .medium-12.columns.center-text
+          // Button brings back the form for information updating
           %button{ 'class'=>"btn btn-primary button-pad", 'ng-click'=>"showUpdateForm(); viewAmenities()"}
             Update Your Info
+          // Button sumbits amenities and brings you to the congrats page
           %button{ 'class'=>"btn btn-primary button-pad", 'ng-click'=>"addAmenities(amenityData); congratsPage()"}
             Confirm Trip
+    // Confirm trip/Congrats page
     .row{"ng-show"=>"tripConfirmed"}
       .medium-12.columns
         %h1.congrats-text congratulations. you are going to mars! Lift off is in a mere 80 years!
