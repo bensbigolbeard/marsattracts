@@ -31,6 +31,21 @@ $near-black: #222422;
 
 .flight-detail-text {
   color:white;
+  font-weight: 600;
+  transform:scale(1,1.7); /* W3C */
+  -webkit-transform:scale(1,1.7); /* Safari and Chrome */
+  -moz-transform:scale(1,1.7); /* Firefox */
+  -ms-transform:scale(1,1.7); /* IE 9 */
+  -o-transform:scale(1,1.7); /* Opera */
+}
+
+h1.flight-detail-text {
+  font-size: 7em;
+}
+
+hr {
+  margin:5px auto;
+
 }
 
 .amenity-detail-text {
@@ -49,6 +64,16 @@ $near-black: #222422;
   color:tomato;
 }
 
+.ship-detail-headings{
+  color:tomato;
+  font-size: 1.2em;
+  margin-bottom:0;
+}
+
+.fl-margin {
+  margin-bottom: 15px;
+}
+
 .dateselect select {
   width:32.55%;
   background-color: transparent; 
@@ -61,14 +86,6 @@ $near-black: #222422;
     color: white;
     text-align:center;
   }
-}
-
-
-.flight-details {
-  background-color: rgba(30,36,40,.5);
-  height:160px !important;
-  text-align: center;
-  margin: 5px 0;
 }
 
 .width-90 {
@@ -396,6 +413,15 @@ h4.passenger-header {
   height:auto;
 }
 
+.ship-pic-1{
+  width:100%;
+  height:auto;
+}
+
+.right-align{
+  text-align: right;
+}
+
 .img-background{
   background-color: rgba(255,255,255,.7);
   text-align: center;
@@ -515,10 +541,42 @@ dd {
   width: 280px;
 }
 
-.center-btns {
+.center-text {
   text-align: center;
 }
 
+.vert-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.neg-margin-top-3 {
+  margin-top: -3px;
+}
+
+.no-pad {
+  padding: 0; 
+}
+
+.no-pad-left {
+  padding-left: 0; 
+}
+
+.no-pad-right {
+  padding-right: 0; 
+}
 .congrats-text {
   color: white;
+}
+
+.flight-card {
+  background: #c6813c;
+  background: -moz-linear-gradient(25deg, #c6813c 16%, #9e2611 50%, #730b14 88%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(16%,#c6813c), color-stop(50%,#9e2611), color-stop(88%,#730b14));
+  background: -webkit-linear-gradient(25deg, #c6813c 16%,#9e2611 50%,#730b14 88%);
+  background: -o-linear-gradient(25deg, #c6813c 16%,#9e2611 50%,#730b14 88%);
+  background: -ms-linear-gradient(25deg, #c6813c 16%,#9e2611 50%,#730b14 88%);
+  background: linear-gradient(25deg, #c6813c 16%,#9e2611 50%,#730b14 88%);
+  padding:20px;
 }

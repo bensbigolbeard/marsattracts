@@ -79,35 +79,56 @@
 
     .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>'amenitiesInfo; '}
       %div.flight-text{'class'=>'a-flight', 'ng-show'=>"myFlight"}
-        %ul.small-block-grid-3{ 'ng-hide'=>'updateInfo; bookFlight'}
-          %li.columns
-            .flight-details
-              .row
-                .medium-12.columns
-                  %h3.fl-detail-headings Route Number
-              .row
-                .medium-12.columns
-                  %h3.flight-detail-text {{myFlight[0].flight_number}}
-          %li.columns
-            .flight-details
-              .row
-                .medium-12.columns
-                  %h3.fl-detail-headings Flight ID
-              .row
-                .medium-12.columns
-                  %h3.flight-detail-text {{myFlight[0].ship_id}}
-          %li.columns
-            .flight-details
-              .row
-                .medium-12.columns
-                  %h3.fl-detail-headings Ship Name
-              .row
-                .medium-12.columns
-                  %h3.flight-detail-text {{myShip[0].name}}
+        .flight-card{ 'ng-hide'=>'updateInfo; bookFlight'}
+          .row
+            .medium-4.columns.center-text.no-pad-right
+              %hr
+              %hr
+            .medium-4.columns.center-text.no-pad
+              %h5.fl-detail-headings.neg-margin-top-3 FLIGHT NUMBER
+            .medium-4.columns.center-text.no-pad-left
+              %hr
+              %hr
+          .row
+            .medium-12.columns.center-text
+              %h1.flight-detail-text.fl-margin {{myFlight[0].flight_number}}
+          .row
+            .medium-12.columns.center-text
+              %hr
+              %hr
+          .row
+            .medium-6.columns.center-text
+              %p.fl-detail-headings LAUNCH SITE
+              %h3.flight-detail-text {{origins[myFlight[0].origin_id].origin}}
+            .medium-6.columns.center-text
+              %p.fl-detail-headings MARTIAN COLONY
+              %h3.flight-detail-text.fl-margin {{destinations[myFlight[0].destination_id].destination}}
+          .row
+            .medium-12.columns.center-text
+              %hr
+              %hr
+          .row
+            .medium-7.columns
+              %p.fl-detail-headings Ship Name
+              %h3.flight-detail-text {{myShip[0].name}}
+              %br
+              %br
+              %p.ship-detail-headings PLATING STYLE
+              %span.ship-detail-text {{myShip[0].plating}}
+              %br
+              %p.ship-detail-headings PROPULSION SYSTEM
+              %span.ship-detail-text {{myShip[0].propulsion}}
+              %br
+              %p.ship-detail-headings SPEED
+              %span.ship-detail-text {{myShip[0].speed}} m/s
+              %br
+              %p.ship-detail-headings CAPACITY
+              %span.ship-detail-text {{myShip[0].capacity}} passengers
+            .medium-5.columns.center-text
+              =image_tag 'targus_full.png', :class=>'ship-pic-1'
+          .row
+            .medium-12.columns
 
-
-        %button{'ng-click'=>"hideFlightSearch()", 'ng-hide'=>'pickItButton'}
-          Pick this flight!
 
     // Collecting the buttons for showing amenities and booking form
     .small-6.medium-6.columns
@@ -124,6 +145,8 @@
       %div{"ng-controller" => "ChartCtrl"}
         %div{"dx-chart" => "chartOptions", 'ng-show'=>'myFlight'}
 
+      %button{'ng-click'=>"hideFlightSearch()", 'ng-hide'=>'pickItButton'}
+        Pick this flight!
    
     // Form for passenger booking
   %div.ng-cloak{ 'ng-show'=>"bookFlight" }
@@ -319,7 +342,7 @@
               %p.amenity-detail-text
                 {{amenity.description}}
       .row{'ng-hide'=>'tripConfirmed'}
-        .medium-12.columns.center-btns
+        .medium-12.columns.center-text
           %button{ 'class'=>"btn btn-primary button-pad", 'ng-click'=>"showUpdateForm(); viewAmenities()"}
             Update Your Info
           %button{ 'class'=>"btn btn-primary button-pad", 'ng-click'=>"addAmenities(amenityData); congratsPage()"}
