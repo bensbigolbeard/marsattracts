@@ -1,6 +1,7 @@
 namespace :mars_weather do
   desc "scrape the mars weather api into our db"
   task scrape: :environment do
+    
     i = 1
 
     counter = [0]

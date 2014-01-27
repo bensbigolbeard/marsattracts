@@ -47,12 +47,13 @@
   .small-5.small-offset-7.columns
     .book_it
       = link_to "Book!", new_flight_passenger_path( :flight_id => params[:id])
-  
-  = @mars_weather.find_by_id(196)
-
+      - forecast = ForecastIO.forecast(30.2351, -97.7502, time: Time.new(2013, 12, 25).to_i)
+      = forecast.daily.data[0].temperatureMin
+      = forecast.daily.data[0].temperatureMax
 / , value: "#{ForecastIO.forecast(@lat, @long).currently.cloudCover}"
 / , value: "#{ForecastIO.forecast(@lat, @long).currently.humidity}"
 / , value: "#{ForecastIO.forecast(@lat, @long).currently.precipIntensity}"
+
 
 / .small-3.columns
 /   Closest Storm
