@@ -14,7 +14,7 @@ $near-black: #222422;
 
 // Powered by Angular.js, Slayer, and black coffee
 
-// flight#index page
+// flight/index page
 
 video {
       position: absolute;
@@ -39,23 +39,42 @@ video {
 }
 
 .flight-text {
-  font-size: 1em;
+  font-size: .8em;
   color:$white;
   text-align: center;
 }
 
 .flight-text-padding {
-  padding-left:0px;  
+  padding-left: 0px;
+  padding-top: 25px;
+  font-size: 1.3em;
+  margin-bottom: 5px;
 }
 
 .flight-detail-text {
-  color:$white;
+  color:white;
+  font-weight: 600;
+  transform:scale(1,1.7); /* W3C */
+  -webkit-transform:scale(1,1.7); /* Safari and Chrome */
+  -moz-transform:scale(1,1.7); /* Firefox */
+  -ms-transform:scale(1,1.7); /* IE 9 */
+  -o-transform:scale(1,1.7); /* Opera */
+  font-size: 1.5em;
+}
+
+h1.flight-detail-text {
+  font-size: 5em;
+}
+
+hr {
+  margin:5px auto;
 }
 
 .amenity-detail-text {
   color:$white;
   font-family: Open Sans;
   font-weight: 400;
+
 }
 
 .amenity-details{
@@ -66,6 +85,23 @@ video {
 
 .fl-detail-headings{
   color:tomato;
+  font-size: 1.13em;
+}
+
+.ship-detail-headings{
+  color:tomato;
+  font-size: 1.2em;
+  margin-bottom:0;
+  font-weight: bold;
+}
+
+.ship-detail-text{
+  font-size: 1.2em;
+  margin-bottom:5px;
+}
+
+.fl-margin {
+  margin-bottom: 15px;
 }
 
 hr {
@@ -84,13 +120,6 @@ hr {
     color: $white;
     text-align:center;
   }
-}
-
-.flight-details {
-  background-color: rgba(30,36,40,.5);
-  height:160px !important;
-  text-align: center;
-  margin: 5px 0;
 }
 
 .width-90 {
@@ -133,7 +162,7 @@ hr {
     opacity: .8;
   }
   p {
-    font-size: .7em;
+    font-size: .88em;
     margin-bottom: .8em;
   }  
 }
@@ -216,12 +245,13 @@ input {
   }
 }
 
-.row.result-header {
+ul.result-header {
   // background: rgba(255,255,255,1);
   // background: $lt-blue;
   font-family: 'Droid', 'Arial', 'sans-serif';
-  font-size: 1em;
-  margin-bottom: 15px;
+  font-size: .8em;
+  margin-left: 20px;
+
   color: $white;
 }
 
@@ -230,8 +260,9 @@ input {
   font-size: 1.5em;
   border-radius: 8px 0px;
   transition: background 1s ease;
-  background: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.5);
   padding: 0px;
+
   &:hover {
     background: rgba(255,255,255,0);
   }
@@ -307,12 +338,6 @@ h4.passenger-header {
   padding:0 5px;
 }
 
-
-
-
-
-
-
 .testing.ng-enter, .testing.ng-leave {
   -webkit-transition:0.5s linear all;
   transition:0.5s linear all;
@@ -322,9 +347,6 @@ h4.passenger-header {
 .testing.ng-enter-active { opacity: 1; } /* terminal animations for enter */
 .testing.ng-leave { opacity: 1;} /* starting animations for leave */
 .testing.ng-leave-active { opacity: 0;} /* terminal animations for remove */
-
-
-
 
 // CSS for repeated-item test
 
@@ -442,6 +464,15 @@ h4.passenger-header {
   height:auto;
 }
 
+.ship-pic-1{
+  width:auto;
+  max-height:350px;
+}
+
+.right-align{
+  text-align: right;
+}
+
 .img-background{
   background-color: rgba(255,255,255,.7);
   text-align: center;
@@ -555,7 +586,7 @@ dd {
   width: 280px;
 }
 
-.center-btns {
+.center-text {
   text-align: center;
 }
 
@@ -566,8 +597,99 @@ dd {
   padding-bottom: 20px;
 }
 
+.vert-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.neg-margin-top-3 {
+  margin-top: -0.5px;
+}
+
+.no-pad {
+  padding: 0; 
+}
+
+.no-pad-left {
+  padding-left: 0; 
+}
+
+.no-pad-right {
+  padding-right: 0; 
+}
 .congrats-text {
   color: white;
   font-size: 1em;
   font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.flight-card {
+  background: #730b14;
+  background: -moz-linear-gradient(25deg, #730b14 4%, #9e2611 50%, #730b14 88%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(4%,#730b14), color-stop(50%,#9e2611), color-stop(88%,#730b14));
+  background: -webkit-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
+  background: -o-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
+  background: -ms-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
+  background: linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
+  padding:20px;
+  margin: 0 20px 20px 40px;
+  border-radius: 20px 0;
+}
+
+.flight-card-2 {
+  background: #0e3328;
+  background: -moz-linear-gradient(25deg, #0e3328 7%, #115b5e 50%, #0e3328 87%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(7%,#0e3328), color-stop(50%,#115b5e), color-stop(87%,#0e3328));
+  background: -webkit-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  background: -o-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  background: -ms-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  background: linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
+  padding:20px;
+  margin: 0 20px 50px 40px;
+  border-radius: 20px 0;
+}
+
+.ship-card {
+
+  height: 258px;
+  border-radius: 20px 0;
+}
+
+.fl-det-p {
+  padding-top: 10px;
+  margin-bottom: 8px;
+}
+
+.neg-right-margin-40{
+  margin: 0 -40px 0 0;
+}
+
+.neg-left-margin-20 {
+  margin-left: -20px
+}
+
+.padding-right {
+  margin-right: 20px;
+}
+
+.weather-text {
+  color: white;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.mars-weather-band {
+  height: 600px;
+  width: 100%;
+  padding:20px;
+  margin: 0 20px 50px 40px;
+  border-radius: 20px 0;
+  border: 3px solid tomato;
+  /*background: #01010f;*/
+/*  border: -moz-linear-gradient(25deg, #01010f 10%, #091516 56%, #01010f 100%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(10%,#01010f), color-stop(56%,#091516), color-stop(100%,#01010f));
+  background: -webkit-linear-gradient(45deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: -o-linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: -ms-linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);*/
 }

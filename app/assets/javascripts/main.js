@@ -80,10 +80,11 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.amenityList = null;
   $scope.tripConfirmed = null;
 
-  $scope.flightDateConversion = function(flightDate){
-    new Date(flightDate);
-  };
+  // $scope.flightDateConversion = function(flightDate){
+  //   new Date(flightDate);
+  // };
 
+  // Various toggles
   $scope.priceArwToggle = function(){
     if ($scope.priceArrow === 'down'){
       $scope.priceArrow = 'up';
@@ -138,16 +139,19 @@ app.controller('MainCtrl', function($scope, $http){
     $scope.myShip = myShip;
   };
   
+  // Global form data to be accessed later by the form on update
   $scope.formData = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    address: '',
-    emergency_contact: '',
-    date_of_birth: ''
+    first_name: 'Sigorney',
+    last_name: 'Weaver',
+    email: 'AlienGrimReaper@zuul.biz',
+    phone: '4d84r6s8f4d584hg',
+    address: '888 Earth Major Ln',
+    emergency_contact: 'Me, My Bad-ass Self, and I',
+    date_of_birth: '01/01/0001'
   };
 
+  // Finds one of 4 amenities, adds it to the associated global variable
+  // which then populates the hidden field. 
   $scope.findAmenityInfo= function(amenityId){
     
     if ($scope.amenities[0].id === amenityId) {
@@ -188,6 +192,8 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.revealSearch = false;
     }
   };
+
+// Brings back the form fields and the new Update submit button
 
   $scope.showUpdateForm = function () {
     if ($scope.updateInfo !== true) {
@@ -237,7 +243,8 @@ app.controller('MainCtrl', function($scope, $http){
     }
   };
 
-// Toggle trip overview page
+// Toggle trip overview page. Needs renaming to aviod confusion with showAmenities,
+// since this now shows the Update-or-confirm view
 
   $scope.viewAmenities = function(){
     if ($scope.amenitiesInfo !== true){
@@ -257,7 +264,7 @@ app.controller('MainCtrl', function($scope, $http){
     }
   };
 
-// show congrats page
+// Show congrats page
 
   $scope.congratsPage = function(){
     if ($scope.tripConfirmed !== true){
@@ -345,36 +352,33 @@ app.controller('MainCtrl', function($scope, $http){
     var flightId = $scope.myFlight[0].id;
 
     // Grab passenger form data
-      var passengerData = {
-        first_name: passData.first_name,
-        last_name: passData.last_name,
-        date_of_birth: passData.date_of_birth,
-        email: passData.email,
-        phone: passData.phone,
-        address: passData.address,
-        emergency_contact: passData.emergency_contact
-      };
+    var passengerData = {
+      first_name: passData.first_name,
+      last_name: passData.last_name,
+      date_of_birth: passData.date_of_birth,
+      email: passData.email,
+      phone: passData.phone,
+      address: passData.address,
+      emergency_contact: passData.emergency_contact
+    };
 
-      $scope.formData = passengerData;
+    $scope.formData = passengerData;
 
-    // Send formdata via post request 
-      $http.post('flights/'+ flightId +'/passengers.json', passengerData).success(function(passengerData) {
-        $scope.passengers.push(passengerData);
-        return console.log('Successfully created passenger.');
-      }).error(function() {
-        return console.error('Failed to create new passenger.');
-      });
+  // Send formdata via post request 
+    $http.post('flights/'+ flightId +'/passengers.json', passengerData).success(function(passengerData) {
+      $scope.passengers.push(passengerData);
+      return console.log('Successfully created passenger.');
+    }).error(function() {
+      return console.error('Failed to create new passenger.');
+    });
 
-      return true;
+    return true;
 
   };
 
-  $scope.confirmTrip = function(data) {
-    // this action will take place with the sending of the trip update info
-  };
-  
 });
 
+// Populates the chart with dummy data for now
 app.controller('ChartCtrl', function ($scope) {
   $scope.chartOptions = {
     dataSource: [
