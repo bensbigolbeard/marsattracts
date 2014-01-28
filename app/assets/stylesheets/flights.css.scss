@@ -19,8 +19,8 @@ $pinky: #a33a33;
 // flight#index page
 
 .search-container {
-  width:100%;
-  padding: 0 25%;
+  margin: 0 -25% 0 25%;
+  /*padding: 0 25%;*/
 }
 
 .flightSearch {
@@ -75,6 +75,7 @@ video {
 
 h1.flight-detail-text {
   font-size: 5em;
+  line-height: 80%;
 }
 
 hr {
@@ -329,6 +330,10 @@ h4.passenger-header {
   text-align: center !important;
 }
 
+.align-right {
+  text-align: left;
+}
+
 .btn-center {
   text-align:center;
 }
@@ -564,11 +569,14 @@ dd {
 
 @-moz-keyframes slideOut {
   from {
-    left:0;
-    width:100%;
+     left:0;
+    width:50%;
   } to {
-    margin-left:-100%;
+    left:-100%;
     width:0%;
+    /*display: none;*/
+    overflow: hidden;
+    padding:0;
   }
 }
 
@@ -579,8 +587,9 @@ dd {
   } to {
     left:-100%;
     width:0%;
-    // display: none;
+    /*display: none;*/
     overflow: hidden;
+    padding:0;
   }
 }
 
@@ -594,26 +603,51 @@ dd {
 
 @-moz-keyframes slideOver {
   from {
-    width:100%;
-    padding: 0 25%;
+
   } to {
-    margin-left:0;
-    width:50%;
+    margin:0;
   }
 }
 
 @-webkit-keyframes slideOver {
   from {
-    width:100%;
-    padding: 0 25%;
+
   } to {
-    margin-left:0;
-    width:50%;
-    /*display: none;*/
-    /*overflow: hidden;*/
+    margin: 0 ;
   }
 }
 
+.flightCard-enter, .chart-enter { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: slideCardOver;
+  -webkit-animation-name: slideCardOver;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes slideCardOver {
+  from {
+
+  } to {
+    margin:0;
+  }
+}
+
+@-webkit-keyframes slideCardOver {
+  from {
+    
+  } to {
+    margin:0;
+  }
+}
+
+.chart{
+  margin-right: -100%;
+}
+
+.flight-card-cont{
+  margin-right: -100%;
+}
 .amenity-preview-panel {
   height:618px;
   background-color: $lt-blue;

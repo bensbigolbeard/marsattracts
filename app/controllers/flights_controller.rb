@@ -3,6 +3,7 @@ class FlightsController < ApplicationController
     @flights = Flight.all
     @origins = Origin.all
     @destinations = Destination.all
+    ForecastIO.api_key = ENV['FORECAST_IO_KEY']
     if params[:search_origin].nil?
 
     else
