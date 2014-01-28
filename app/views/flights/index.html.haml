@@ -23,25 +23,23 @@
             %i{class: "fi-ticket"}
       // Buttons for the sorting of search results 
       // Header for flight search results
-      .row.ng-cloak.animate-show.repeated-item{ 'ng-hide'=>"amenitiesInfo" }
-        .flight-search.animate-show.repeated-item{"ng-show"=>"revealSearch"}
+      .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo" }
+        .flight-search.animate-show{"ng-show"=>"revealSearch"}
           .row
             .small-12.medium-12.columns
-              .row.result-header
+              %ul.small-block-grid-4.result-header
 
-                .small-2.medium-2.columns.no-pad-right{'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()"}
-                  Price
-                  %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
-                .small-3.medium-3.columns{'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()"}
+                %li.no-pad-right
+                  Flight #
+                %li.neg-left-margin-20.padding-right{'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()"}
                   Departure
                   %i#dateToggle{ 'class' => 'fi-arrow-{{dateArrow}}'}
-                .small-3.medium-3.columns{'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()"}
+                %li.right-align{'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()"}
                   Duration
                   %i#durationToggle{ 'class' => 'fi-arrow-{{durationArrow}}'}
-                .small-2.medium-2.columns.no-pad-left
-                  Distance
-                .small-2.medium-2.columns.no-pad-left
-                  Flight #
+                %li.no-pad-left.center-text{'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()"}
+                  Price
+                  %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
                   %br
 
           // Rows of flight search results
@@ -99,7 +97,7 @@
             .medium-12.columns.center-text
               %hr
               %hr
-        .flight-card-2
+        .flight-card-2{'ng-hide'=>"flightSearch"}
           .row
             .medium-7.columns.right-align
               %p.ship-detail-headings.fl-det-p SHIP NAME
@@ -111,32 +109,54 @@
                 %p.ship-detail-text {{myShip[0].plating}}
                 %p.ship-detail-headings PROPULSION SYSTEM
                 %p.ship-detail-text {{myShip[0].propulsion}}
-                %p.ship-detail-headings SPEED
+                %p.ship-detail-headings MAXIMUM VELOCITY
                 %p.ship-detail-text {{myShip[0].speed}} m/s
                 %p.ship-detail-headings CAPACITY
                 %p.ship-detail-text {{myShip[0].capacity}} passengers
             .medium-5.columns.center-text
               =image_tag 'targus_full.png', :class=>'ship-pic-1'
           .row
-            .medium-12.columns
-
-
+            .medium-12.columns.amenity-detail-text
+    .medium-3.columns{'ng-hide'=>'bookFlight'}
+      .mars-weather-band{'ng-show'=>"flightSearch"}
+        .row
+          .small-6.medium-12.columns
+            %h5.weather-text
+              Current Mars day
+            %h1.weather-text
+              = MarsWeather.first.sol
+        .row
+          .small-6.medium-12.columns
+            %h5.weather-text
+              Temperature
+            %h1.weather-text
+              = MarsWeather.first.max_temp_fahrenheit
+        .row
+          .small-6.medium-12.columns
+            %h5.weather-text
+              Season
+            %h1.weather-text
+              = MarsWeather.first.season
+        .row
+          .small-6.medium-12.columns
+            %h5.weather-text
+              Pressure
+            %h1.weather-text
+              = MarsWeather.first.pressure
+    .row
+      // Graph placeholder for weather
+      .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
+        %div{"ng-controller" => "ChartCtrl"}
+          %div{"dx-chart" => "chartOptions", 'ng-show'=>'flightSearch'}
+    
     // Collecting the buttons for showing amenities and booking form
     .small-6.medium-6.columns
-      
-
       %div{'ng-hide'=>'updateInfo'}  
         %div{'ng-hide'=>'bookFlight'}  
-          %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger()"} 
+          %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger(); showAmenities()"} 
             Book My Flight
             %i{ 'class' => 'fi-arrow-right'}
-
-    // Graph placeholder for weather
-    .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
-      %div{"ng-controller" => "ChartCtrl"}
-        %div{"dx-chart" => "chartOptions", 'ng-show'=>'flightSearch'}
-
-   
+    
     // Form for passenger booking
   %div.ng-cloak{ 'ng-show'=>"bookFlight" }
     .row
@@ -221,13 +241,13 @@
                 .medium-6.columns
                   %p Comm-SHA: 
                   .row
-                    .medium-10.columns.medium-offset-2
+                    .medium-10.columns.medium-offset-1
                       %h5 {{formData.phone}}
               
                 .medium-6.columns
                   %p Stardate of Birth: 
                   .row
-                    .medium-10.columns.medium-offset-2
+                    .medium-10.columns.medium-offset-1
                       %h5 {{formData.date_of_birth}}
               .row
                 .medium-12.columns
@@ -261,40 +281,40 @@
                 .medium-7.columns
                   %p Martian Colony: 
                   .row
-                    .medium-10.columns.medium-offset-2
+                    .medium-10.columns.medium-offset-1
                       %h4 {{destinations[myFlight[0].destination_id].destination}}
               .row
                 .medium-5.columns
                   %p Launch Date: 
                   .row
-                    .medium-10.columns.medium-offset-2
-                      %h3 {{myFlight[0].departure_time}}
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{myFlight[0].departure_time.slice(5,7)}}/{{myFlight[0].departure_time.slice(8,10)}}/{{myFlight[0].departure_time.slice(0,4)}}
                 .medium-7.columns
                   %p Arrival Date: 
                   .row
-                    .medium-10.columns.medium-offset-2
-                      %h3 {{myShip[0].arrival_time}}
+                    .medium-10.columns.medium-offset-1
+                      %h5 {{myFlight[0].arrival_time.slice(5,7)}}/{{myFlight[0].arrival_time.slice(8,10)}}/{{myFlight[0].arrival_time.slice(0,4)}}
               .row
                 .medium-5.columns
                   %p Flight#: 
                   .row
-                    .medium-10.columns.medium-offset-2
+                    .medium-10.columns.medium-offset-1
                       %h3 {{myFlight[0].flight_number}}
                 .medium-7.columns
                   %p Ship: 
                   .row
-                    .medium-10.columns.medium-offset-2
+                    .medium-10.columns.medium-offset-1
                       %h3 {{myShip[0].name}}
               .row
                 .medium-5.columns
                   %p Capacity: 
                   .row
-                    .medium-10.columns.medium-offset-2
+                    .medium-10.columns.medium-offset-1
                       %h3 {{myShip[0].capacity}}
                 .medium-7.columns
-                  %p Speed: 
+                  %p Maximum Velocity: 
                   .row
-                    .medium-10.columns.medium-offset-2
+                    .medium-10.columns.medium-offset-1
                       %h3 {{myShip[0].speed}}
               // Auto-populating list of selected Amenities
               .row
@@ -323,7 +343,7 @@
               =image_tag 'targus.png', :class=>'ship-pic'
       // Amenity preview button
       .medium-4.columns{'ng-hide'=>'tripConfirmed'}
-        .amenity-preview-panel{"ng-click"=>"showAmenities()", "ng-hide"=>"amenityList"}
+        .amenity-preview-panel{"ng-click"=>"", "ng-hide"=>"amenityList"}
           .amenity-preview-text
             %h1 View
             %h1 Available

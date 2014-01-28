@@ -68,7 +68,6 @@ h1.flight-detail-text {
 
 hr {
   margin:5px auto;
-
 }
 
 .amenity-detail-text {
@@ -93,7 +92,7 @@ hr {
   color:tomato;
   font-size: 1.2em;
   margin-bottom:0;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .ship-detail-text{
@@ -242,12 +241,13 @@ input {
   }
 }
 
-.row.result-header {
+ul.result-header {
   // background: rgba(255,255,255,1);
   // background: $lt-blue;
   font-family: 'Droid', 'Arial', 'sans-serif';
   font-size: .8em;
-  margin-bottom: 15px;
+  margin-left: 20px;
+
   color: $white;
 }
 
@@ -258,6 +258,7 @@ input {
   transition: background 1s ease;
   background: rgba(255,255,255,.5);
   padding: 0px;
+
   &:hover {
     background: rgba(255,255,255,0);
   }
@@ -651,4 +652,29 @@ dd {
 
 .neg-left-margin-20 {
   margin-left: -20px
+}
+
+.padding-right {
+  margin-right: 20px;
+}
+
+.weather-text {
+  color: white;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.mars-weather-band {
+  height: 600px;
+  width: 100%;
+  padding:20px;
+  margin: 0 20px 50px 40px;
+  border-radius: 20px 0;
+  border: 3px solid tomato;
+  /*background: #01010f;*/
+/*  border: -moz-linear-gradient(25deg, #01010f 10%, #091516 56%, #01010f 100%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(10%,#01010f), color-stop(56%,#091516), color-stop(100%,#01010f));
+  background: -webkit-linear-gradient(45deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: -o-linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: -ms-linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);*/
 }

@@ -105,3 +105,22 @@ Amenity.create!([
     {id: 3, activity:"Artificial Gravity", description:"Quisque id dui eros. Morbi eu nibh condimentum, euismod nisi id, porttitor tellus. Aenean ut turpis sit amet est ultrices fringilla non ut magna.", price:600},
     {id: 4, activity:"Bone Density Therapy", description:"Etiam adipiscing diam id pharetra condimentum. Ut sed urna mollis, suscipit lacus ut, accumsan tortor. Mauris egestas ipsum sapien, sit amet aliquam.", price:5000}
 ]);
+
+MarsWeather.create!([{
+    terrestrial_date: "01-02-1987",
+    sol: 123,
+    ls: 23,
+    min_temp: 1,
+    min_temp_fahrenheit: 12,
+    max_temp: 32,
+    max_temp_fahrenheit: 34,
+    pressure: 33,
+    pressure_string: '33',
+    abs_humidity: 4,
+    wind_speed: 30,
+    wind_direction: "Eastern",
+    atmo_opacity: "Sunny",
+    season: "Summer",
+    sunrise: "6:30:",
+    sunset: "7:00"
+}]);
