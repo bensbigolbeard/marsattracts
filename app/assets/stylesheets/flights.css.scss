@@ -246,6 +246,13 @@ ul.result-header {
   color: $white;
 }
 
+.result-header li:not(:first-child){
+  cursor: pointer;
+}
+
+.row.result-bars {
+  margin-bottom: 10px;
+}
 .result-bars {
   font-family: 'Droid', 'Arial', 'sans-serif';
   font-size: 1.5em;
@@ -253,10 +260,11 @@ ul.result-header {
   transition: background 1s ease;
   cursor: pointer;
   background: rgba(163,58,51,.3);
-  -webkit-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
-  box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
-  padding: 0px 0px 10px 0px;
+  // -webkit-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
+  // -moz-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
+  // box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
+  // padding: 0px 0px 10px 0px;
+  // margin-bottom: 10px;
 
   &:hover {
     background: rgba(163,58,51,.7);
@@ -667,7 +675,7 @@ dd {
 .proceed {
   margin: 10px 70px 0 0;
   border-radius: 8px 0;
-  padding: 8px 4px 20px 4px;
+  padding: 10px 4px;
   width: 120px;
   -webkit-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
   -moz-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
@@ -676,7 +684,7 @@ dd {
     background: #0e3328;
     background: -moz-linear-gradient(25deg, #0e3328 7%, #115b5e 50%, #0e3328 87%);
     color: $eggshell;
-    padding: 8px 4px;
+    padding: 10px 4px;
     -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
     box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
