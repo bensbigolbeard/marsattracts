@@ -371,11 +371,9 @@ app.controller('MainCtrl', function($scope, $http){
     }).error(function() {
       return console.error('Failed to create new passenger.');
     });
-
+  
     return true;
-
   };
-
 });
 
 // Populates the chart with dummy data for now
