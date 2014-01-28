@@ -1,69 +1,69 @@
 .row#landing-search
-  .medium-4.medium-8-offset.columns
+  .medium-6.medium-centered.columns
     %a{ :href => '/'}
-      %h2.index
+      %h2.index.center-text
         Mars
         %span Attracts!
       
 %div{"ng-controller" => "MainCtrl"}
   .row.ng-cloak
+    .search-container
+      // Search fields that get overlaid by amenities after selecting flight
+      .small-12.medium-6.columns.flightSearch{'ng-hide'=>"flightSearch"}
+        .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
+          .medium-10.medium-centered.columns
+            %select{"ng-model"=>"select1.orig", "id"=>"origin"}
+              %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
+                {{origin.origin}}
+            %select{"ng-model"=>"select2.dest", "id"=>"destination"}
+              %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
+                {{destination.destination}}
+            %button{'ng-click'=>"showFlights()"}
+              Take me to the future!
+              %i{class: "fi-ticket"}
+        // Buttons for the sorting of search results 
+        // Header for flight search results
+        .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo" }
+          .flight-search.animate-show{"ng-show"=>"revealSearch"}
+            .row
+              .small-12.medium-12.columns
+                %ul.small-block-grid-4.result-header
 
-    // Search fields that get overlaid by amenities after selecting flight
-    .small-12.medium-6.columns.flightSearch{'ng-hide'=>"flightSearch"}
-      .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
-        .medium-10.columns
-          %select{"ng-model"=>"select1.orig", "id"=>"origin"}
-            %option{"ng-repeat"=>"origin in origins", "value"=>"{{origin.id}}"}
-              {{origin.origin}}
-          %select{"ng-model"=>"select2.dest", "id"=>"destination"}
-            %option{"ng-repeat"=>"destination in destinations", "value"=>"{{destination.id}}"}
-              {{destination.destination}}
-          %button{'ng-click'=>"showFlights()"}
-            Take me to the future!
-            %i{class: "fi-ticket"}
-      // Buttons for the sorting of search results 
-      // Header for flight search results
-      .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo" }
-        .flight-search.animate-show{"ng-show"=>"revealSearch"}
-          .row
-            .small-12.medium-12.columns
-              %ul.small-block-grid-4.result-header
+                  %li.no-pad-right
+                    Flight #
+                  %li.neg-left-margin-20.padding-right{'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()"}
+                    Departure
+                    %i#dateToggle{ 'class' => 'fi-arrow-{{dateArrow}}'}
+                  %li.right-align{'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()"}
+                    Duration
+                    %i#durationToggle{ 'class' => 'fi-arrow-{{durationArrow}}'}
+                  %li.no-pad-left.center-text{'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()"}
+                    Price
+                    %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
+                    %br
 
-                %li.no-pad-right
-                  Flight #
-                %li.neg-left-margin-20.padding-right{'ng-click'=>"sortType = 'departure_time'; reverse=!reverse; dateArwToggle()"}
-                  Departure
-                  %i#dateToggle{ 'class' => 'fi-arrow-{{dateArrow}}'}
-                %li.right-align{'ng-click'=>"sortType = 'duration'; reverse=!reverse; durationArwToggle()"}
-                  Duration
-                  %i#durationToggle{ 'class' => 'fi-arrow-{{durationArrow}}'}
-                %li.no-pad-left.center-text{'ng-click'=>"sortType = 'price'; reverse=!reverse; priceArwToggle()"}
-                  Price
-                  %i#priceToggle{ 'class' => 'fi-arrow-{{priceArrow}}'}
-                  %br
-
-          // Rows of flight search results
-          .row.flight-box.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
-            .medium-12.columns
-              .row.result-bars{"ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select1.orig, destination_id:select2.dest} | limitTo:5", "class"=>"repeated-item"}
-                %div{"ng-click"=>"findFlightInfo(flight.id)"}  
-                  %ul.small-block-grid-4.result-height
-                    %li
-                      %p.flight-text.flight-text-padding
-                        {{flight.flight_number}}
-                    %li
-                      %p.flight-text.flight-text-padding.neg-left-margin-20
-                        {{flight.departure_time.slice(5,7)}}/{{flight.departure_time.slice(8,10)}}/{{flight.departure_time.slice(0,4)}}
-                    %li
-                      %p.flight-text.flight-text-padding.neg-right-margin-40
-                        {{flight.duration}} months
-                      / %li
-                      / %p.flight-text.distance-width
-                      / {{flight.distance}}
-                    %li
-                      %p.flight-text.flight-text-padding
-                        ${{flight.price}}
-            %br
+            // Rows of flight search results
+            .row.flight-box.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
+              .medium-12.columns
+                .row.result-bars{"ng-repeat"=>"flight in flights | orderBy:sortType:reverse | filter:{origin_id:select1.orig, destination_id:select2.dest} | limitTo:5", "class"=>"repeated-item"}
+                  %div{"ng-click"=>"findFlightInfo(flight.id); moveFlightSearch()"}  
+                    %ul.small-block-grid-4.result-height
+                      %li
+                        %p.flight-text.flight-text-padding
+                          {{flight.flight_number}}
+                      %li
+                        %p.flight-text.flight-text-padding.neg-left-margin-20
+                          {{flight.departure_time.slice(5,7)}}/{{flight.departure_time.slice(8,10)}}/{{flight.departure_time.slice(0,4)}}
+                      %li
+                        %p.flight-text.flight-text-padding.neg-right-margin-40
+                          {{flight.duration}} months
+                        / %li
+                        / %p.flight-text.distance-width
+                        / {{flight.distance}}
+                      %li
+                        %p.flight-text.flight-text-padding
+                          ${{flight.price}}
+              %br
 
     // Specific Flight Information      
     .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>'amenitiesInfo; '}
@@ -98,7 +98,7 @@
               %hr
         .flight-card-2{'ng-hide'=>"flightSearch"}
           .row
-            .medium-7.columns.right-align
+            .medium-7.columns
               %p.ship-detail-headings.fl-det-p SHIP NAME
               %h3.flight-detail-text {{myShip[0].name}}
               %br

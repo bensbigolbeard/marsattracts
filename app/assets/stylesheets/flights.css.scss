@@ -11,10 +11,21 @@ $clayface: #C6813C;
 $brick: #730B14;
 $brown: #5C3515;
 $near-black: #222422;
+$emerald: #3a7d2a;
+$pinky: #a33a33;
 
 // Powered by Angular.js, Slayer, and black coffee
 
-// flight/index page
+// flight#index page
+
+.search-container {
+  width:100%;
+  padding: 0 25%;
+}
+
+.flightSearch {
+  margin: 0 auto;
+}
 
 video {
       position: absolute;
@@ -54,11 +65,11 @@ video {
 .flight-detail-text {
   color:white;
   font-weight: 600;
-  transform:scale(1,1.7); /* W3C */
-  -webkit-transform:scale(1,1.7); /* Safari and Chrome */
-  -moz-transform:scale(1,1.7); /* Firefox */
-  -ms-transform:scale(1,1.7); /* IE 9 */
-  -o-transform:scale(1,1.7); /* Opera */
+  /*transform:scale(1,1.7); */
+  /*-webkit-transform:scale(1,1.7); */
+  /*-moz-transform:scale(1,1.7); */
+  /*-ms-transform:scale(1,1.7); */
+  /*-o-transform:scale(1,1.7); */
   font-size: 1.5em;
 }
 
@@ -72,7 +83,7 @@ hr {
 
 .amenity-detail-text {
   color:$white;
-  font-family: Open Sans;
+  font-family: 'Droid', 'Open Sans', 'Arial', 'sans-serif';
   font-weight: 400;
 
 }
@@ -175,10 +186,11 @@ hr {
 h2.index{
   font-family: 'Droid', 'Arial', 'sans-serif';
   color: $white;
-  font-size: 1.5em;
+  font-size: 2.5em;
   padding-left: -1em;
+  font-weight: 600;
   span {
-    color: $lt-green;
+    color: #a33a33;
   }
 }
 
@@ -217,9 +229,10 @@ input {
 }
 
 #origin, #destination {
-  background-color: transparent; 
-  color:$salmon;
+  background-color: rgba(255,255,255,0.1); 
+  color:$emerald;
   font-family: 'Droid', Arial, sans-serif;
+  cursor: pointer;
 }
 
 .sorted {  
@@ -260,14 +273,14 @@ ul.result-header {
   font-size: 1.5em;
   border-radius: 8px 0px;
   transition: background 1s ease;
-  background: rgba(255,255,255,.5);
+  background: rgba(163,58,51,.5);
   padding: 0px;
-
+  cursor: pointer;
   &:hover {
-    background: rgba(255,255,255,0);
+    background: rgba(163,58,51,.2);
   }
   &:active {
-    background: rgba(255,255,255,0);
+    background: rgba(163,58,51,.2);
   }
 }
 
@@ -418,8 +431,8 @@ h4.passenger-header {
 }
 
 @keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
  
 /*
@@ -427,18 +440,18 @@ h4.passenger-header {
   its own definition of keyframe animation code...
 */
 @-webkit-keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
  
 @-moz-keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
  
 @-o-keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
 
 .info-review-panel {
@@ -571,6 +584,36 @@ dd {
   }
 }
 
+.flightSearch-to-edge { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: slideOver;
+  -webkit-animation-name: slideOver;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes slideOver {
+  from {
+    width:100%;
+    padding: 0 25%;
+  } to {
+    margin-left:0;
+    width:50%;
+  }
+}
+
+@-webkit-keyframes slideOver {
+  from {
+    width:100%;
+    padding: 0 25%;
+  } to {
+    margin-left:0;
+    width:50%;
+    /*display: none;*/
+    /*overflow: hidden;*/
+  }
+}
+
 .amenity-preview-panel {
   height:618px;
   background-color: $lt-blue;
@@ -635,6 +678,7 @@ dd {
   padding:20px;
   margin: 0 20px 20px 40px;
   border-radius: 20px 0;
+  cursor: pointer;
 }
 
 .flight-card-2 {
@@ -693,3 +737,7 @@ dd {
   background: -ms-linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);
   background: linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);*/
 }
+
+
+.fi-arrow-up{color: $emerald;}
+.fi-arrow-down{color: $emerald;}

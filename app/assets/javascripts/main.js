@@ -65,6 +65,7 @@ app.controller('MainCtrl', function($scope, $http){
 
 // Variables to be set by user interaction
 
+  $scope.moveFlight = null;
   $scope.myFlight = null;
   $scope.myShip = null;
   $scope.bookFlight = null;
@@ -116,8 +117,20 @@ app.controller('MainCtrl', function($scope, $http){
     } else {
       $scope.amenities[id-1].amenityToggle = 'none'
     }
-  }
+  };
+  $scope.moveFlightSearch = function () {
+    if ($scope.moveFlight !== true) {
+      $('.search-container').addClass('flightSearch-to-edge');
+      setTimeout(function() {
+        $scope.moveFlight = true;
+      $('.flightSearch').removeClass('medium-centered');
 
+      }, 1000);
+      // $('.flightSearch').removeClass('flightSearch-add-start');
+    } else {
+      $scope.moveFlight = false;
+    }
+  };
   
 
 // Function to define myFlight and myShip
@@ -135,8 +148,11 @@ app.controller('MainCtrl', function($scope, $http){
         myShip.push($scope.ships[i]);
       }
     }
-    $scope.myFlight = myFlight;
-    $scope.myShip = myShip;
+    
+      $scope.myFlight = myFlight;
+      $scope.myShip = myShip;
+
+    // moveFlightSearch();
   };
   
   // Global form data to be accessed later by the form on update
@@ -228,6 +244,11 @@ app.controller('MainCtrl', function($scope, $http){
       $scope.pickItButton = false;
     }
   };
+
+  var moveFlightSearch = function () {
+     $('.flightSearch').addClass('.flightSearch-to-edge');
+     setTimeout(function () {},1000);
+  }
 
 
 // Toggle passenger info form
