@@ -1,4 +1,4 @@
-var app = angular.module('mars', [ 'dx',
+var app = angular.module('mars', [
   'ngAnimate'
   ]);
 
@@ -60,8 +60,6 @@ app.controller('MainCtrl', function($scope, $http){
         $scope.amenities[i].amenityToggle = 'none'
       }
   });
-
-  
 
 // Variables to be set by user interaction
 
@@ -372,25 +370,4 @@ app.controller('MainCtrl', function($scope, $http){
 
   };
 
-});
-
-// Populates the chart with dummy data for now
-app.controller('ChartCtrl', function ($scope) {
-  $scope.chartOptions = {
-    dataSource: [
-    {
-        year: 1950, costs: 34
-    },
-    {
-        year: 1951, costs: 37
-    },
-    {
-        year: 1952, costs: 23
-    },
-    {
-        year: 1953, costs: 63
-    }
-    ],
-        series: {valueField: 'costs', argumentField: 'year'} 
-    };
 });

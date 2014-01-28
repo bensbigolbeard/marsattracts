@@ -120,6 +120,10 @@
           .row
             .medium-12.columns
 
+        // Weather chart
+        .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
+          %canvas#weatherChart{:height => "200", :width => "600", 'ng-show'=>'flightSearch' }
+
 
     // Collecting the buttons for showing amenities and booking form
     .small-6.medium-6.columns
@@ -131,10 +135,7 @@
             Book My Flight
             %i{ 'class' => 'fi-arrow-right'}
 
-    // Graph placeholder for weather
-    .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
-      %div{"ng-controller" => "ChartCtrl"}
-        %div{"dx-chart" => "chartOptions", 'ng-show'=>'flightSearch'}
+    
 
    
     // Form for passenger booking

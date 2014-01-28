@@ -1,0 +1,2 @@
+module MarsWeatherTempsHelper
+end

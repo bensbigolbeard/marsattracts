@@ -1,4 +1,4 @@
-class MarsWeathersController < ApplicationController
+class MarsWeatherTempsController < ApplicationController
 
   def index
     @mars_weather = MarsWeather.order(terrestrial_date: :asc).last(52)
