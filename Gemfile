@@ -11,6 +11,7 @@ gem 'foundation-rails' #Foundation
 gem 'geocoder' # Use to get coordinates for weather API
 gem 'haml' # Use Haml for templating 
 gem 'jbuilder' # jBuilder for creating JSON objects
+gem 'jquery-rails' # Plug this back in for jQuery knob
 gem 'mandrill-api' # Mandrill for mailer
 gem 'nokogiri' # Nokogiri for Wolfram API
 gem 'pg' # Use postgresql as the database for Active Record
