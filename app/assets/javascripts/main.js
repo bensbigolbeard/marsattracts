@@ -227,10 +227,12 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
   $scope.hideFlightSearch = function () {
     if ($scope.flightSearch !== true) {
       $('.flightSearch').addClass('flightSearch-add-start');
+      $('.flight-card-2').addClass('hide-ship-info');
       setTimeout(function() {
         $scope.$apply(function () {
           $scope.flightSearch = true;
           $('.chart').addClass('chart-enter');
+          $('.flight-card-2').addClass('display-none');
         });
       }, 1000);
     } else {

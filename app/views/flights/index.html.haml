@@ -116,9 +116,24 @@
               =image_tag 'targus_full.png', :class=>'ship-pic-1'
           .row
             .medium-12.columns.amenity-detail-text
-    .medium-3.columns{'ng-hide'=>'bookFlight'}
-      .mars-weather-band{'ng-show'=>"flightSearch"}
-        %input{"class"=>"dial", "data-fgcolor" => "chartreuse", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(0,0).currently.cloudCover}"}
+    .medium-6.columns{'ng-hide'=>'bookFlight'}
+      .mars-weather-bands{'ng-show'=>"flightSearch"}
+        .row
+          .medium-4.columns
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"137", "data-height"=>"137", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
+            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.cloudCover}"}
+            %p.dial-text.center-text
+              Cloud Cover
+          .medium-4.columns   
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"137", "data-height"=>"137", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
+            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.humidity}"}
+            %p.dial-text.center-text
+              Humidity
+          .medium-4.columns   
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"137", "data-height"=>"137", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
+            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.precipIntensity}"}
+            %p.dial-text.center-text
+              Precipitation
         / .row
         /   .small-6.medium-12.columns
         /     %h5.weather-text
@@ -145,9 +160,9 @@
         /       = MarsWeather.first.pressure
     .row
       // Graph placeholder for weather
-      .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
+      .small-12.medium-6.columns.ng-cloak.chart.center-text{ 'ng-hide'=>"bookFlight" }
         %div{"ng-controller" => "ChartCtrl", 'ng-show'=>"myFlight"}
-          %div.chart{"dx-chart" => "chartOptions"}
+          %div{"dx-chart" => "chartOptions"}
     
     // Collecting the buttons for showing amenities and booking form
     .small-6.medium-6.columns
@@ -343,12 +358,6 @@
               =image_tag 'targus.png', :class=>'ship-pic'
       // Amenity preview button
       .medium-4.columns{'ng-hide'=>'tripConfirmed'}
-        .amenity-preview-panel{"ng-click"=>"", "ng-hide"=>"amenityList"}
-          .amenity-preview-text
-            %h1 View
-            %h1 Available
-            %h1 Amenities
-        // Amenity list
         .row.activity-bars{ "ng-show"=>"amenityList", "ng-repeat"=>"amenity in amenities", 'class'=> '{{amenity.amenityToggle}}', 'ng-click'=>"amenityToggle(amenity.id)"}
           %div{"ng-click"=>"findAmenityInfo(amenity.id) "}
             .medium-9.columns

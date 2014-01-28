@@ -19,7 +19,7 @@ $pinky: #a33a33;
 // flight#index page
 
 .search-container {
-  margin: 0 -25% 0 25%;
+  margin: 0 -27% 0 27%;
   /*padding: 0 25%;*/
 }
 
@@ -611,10 +611,13 @@ dd {
 
 @-webkit-keyframes slideOver {
   from {
-
   } to {
-    margin: 0 ;
+    margin: 0 0 0 40px ;
   }
+}
+
+.search-container {
+  width: 90%;
 }
 
 .flightCard-enter, .chart-enter { 
@@ -641,8 +644,39 @@ dd {
   }
 }
 
+.hide-ship-info { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: hideShip;
+  -webkit-animation-name: hideShip;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes hideShip {
+  from {
+
+  } to {
+    opacity:0;
+    display: none;
+  }
+}
+
+@-webkit-keyframes hideShip {
+  from {
+    
+  } to {
+    opacity: 0;
+    display: none;
+  }
+}
+.display-none {
+  display: none;
+}
+
 .chart{
-  margin-right: -100%;
+  width:1000px;
+  height:240px !important;
+  overflow: hidden;
 }
 
 .flight-card-cont{
@@ -710,7 +744,7 @@ dd {
   background: -ms-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   background: linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   padding:20px;
-  margin: 0 20px 20px 40px;
+  margin: 0 20px 20px 50px;
   border-radius: 20px 0;
   cursor: pointer;
 }
@@ -724,7 +758,7 @@ dd {
   background: -ms-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
   background: linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
   padding:20px;
-  margin: 0 20px 50px 40px;
+  margin: 0 20px 50px 50px;
   border-radius: 20px 0;
 }
 
@@ -752,7 +786,7 @@ dd {
 }
 
 .weather-text {
-  color: white;
+  color: $white;
   font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
@@ -775,3 +809,9 @@ dd {
 
 .fi-arrow-up{color: $emerald;}
 .fi-arrow-down{color: $emerald;}
+
+.dial-text {
+  color: $white;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+  font-size: .8em;
+}

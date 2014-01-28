@@ -10,9 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require jquery_ujs
 //= require excanvas
-//= js/jquery.require
-//= knob foundation
+//= require js/jquery.knob
+//= require foundation
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
