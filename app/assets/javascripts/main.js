@@ -210,7 +210,7 @@ app.controller('MainCtrl', function($scope, $http){
       $('.flightSearch').addClass('flightSearch-add-start');
       setTimeout(function() {
         $scope.flightSearch = true;
-      }, 3000);
+      }, 1000);
       // $('.flightSearch').removeClass('flightSearch-add-start');
     } else {
       $scope.flightSearch = false;
