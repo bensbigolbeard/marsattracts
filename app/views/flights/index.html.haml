@@ -70,17 +70,22 @@
       %div.flight-text{'class'=>'a-flight', 'ng-show'=>"myFlight"}
         .flight-card{ 'ng-hide'=>'updateInfo;pickItButton; bookFlight','ng-click'=>"hideFlightSearch()"}
           .row
-            .medium-4.columns.center-text.no-pad-right
+            .medium-1.columns.center-text.no-pad-right
               %hr
               %hr
             .medium-4.columns.center-text.no-pad
               %h5.fl-detail-headings.neg-margin-top-3 FLIGHT NUMBER
-            .medium-4.columns.center-text.no-pad-left
+            .medium-7.columns.center-text.no-pad-left
               %hr
               %hr
           .row
-            .medium-12.columns.center-text
+            .medium-6.medium-6-offset.columns.center-text
               %h1.flight-detail-text.fl-margin {{myFlight[0].flight_number}}
+            .medium-6.medium-6-offset.columns.proceed
+              %span
+                Find a
+                %br
+                Seat
           .row
             .medium-12.columns.center-text
               %hr

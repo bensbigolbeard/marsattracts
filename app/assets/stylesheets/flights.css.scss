@@ -67,7 +67,7 @@ h1.flight-detail-text {
 }
 
 hr {
-  margin:5px auto;
+  margin: 5px 0px;
 }
 
 .amenity-detail-text {
@@ -104,9 +104,9 @@ hr {
   margin-bottom: 15px;
 }
 
-hr {
-  margin: 5px auto;
-}
+// hr {
+//   margin: 5px auto;
+// }
 
 .dateselect select {
   width:32.55%;
@@ -222,16 +222,13 @@ input {
   font-family: 'Droid', Arial, sans-serif;
 }
 
-.sorted {  
-  &:checked + label {
-    color: red;
-  }
-}
-
 .sorted {
   color: $white;
   font-size: 0.75em;
   font-family: 'Droid', Arial, sans-serif;
+  &:checked + label {
+    color: red;
+  }
 }
 
 // flight#search page
@@ -590,10 +587,34 @@ dd {
   text-align: center;
 }
 
+.proceed {
+  margin: 20px 70px 0 0;
+  border: 4px groove $eggshell;
+  border-radius: 8px 0;
+  padding: 8px 4px;
+  width: 120px;
+  &:active, &:hover {
+    background-color: $bluegreen;
+  }
+  span {
+    font: {
+      family: 'Droid', 'Arial', 'sans-serif';
+      size: 2em; 
+      }
+    color: $salmon;
+    &:active, &:hover {
+      color: $eggshell;
+    }
+    text-shadow: 0px -1px 0px #374683;
+  } 
+}
+
 .congrats-heading {
   color: white;
-  font-size: 2em;
-  font-family: 'Droid', 'Arial', 'sans-serif';
+  font {
+    size: 2em;
+    family: 'Droid', 'Arial', 'sans-serif';
+    }
   padding-bottom: 20px;
 }
 
@@ -632,7 +653,7 @@ dd {
   background: -o-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   background: -ms-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   background: linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
-  padding:20px;
+  padding:20px 0px;
   margin: 0 20px 20px 40px;
   border-radius: 20px 0;
 }
