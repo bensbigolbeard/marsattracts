@@ -11,9 +11,7 @@
 // about supported directives.
 //
 //= require excanvas
-//= require js/jquery.knob
 //= require foundation
-//= require angularSlideables
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

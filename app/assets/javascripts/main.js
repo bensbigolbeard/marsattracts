@@ -1,6 +1,5 @@
 var app = angular.module('mars', [ 'dx',
-  'ngAnimate',
-  'angularSlideables'
+  'ngAnimate'
   ]);
 
 app.config([
@@ -202,7 +201,11 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.hideFlightSearch = function () {
     if ($scope.flightSearch !== true) {
-      $scope.flightSearch = true;
+      $('.flightSearch').addClass('flightSearch-add-start');
+      setTimeout(function() {
+        $scope.flightSearch = true;
+      }, 3000);
+      // $('.flightSearch').removeClass('flightSearch-add-start');
     } else {
       $scope.flightSearch = false;
     }

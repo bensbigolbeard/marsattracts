@@ -9,7 +9,7 @@
   .row.ng-cloak
 
     // Search fields that get overlaid by amenities after selecting flight
-    .small-12.medium-6.columns{'ng-hide'=>"flightSearch"}
+    .small-12.medium-6.columns.flightSearch{'ng-hide'=>"flightSearch"}
       .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo"}
         .medium-10.columns
           %select{"ng-model"=>"select1.orig", "id"=>"origin"}

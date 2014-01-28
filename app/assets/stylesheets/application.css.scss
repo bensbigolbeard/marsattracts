@@ -25,47 +25,35 @@
 }
 
 body#background {
-  // position: absolute;
-  // z-index: 0;
-  // background: url('hexgrid.png') repeat 5% 5%;
   background-color: #222422;
+  overflow: hidden;
 }
 
 .grid img {
   position: absolute;
   z-index: 0;
-  // background: url('hexgrid.png') repeat 5% 5%;
-  // background-repeat: repeat-x;
   /* Set rules to fill background */
-    min-height: 100%;
-    min-width: 1024px;
-    
-    /* Set up proportionate scaling */
-    width: 100%;
-    height: auto;
-    
-    /* Set up positioning */
-    // position: fixed;
-    top: 0;
-    left: 0;
+  height: 100%;
+  min-width: 1024px;
+  
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+  
+  /* Set up positioning */
+  // position: fixed;
+  top: 0;
+  left: 0;
 }
 
-.vid {
-      position: absolute;
-      z-index: -4;
-      width: 100%;
-      // height: 100%;
-      top: 0;
-      left: 0;
-  }
-
 video {
-      position: absolute;
-      z-index: -4;
-      width: 100%;
-      // height: 100%;
-      top: 0;
-      left: 0;
+    position: absolute;
+    z-index: -4;
+    height: 768px;
+    width: auto;
+    top: 0;
+    left: 0;
+    background-size: contain;
   }
 
 .submit-button {

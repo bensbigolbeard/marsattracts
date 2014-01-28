@@ -513,31 +513,14 @@ dd {
  .flightSearch-add-start { 
   -moz-animation-duration: 3s;
   -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
- }
-.flightSearch.ng-hide-remove.ng-hide-remove-active { 
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
- }
-.flightSearch.ng-hide-add { 
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
- }
-.flightSearch.ng-hide-add.ng-hide-add-active { 
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
+  -moz-animation-name: slideOut;
+  -webkit-animation-name: slideOut;
+  -webkit-animation-fill-mode: forwards;
  }
 
-@-moz-keyframes slidein {
+@-moz-keyframes slideOut {
   from {
-    margin-left:10%;
+    left:0;
     width:100%;
   } to {
     margin-left:-100%;
@@ -545,13 +528,15 @@ dd {
   }
 }
 
-@-webkit-keyframes slidein {
+@-webkit-keyframes slideOut {
   from {
-    margin-left:10%;
-    width:100%;
+    left:0;
+    width:50%;
   } to {
-    margin-left:-100%;
+    left:-100%;
     width:0%;
+    // display: none;
+    overflow: hidden;
   }
 }
 
