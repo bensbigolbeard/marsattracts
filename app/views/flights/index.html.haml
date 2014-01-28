@@ -382,5 +382,5 @@
             %h3 
               Ahoy, {{ formData.first_name }}!
           .congrats-text
-            In {{ (myFlight[0].departure_time - Time.now)/60/60/24 }} short days, you're taking off for the colony of {{ destinations[myFlight[0].destination_id].destination }} on Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees.
+            In {{ (myFlight[0].departure_time - Date.now())/60/60/24 }} short days, you're taking off for the colony of {{ destinations[myFlight[0].destination_id].destination }} on Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees.
 
