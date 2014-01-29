@@ -262,7 +262,7 @@ app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $ht
 
   $scope.bookPassenger = function(){
     if ($scope.bookFlight !== true){
-      $scope.bookFlight = true;
+          $scope.bookFlight = true;
     } else {
       $scope.bookFlight = false;
     }
@@ -299,7 +299,13 @@ app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $ht
 
   $scope.congratsPage = function(){
     if ($scope.tripConfirmed !== true){
-      $scope.tripConfirmed = true;
+
+      $('.hide-tr-info').addClass('hide-pass-info');
+        setTimeout(function() {
+          $scope.$apply(function () {
+            $scope.tripConfirmed = true;
+          });
+        }, 1000);
     } else {
       $scope.tripConfirmed = false;
     }
