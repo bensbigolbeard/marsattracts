@@ -58,7 +58,7 @@ video {
 .flight-text-padding {
   padding-left: 0px;
   padding-top: 25px;
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin-bottom: 5px;
 }
 
@@ -174,11 +174,14 @@ hr {
     opacity: .8;
   }
   p {
-    font-size: .88em;
+    font-size: .8em;
     margin-bottom: .8em;
   }  
 }
 
+.margin-top-80{
+  margin-top:80px;
+}
 .act-bars-active {
     background: tomato;
     opacity: .8;
@@ -478,8 +481,9 @@ h4.passenger-header {
 }
 
 .ship-pic{
-  width:70%;
-  height:auto;
+  width: auto;
+  height: auto;
+  max-height: 560px;
 }
 
 .ship-pic-1{
@@ -577,6 +581,7 @@ dd {
     /*display: none;*/
     overflow: hidden;
     padding:0;
+    margin:0;
   }
 }
 
@@ -587,9 +592,10 @@ dd {
   } to {
     left:-100%;
     width:0%;
-    /*display: none;*/
+    display: none;
     overflow: hidden;
     padding:0;
+    margin: 0;
   }
 }
 
@@ -669,6 +675,111 @@ dd {
     display: none;
   }
 }
+
+.show-chart { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: showChart;
+  -webkit-animation-name: showChart;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes showChart {
+  from {
+
+  } to {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes showChart {
+  from {
+    
+  } to {
+    opacity: 1;
+  }
+}
+
+.info-panel-move { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: infoMove;
+  -webkit-animation-name: infoMove;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes infoMove {
+  from {
+
+  } to {
+    margin:-520px 0 0 0;
+    width:auto;
+
+  }
+}
+
+@-webkit-keyframes infoMove {
+  from {
+    
+  } to {
+    margin:-520px 0 0 0;
+    width:auto;
+  }
+}
+
+.create-form-move { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: formMove;
+  -webkit-animation-name: formMove;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes formMove {
+  from {
+
+  } to {
+    width: 0;
+    margin: -320px -100% 0 0;
+    padding: 0;
+
+
+  }
+}
+
+@-webkit-keyframes formMove {
+  from {
+    
+  } to {
+    width: 0;
+    margin: -320px 100% 0 0;
+    padding: 0;
+  }
+}
+
+.passenger-info{
+  margin: -540px 0 0 0;
+  width: 332px;
+}
+
+.confirm-page-info {
+  margin:-520px 0 0 0;
+}
+
+.passenger-form{
+  margin: -320px -400px 0 0 ;
+}
+
+.margin-left-25 {
+  margin-left: 27%
+}
+
+.weather-dials{
+  opacity: 0;
+  border: 3px solid $white;
+  border-radius: 20px 0;
+  padding:5px 20px 5px 10px;
+}
 .display-none {
   display: none;
 }
@@ -677,6 +788,7 @@ dd {
   width:1000px;
   height:240px !important;
   overflow: hidden;
+  opacity: 0;
 }
 
 .flight-card-cont{
