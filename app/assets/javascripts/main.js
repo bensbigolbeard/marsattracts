@@ -9,7 +9,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', function($scope, $http, $timeout){
+app.controller('MainCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
 
 
 // Services to grab database content
@@ -433,4 +433,4 @@ app.controller('ChartCtrl', function ($scope) {
     ],
         series: {valueField: 'costs', argumentField: 'year'} 
     };
-});
+}]);
