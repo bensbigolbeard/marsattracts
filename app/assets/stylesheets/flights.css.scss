@@ -66,11 +66,13 @@ video {
   color:white;
   font-weight: 600;
   font-size: 1.5em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
 h1.flight-detail-text {
   font-size: 5em;
   line-height: 80%;
+  font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
 hr {
@@ -148,18 +150,21 @@ hr {
   width:40px !important;
 }
 .activity-bars {
-  border: 2px solid tomato;
-  border-radius: 10px 10px 10px 0;
+  border: 2px solid $white;
+  border-radius: 10px 0;
   padding: 5px 15px 0 15px;
   margin:  10px 0 !important;
-  &:hover {
-    background: tomato;
-    opacity: .8;
-  }
+  background-color: black;
+  transition: opacity;
+  &:hover, &:active {
+    background: $near-black;
+    opacity: 0.5;
+
+  }  
   p {
     font-size: .8em;
     margin-bottom: .8em;
-  }  
+  }
 }
 
 .margin-top-80{
@@ -236,7 +241,7 @@ input {
 .search-results {
   margin:3em 0 2em 3em;
   h1{
-    color: white;
+    color: $white;
     font-size: 3em;
     font-family: 'Droid', 'Arial', 'sans-serif';
   }
@@ -271,15 +276,15 @@ ul.result-header {
 
   &:hover {
     background: rgba(163,58,51,.7);
-    -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
-    box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // -moz-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
   }
   &:active {
     background: rgba(163,58,51,.7);
-    -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
-    box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // -moz-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
   }
 }
 
@@ -299,7 +304,7 @@ h1.show {
 }
 
 .info {
-  color: white;
+  color: $white;
   font-size: 2.5em;
   font-family: 'Tech', 'Arial', 'sans-serif';
 }
@@ -323,7 +328,7 @@ h1.show {
 // Booking a passenger
 
 h4.passenger-header {
-  color: white;
+  color: $white;
   font-family: 'Droid', 'Arial', 'sans-serif';
   text-align: center !important;
 }
@@ -461,7 +466,10 @@ h4.passenger-header {
   background-color: rgba(30,36,40,.7);
   padding: 20px 10px 10px 25px ;
   height: 560px;
-  color: white;
+  color: $white;
+  border: 2px solid $white;
+  border-top: none;
+  border-radius: 0 0 10px 0;
   h1, h2, h3, h4, h5 {
     color: tomato;
   }
@@ -479,6 +487,7 @@ h4.passenger-header {
   width: auto;
   height: auto;
   max-height: 560px;
+  border-radius: 10px 0;
 }
 
 .ship-pic-1{
@@ -514,6 +523,8 @@ dd {
 .tabs dd.active a {
   background-color: rgba(30,36,40,.7);
   color:white;
+  // remove border bottom
+  border-bottom: none;
 }
 
 .tabs dd a {
@@ -525,8 +536,14 @@ dd {
   padding: 0;
 }
 
+.individual-tab{
+  border-radius: 0 10px 0 0;
+  border: 2px solid $white;
+}
+
 .content {
   width: 100%;
+  border-top:none;
   .active {
 
   }
@@ -785,21 +802,22 @@ dd {
 }
 
 .proceed {
-  margin: 10px 70px 0 0;
+  margin: -10px 60px 0 0;
   border-radius: 8px 0;
   padding: 10px 4px;
   width: 120px;
-  -webkit-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
-  -moz-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
-  box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
+  text-align: left;
+  // -webkit-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
+  // -moz-box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
+  // box-shadow: -10px -10px 5px 0px rgba(0,0,0,0.25);
   &:active, &:hover {
     background: #0e3328;
     background: -moz-linear-gradient(25deg, #0e3328 7%, #115b5e 50%, #0e3328 87%);
     color: $eggshell;
     padding: 10px 4px;
-    -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
-    box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // -moz-box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
+    // box-shadow: inset 10px 10px 5px 0px rgba(0,0,0,0.25);
   }
   span {
     font: {
@@ -815,7 +833,7 @@ dd {
 }
 
 .congrats-heading {
-  color: white;
+  color: $white;
   font {
     size: 2em;
     family: 'Droid', 'Arial', 'sans-serif';
@@ -845,7 +863,7 @@ dd {
   padding-right: 0; 
 }
 .congrats-text {
-  color: white;
+  color: $white;
   font-size: 1em;
   font-family: 'Droid', 'Arial', 'sans-serif';
 }
@@ -878,9 +896,11 @@ dd {
 }
 
 .ship-card {
-
   height: 258px;
   border-radius: 20px 0;
+  .ng-binding {
+    font-family: 'Droid', 'Arial', 'sans-serif';
+  }
 }
 
 .fl-det-p {

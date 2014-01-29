@@ -84,9 +84,12 @@
               %h1.flight-detail-text.fl-margin {{myFlight[0].flight_number}}
             .medium-6.medium-6-offset.columns.proceed
               %span
-                Find a
+                Pick
                 %br
-                Seat
+                This
+                %i{"class"=>"fi-arrow-right"}
+                %br
+                Flight
           .row
             .medium-12.columns.center-text
               %hr
@@ -269,9 +272,9 @@
       .medium-4.columns.passenger-info.pi{ 'ng-show'=>"bookFlight"}
         %dl.tabs(data-tab)
           %dd.active
-            %a{ "href"=>"#panel2-1"} Passenger Info
+            %a.individual-tab{ "href"=>"#panel2-1"} Passenger Info
           %dd
-            %a{ "href"=>"#panel2-2"} Flight Info
+            %a.individual-tab{ "href"=>"#panel2-2"} Flight Info
         .tabs-content
           // Info panel 1
           #panel2-1.content.active
@@ -394,12 +397,12 @@
       .medium-4.columns.margin-top-80{'ng-hide'=>'tripConfirmed'}
         .row.activity-bars{ "ng-show"=>"amenitiesInfo", "ng-repeat"=>"amenity in amenities", 'class'=> '{{amenity.amenityToggle}}', 'ng-click'=>"amenityToggle(amenity.id)"}
           %div{"ng-click"=>"findAmenityInfo(amenity.id) "}
-            .medium-9.columns
+            .medium-9.columns.header
               %h5.amenity-detail-text
                 {{amenity.activity}}
-            .medium-3.columns
+            .medium-3.columns.header
               %h5.amenity-detail-text
-                {{amenity.price}}
+                ${{amenity.price}}
             .medium-12.columns
               %p.amenity-detail-text
                 {{amenity.description}}
