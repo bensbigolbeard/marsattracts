@@ -61,6 +61,15 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
       }
   });
 
+  $scope.marsData = [];
+  $http.get('/')
+    .success(function(data){
+    $scope.marsData = data;
+    console.log(data);
+  }).error(function(){
+    console.log("D'oh!");
+  });
+
 // Variables to be set by user interaction
 
   $scope.moveFlight = null;
@@ -78,6 +87,8 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
   $scope.updateInfo = null;
   $scope.amenityList = null;
   $scope.tripConfirmed = null;
+  $scope.skycons = new Skycons({"color": "white"});
+
   // $scope.marsInfo = null;
 
   // $scope.flightDateConversion = function(flightDate){
@@ -126,6 +137,18 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
       $scope.moveFlight = false;
     }
   };
+
+// Function to display icon for Mars weather conditions
+
+  $scope.marsSky = function (apiInput) {
+    if (apiInput == "Sunny") {
+      skycons.add("icon", Skycons.clear-day);
+      skycons.play();
+    } else {
+      skycons.add("icon", Skycons.clear-day);
+      skycons.play();
+    }
+  }
   
 
 // Function to define myFlight and myShip

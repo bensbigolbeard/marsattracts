@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require excanvas
 //= require js/jquery.knob
+//= require skycons
 //= require foundation
 //= require_tree .
 
