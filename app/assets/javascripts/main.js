@@ -1,5 +1,5 @@
 var app = angular.module('mars', [ 'dx',
-  'ngAnimate'
+  'ngAnimate','ngResource'
   ]);
 
 app.config([
