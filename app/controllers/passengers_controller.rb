@@ -61,7 +61,7 @@ class PassengersController < ApplicationController
     respond_with @edit_passenger do |format|
       format.json {render json: @edit_passenger.as_json }
     end
-    Notifier.pass_confirm.deliver
+    Notifier.pass_confirm(@edit_passenger).deliver
     
   end
 

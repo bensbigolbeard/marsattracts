@@ -1,0 +1,8 @@
+/ in lib/templates
+
+.congrats-heading
+  Ahoy, {{ formData.first_name }}!
+.congrats-text
+  %p= "In about" 
+  Flight.find({{ myFlight[0].id }})
+  %p= "short days, you're taking off for Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees."

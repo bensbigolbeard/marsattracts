@@ -100,8 +100,27 @@ Ship.find(3).flights.create!([
 ]);
 
 Amenity.create!([
-    {id: 1, activity:"Space Walk", description:"Mauris eu lacus mi. Etiam vel fermentum est. In hac habitasse platea dictumst. Phasellus sollicitudin commodo diam, lacinia fringilla nibh molestie sed.", price:500}, 
-    {id: 2, activity:"Astronomy Lesson", description:"Donec interdum eros quis venenatis viverra. Phasellus gravida nisl eu aliquam malesuada. Proin enim urna, dictum ac pulvinar eget, bibendum vitae neque.", price:200},
-    {id: 3, activity:"Artificial Gravity", description:"Quisque id dui eros. Morbi eu nibh condimentum, euismod nisi id, porttitor tellus. Aenean ut turpis sit amet est ultrices fringilla non ut magna.", price:600},
-    {id: 4, activity:"Bone Density Therapy", description:"Etiam adipiscing diam id pharetra condimentum. Ut sed urna mollis, suscipit lacus ut, accumsan tortor. Mauris egestas ipsum sapien, sit amet aliquam.", price:5000}
+    {id: 1, activity:"Space Walk", description:"A walk in space is a great way to relieve your imminent clausterphobia!", price:500}, 
+    {id: 2, activity:"Astronomy Lesson", description:"Finally learn the answer to 'What are those white specks I see through yonder porthole' and more!", price:200},
+    {id: 3, activity:"Artificial Gravity", description:"Some time in artificial gravity could be just the pick-me-up you need during your solitude!", price:600},
+    {id: 4, activity:"Bone Density Therapy", description:"Why waste away when there's bone therapy right on the ship?!", price:5000}
 ]);
+
+MarsWeather.create!([{
+    terrestrial_date: "01-02-1987",
+    sol: 123,
+    ls: 23,
+    min_temp: 1,
+    min_temp_fahrenheit: 12,
+    max_temp: 32,
+    max_temp_fahrenheit: 34,
+    pressure: 33,
+    pressure_string: '33',
+    abs_humidity: 4,
+    wind_speed: 30,
+    wind_direction: "Eastern",
+    atmo_opacity: "Sunny",
+    season: "Summer",
+    sunrise: "6:30:",
+    sunset: "7:00"
+}]);

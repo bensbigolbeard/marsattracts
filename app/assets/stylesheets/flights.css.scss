@@ -11,10 +11,21 @@ $clayface: #C6813C;
 $brick: #730B14;
 $brown: #5C3515;
 $near-black: #222422;
+$emerald: #3a7d2a;
+$pinky: #a33a33;
 
 // Powered by Angular.js, Slayer, and black coffee
 
-// flight/index page
+// flight#index page
+
+.search-container {
+  margin: 0 -27% 0 27%;
+  /*padding: 0 25%;*/
+}
+
+.flightSearch {
+  margin: 0 auto;
+}
 
 video {
       position: absolute;
@@ -47,33 +58,33 @@ video {
 .flight-text-padding {
   padding-left: 0px;
   padding-top: 25px;
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin-bottom: 5px;
 }
 
 .flight-detail-text {
   color:white;
   font-weight: 600;
-  transform:scale(1,1.7); /* W3C */
-  -webkit-transform:scale(1,1.7); /* Safari and Chrome */
-  -moz-transform:scale(1,1.7); /* Firefox */
-  -ms-transform:scale(1,1.7); /* IE 9 */
-  -o-transform:scale(1,1.7); /* Opera */
+  /*transform:scale(1,1.7); */
+  /*-webkit-transform:scale(1,1.7); */
+  /*-moz-transform:scale(1,1.7); */
+  /*-ms-transform:scale(1,1.7); */
+  /*-o-transform:scale(1,1.7); */
   font-size: 1.5em;
 }
 
 h1.flight-detail-text {
   font-size: 5em;
+  line-height: 80%;
 }
 
 hr {
   margin:5px auto;
-
 }
 
 .amenity-detail-text {
   color:$white;
-  font-family: Open Sans;
+  font-family: 'Droid', 'Open Sans', 'Arial', 'sans-serif';
   font-weight: 400;
 
 }
@@ -93,7 +104,7 @@ hr {
   color:tomato;
   font-size: 1.2em;
   margin-bottom:0;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .ship-detail-text{
@@ -103,6 +114,10 @@ hr {
 
 .fl-margin {
   margin-bottom: 15px;
+}
+
+hr {
+  margin: 5px auto;
 }
 
 .dateselect select {
@@ -159,23 +174,30 @@ hr {
     opacity: .8;
   }
   p {
-    font-size: .88em;
+    font-size: .8em;
     margin-bottom: .8em;
   }  
 }
 
+.margin-top-80{
+  margin-top:80px;
+}
 .act-bars-active {
     background: tomato;
     opacity: .8;
+}
+.act-bars-cont {
+    opacity: 0;
 }
 
 h2.index{
   font-family: 'Droid', 'Arial', 'sans-serif';
   color: $white;
-  font-size: 1.5em;
+  font-size: 2.5em;
   padding-left: -1em;
+  font-weight: 600;
   span {
-    color: $lt-green;
+    color: #a33a33;
   }
 }
 
@@ -214,9 +236,10 @@ input {
 }
 
 #origin, #destination {
-  background-color: transparent; 
-  color:$salmon;
+  background-color: rgba(255,255,255,0.1); 
+  color:$emerald;
   font-family: 'Droid', Arial, sans-serif;
+  cursor: pointer;
 }
 
 .sorted {  
@@ -242,12 +265,13 @@ input {
   }
 }
 
-.row.result-header {
+ul.result-header {
   // background: rgba(255,255,255,1);
   // background: $lt-blue;
   font-family: 'Droid', 'Arial', 'sans-serif';
   font-size: .8em;
-  margin-bottom: 15px;
+  margin-left: 20px;
+
   color: $white;
 }
 
@@ -256,13 +280,14 @@ input {
   font-size: 1.5em;
   border-radius: 8px 0px;
   transition: background 1s ease;
-  background: rgba(255,255,255,.5);
+  background: rgba(163,58,51,.5);
   padding: 0px;
+  cursor: pointer;
   &:hover {
-    background: rgba(255,255,255,0);
+    background: rgba(163,58,51,.2);
   }
   &:active {
-    background: rgba(255,255,255,0);
+    background: rgba(163,58,51,.2);
   }
 }
 
@@ -311,6 +336,10 @@ h4.passenger-header {
   text-align: center !important;
 }
 
+.align-right {
+  text-align: left;
+}
+
 .btn-center {
   text-align:center;
 }
@@ -333,6 +362,16 @@ h4.passenger-header {
   padding:0 5px;
 }
 
+.testing.ng-enter, .testing.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+ 
+.testing.ng-enter { opacity: 0;}        /* starting animations for enter */
+.testing.ng-enter-active { opacity: 1; } /* terminal animations for enter */
+.testing.ng-leave { opacity: 1;} /* starting animations for leave */
+.testing.ng-leave-active { opacity: 0;} /* terminal animations for remove */
+
 // CSS for repeated-item test
 
 /*
@@ -342,10 +381,8 @@ h4.passenger-header {
   class
 */
 
-
-
-.repeated-item.ng-enter, .repeated-item.ng-move,
-.animate-show.ng-enter, .animate-show.ng-move {
+.repeated-item.ng-add, .repeated-item.ng-move,
+.animate-show.ng-add, .animate-show.ng-move {
   -webkit-transition:0.5s linear all;
   -moz-transition:0.5s linear all;
   -o-transition:0.5s linear all;
@@ -405,8 +442,8 @@ h4.passenger-header {
 }
 
 @keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
  
 /*
@@ -414,18 +451,18 @@ h4.passenger-header {
   its own definition of keyframe animation code...
 */
 @-webkit-keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
  
 @-moz-keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
  
 @-o-keyframes animated_search_results {
-  from { opacity:1; }
-  to { opacity:0; }
+  from { opacity:0; }
+  to { opacity:1; }
 }
 
 .info-review-panel {
@@ -447,8 +484,9 @@ h4.passenger-header {
 }
 
 .ship-pic{
-  width:70%;
-  height:auto;
+  width: auto;
+  height: auto;
+  max-height: 555px;
 }
 
 .ship-pic-1{
@@ -467,6 +505,7 @@ h4.passenger-header {
   
 .img-container{  
   padding:10px,0px,10px,10px;
+  opacity: 0;
 }  
 
 dd {
@@ -521,49 +560,251 @@ dd {
 //   padding:0 10px;
 // }
 
-.flightSearch.ng-hide-remove { 
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
- }
-.flightSearch.ng-hide-remove.ng-hide-remove-active { 
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
- }
-.flightSearch.ng-hide-add { 
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
- }
-.flightSearch.ng-hide-add.ng-hide-add-active { 
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
+// .flightSearch.ng-hide-remove { 
+//   -moz-animation-duration: 3s;
+//   -webkit-animation-duration: 3s;
+//   -moz-animation-name: slidein;
+//   -webkit-animation-name: slidein;
+//  }
+
+ .flightSearch-add-start { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: slideOut;
+  -webkit-animation-name: slideOut;
+  -webkit-animation-fill-mode: forwards;
  }
 
-@-moz-keyframes slidein {
+@-moz-keyframes slideOut {
   from {
-    margin-left:10%;
-    width:100%;
+     left:0;
+    width:50%;
   } to {
-    margin-left:-100%;
+    left:-100%;
     width:0%;
+    /*display: none;*/
+    overflow: hidden;
+    padding:0;
+    margin:0;
   }
 }
 
-@-webkit-keyframes slidein {
+@-webkit-keyframes slideOut {
   from {
-    width:100%;
+    left:0;
+    width:50%;
   } to {
+    left:-100%;
     width:0%;
+    display: none;
+    overflow: hidden;
+    padding:0;
+    margin: 0;
   }
 }
 
+.flightSearch-to-edge { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: slideOver;
+  -webkit-animation-name: slideOver;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes slideOver {
+  from {
+
+  } to {
+    margin:0;
+  }
+}
+
+@-webkit-keyframes slideOver {
+  from {
+  } to {
+    margin: 0 0 0 40px ;
+  }
+}
+
+.search-container {
+  width: 90%;
+}
+
+.flightCard-enter, .chart-enter { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: slideCardOver;
+  -webkit-animation-name: slideCardOver;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes slideCardOver {
+  from {
+
+  } to {
+    margin:0;
+  }
+}
+
+@-webkit-keyframes slideCardOver {
+  from {
+    
+  } to {
+    margin:0;
+  }
+}
+
+.hide-ship-info { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: hideShip;
+  -webkit-animation-name: hideShip;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes hideShip {
+  from {
+
+  } to {
+    opacity:0;
+    display: none;
+  }
+}
+
+@-webkit-keyframes hideShip {
+  from {
+    
+  } to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.show-chart, .show-confirm-info { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: showChart;
+  -webkit-animation-name: showChart;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes showChart {
+  from {
+
+  } to {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes showChart {
+  from {
+    
+  } to {
+    opacity: 1;
+  }
+}
+
+.info-panel-move { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: infoMove;
+  -webkit-animation-name: infoMove;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes infoMove {
+  from {
+
+  } to {
+    margin:-520px 0 0 0;
+    width:auto;
+
+  }
+}
+
+@-webkit-keyframes infoMove {
+  from {
+    
+  } to {
+    margin:-520px 0 0 0;
+    width:auto;
+  }
+}
+
+.create-form-move { 
+  -moz-animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: formMove;
+  -webkit-animation-name: formMove;
+  -webkit-animation-fill-mode: forwards;
+ }
+
+@-moz-keyframes formMove {
+  from {
+
+  } to {
+    opacity: 0;
+
+
+  }
+}
+
+@-webkit-keyframes formMove {
+  from {
+    
+  } to {
+    opacity: 0;
+  }
+}
+.up-conf-btns{
+  margin-top: -14px;
+  opacity: 0;
+}
+
+.btn-width {
+  width: 490px !important;
+  font-size: 1.5em;
+  padding: 8px;
+}
+
+.passenger-info{
+  margin: -540px 0 0 0;
+  width: 332px;
+}
+
+.confirm-page-info {
+  margin:-520px 0 0 0;
+}
+
+.passenger-form{
+  margin: -320px -400px 0 0 ;
+  
+}
+
+.margin-left-25 {
+  margin-left: 27%
+}
+
+.weather-dials{
+  opacity: 0;
+  border: 3px solid $white;
+  border-radius: 20px 0;
+  padding:5px 20px 5px 10px;
+}
+.display-none {
+  display: none;
+}
+
+.chart{
+  width:1000px;
+  height:240px !important;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.flight-card-cont{
+  margin-right: -100%;
+}
 .amenity-preview-panel {
   height:618px;
   background-color: $lt-blue;
@@ -581,6 +822,13 @@ dd {
 
 .center-text {
   text-align: center;
+}
+
+.congrats-heading {
+  color: white;
+  font-size: 2em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+  padding-bottom: 20px;
 }
 
 .vert-align {
@@ -606,6 +854,8 @@ dd {
 }
 .congrats-text {
   color: white;
+  font-size: 1em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
 .flight-card {
@@ -617,8 +867,9 @@ dd {
   background: -ms-linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   background: linear-gradient(25deg, #730b14 4%,#9e2611 50%,#730b14 88%);
   padding:20px;
-  margin: 0 20px 20px 40px;
+  margin: 0 20px 20px 50px;
   border-radius: 20px 0;
+  cursor: pointer;
 }
 
 .flight-card-2 {
@@ -630,7 +881,7 @@ dd {
   background: -ms-linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
   background: linear-gradient(25deg, #0e3328 7%,#115b5e 50%,#0e3328 87%);
   padding:20px;
-  margin: 0 20px 50px 40px;
+  margin: 0 20px 50px 50px;
   border-radius: 20px 0;
 }
 
@@ -651,4 +902,39 @@ dd {
 
 .neg-left-margin-20 {
   margin-left: -20px
+}
+
+.padding-right {
+  margin-right: 20px;
+}
+
+.weather-text {
+  color: $white;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.mars-weather-band {
+  height: 600px;
+  width: 100%;
+  padding:20px;
+  margin: 0 20px 50px 40px;
+  border-radius: 20px 0;
+  border: 3px solid tomato;
+  /*background: #01010f;*/
+/*  border: -moz-linear-gradient(25deg, #01010f 10%, #091516 56%, #01010f 100%);
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(10%,#01010f), color-stop(56%,#091516), color-stop(100%,#01010f));
+  background: -webkit-linear-gradient(45deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: -o-linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: -ms-linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);
+  background: linear-gradient(25deg, #01010f 10%,#091516 56%,#01010f 100%);*/
+}
+
+
+.fi-arrow-up{color: $emerald;}
+.fi-arrow-down{color: $emerald;}
+
+.dial-text {
+  color: $white;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+  font-size: .8em;
 }

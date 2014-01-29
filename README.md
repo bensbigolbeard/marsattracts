@@ -28,7 +28,7 @@ This project was built by students at [MakerSquare](http://themakersquare.com), 
 - Mandrill for Action Mailer
 - Custom scraper for Mars weather collection
 - ForecastIO
-- Chart.js &amp; jQuery Knob
+- Chart.js
 
 
 ##### built in Austin, TX, January 2014 

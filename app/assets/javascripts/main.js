@@ -9,7 +9,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', function($scope, $http){
+app.controller('MainCtrl', function($scope, $http, $timeout){
 
 
 // Services to grab database content
@@ -65,6 +65,7 @@ app.controller('MainCtrl', function($scope, $http){
 
 // Variables to be set by user interaction
 
+  $scope.moveFlight = null;
   $scope.myFlight = null;
   $scope.myShip = null;
   $scope.bookFlight = null;
@@ -79,6 +80,7 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.updateInfo = null;
   $scope.amenityList = null;
   $scope.tripConfirmed = null;
+  // $scope.marsInfo = null;
 
   // $scope.flightDateConversion = function(flightDate){
   //   new Date(flightDate);
@@ -116,8 +118,16 @@ app.controller('MainCtrl', function($scope, $http){
     } else {
       $scope.amenities[id-1].amenityToggle = 'none'
     }
-  }
-
+  };
+  $scope.moveFlightSearch = function () {
+    if ($scope.moveFlight !== true) {
+      $('.search-container').addClass('flightSearch-to-edge');
+      setTimeout(function() {
+        $scope.moveFlight = true;
+      }, 1000);
+      $scope.moveFlight = false;
+    }
+  };
   
 
 // Function to define myFlight and myShip
@@ -125,26 +135,35 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.findFlightInfo = function(flightId){
     var myFlight = [];
     var myShip = [];
-    for (var i = 0; i < $scope.flights.length; i += 1){
-      if ($scope.flights[i].id === flightId){
-        myFlight.push($scope.flights[i]);
+      for (var i = 0; i < $scope.flights.length; i += 1){
+        if ($scope.flights[i].id === flightId){
+          myFlight.push($scope.flights[i]);
+           setTimeout(function() {
+            $scope.$apply(function () {
+              $('.flight-card-cont').addClass('flightCard-enter');
+            });
+          }, 1000);
+        }
       }
-    }
     for (var i = 0; i<$scope.ships.length; i+=1){
       if ($scope.ships[i].id === myFlight[0].ship_id){
         myShip.push($scope.ships[i]);
       }
     }
+
     $scope.myFlight = myFlight;
     $scope.myShip = myShip;
+
   };
-  
+
+
+
   // Global form data to be accessed later by the form on update
   $scope.formData = {
-    first_name: 'Sigorney',
+    first_name: 'Sigourney',
     last_name: 'Weaver',
     email: 'AlienGrimReaper@zuul.biz',
-    phone: '4d84r6s8f4d584hg',
+    phone: '4d84r6s8f4',
     address: '888 Earth Major Ln',
     emergency_contact: 'Me, My Bad-ass Self, and I',
     date_of_birth: '01/01/0001'
@@ -207,7 +226,18 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.hideFlightSearch = function () {
     if ($scope.flightSearch !== true) {
-      $scope.flightSearch = true;
+      $('.flightSearch').addClass('flightSearch-add-start');
+      $('.flight-card-2').addClass('hide-ship-info');
+      setTimeout(function() {
+        $scope.$apply(function () {
+          $scope.flightSearch = true;
+          $('.flight-card-2').addClass('display-none');
+          $('.chart').addClass('show-chart');
+          $('.chart').addClass('chart-enter');
+          $('.weather-dials').addClass('show-chart');
+
+        });
+      }, 1000);
     } else {
       $scope.flightSearch = false;
     }
@@ -234,9 +264,7 @@ app.controller('MainCtrl', function($scope, $http){
     } else {
       $scope.bookFlight = false;
     }
-    if ($scope.amenitiesInfo = true){
-      $scope.amenitiesInfo = false;
-    }
+    
   };
 
 // Toggle trip overview page. Needs renaming to aviod confusion with showAmenities,
@@ -244,7 +272,12 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.viewAmenities = function(){
     if ($scope.amenitiesInfo !== true){
-      $scope.amenitiesInfo = true;
+      setTimeout(function() {
+        $scope.$apply(function () {
+          $('.passenger-form').addClass('create-form-move');
+          $scope.amenitiesInfo = true;
+        });
+      }, 1000);
     } else {
       $scope.amenitiesInfo = false;
     }
@@ -367,7 +400,14 @@ app.controller('MainCtrl', function($scope, $http){
     }).error(function() {
       return console.error('Failed to create new passenger.');
     });
-
+    $('.passenger-form').addClass('create-form-move');
+    setTimeout(function() {
+        $scope.$apply(function () {
+          $('.passenger-info').removeClass('passenger-info');
+          $('.pi').addClass('margin-top-80');
+          $('.confirm').addClass('show-confirm-info');
+        });
+      }, 1000);
     return true;
 
   };
