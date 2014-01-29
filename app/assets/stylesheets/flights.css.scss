@@ -11,7 +11,7 @@ $clayface: #C6813C;
 $brick: #730B14;
 $brown: #5C3515;
 $near-black: #222422;
-$emerald: #3a7d2a;
+$emerald: #36AC1A;
 $pinky: #a33a33;
 
 // Powered by Angular.js, Slayer, and black coffee
@@ -157,7 +157,7 @@ hr {
   background-color: black;
   transition: opacity;
   &:hover, &:active {
-    background: $near-black;
+    background: tomato;
     opacity: 0.5;
 
   }  
