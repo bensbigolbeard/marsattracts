@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var app = angular.module('mars', [
+=======
+var app = angular.module('mars', [ 'dx','ngResource',
+>>>>>>> c135674cd775aab6df76eb7baa99a5181e14640f
   'ngAnimate'
   ]);
 
@@ -9,7 +13,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', function($scope, $http, $timeout){
+app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $http, $resource){
 
 
 // Services to grab database content
@@ -57,7 +61,7 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
       // Adds a base class to amenity toggles
 
       for (var i = 0; i<$scope.amenities.length; i+=1) { 
-        $scope.amenities[i].amenityToggle = 'none'
+        $scope.amenities[i].amenityToggle = 'none';
       }
   });
 
@@ -111,10 +115,10 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
   $scope.amenityToggle = function(id){
     if ($scope.amenities[id-1].amenityToggle === 'none'){
-      $scope.amenities[id-1].amenityToggle = 'act-bars-active'
-      console.log($scope.amenities[id-1].amenityToggle)
+      $scope.amenities[id-1].amenityToggle = 'act-bars-active';
+      console.log($scope.amenities[id-1].amenityToggle);
     } else {
-      $scope.amenities[id-1].amenityToggle = 'none'
+      $scope.amenities[id-1].amenityToggle = 'none';
     }
   };
   $scope.moveFlightSearch = function () {
@@ -133,16 +137,18 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
   $scope.findFlightInfo = function(flightId){
     var myFlight = [];
     var myShip = [];
-      for (var i = 0; i < $scope.flights.length; i += 1){
-        if ($scope.flights[i].id === flightId){
-          myFlight.push($scope.flights[i]);
-           setTimeout(function() {
-            $scope.$apply(function () {
-              $('.flight-card-cont').addClass('flightCard-enter');
-            });
-          }, 1000);
-        }
+
+    for (var i = 0; i < $scope.flights.length; i += 1){
+      if ($scope.flights[i].id === flightId){
+        myFlight.push($scope.flights[i]);
+         setTimeout(function() {
+          $scope.$apply(function () {
+            $('.flight-card-cont').addClass('flightCard-enter');
+          });
+        }, 1000);
       }
+    }
+
     for (var i = 0; i<$scope.ships.length; i+=1){
       if ($scope.ships[i].id === myFlight[0].ship_id){
         myShip.push($scope.ships[i]);
@@ -258,7 +264,7 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
   $scope.bookPassenger = function(){
     if ($scope.bookFlight !== true){
-      $scope.bookFlight = true;
+          $scope.bookFlight = true;
     } else {
       $scope.bookFlight = false;
     }
@@ -295,7 +301,13 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
   $scope.congratsPage = function(){
     if ($scope.tripConfirmed !== true){
-      $scope.tripConfirmed = true;
+
+      $('.hide-tr-info').addClass('hide-pass-info');
+        setTimeout(function() {
+          $scope.$apply(function () {
+            $scope.tripConfirmed = true;
+          });
+        }, 1000);
     } else {
       $scope.tripConfirmed = false;
     }
@@ -308,7 +320,7 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
       var flightId = $scope.myFlight[0].id;
       var tripId = $scope.trips[$scope.trips.length-1].id + 1;
-      var passenger = $scope.passengers[$scope.passengers.length-1]
+      var passenger = $scope.passengers[$scope.passengers.length-1];
 
       var passTripData = {
         flight_id: flightId,
@@ -345,7 +357,7 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
   $scope.updatePassenger = function(passData) {
 
     var flightId = $scope.myFlight[0].id;
-    var passengerId = $scope.passengers[$scope.passengers.length-1].id
+    var passengerId = $scope.passengers[$scope.passengers.length-1].id;
 
     var passengerData = {
       first_name: passData.first_name,
@@ -411,4 +423,30 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
     return true;
   };
+<<<<<<< HEAD
 });
+=======
+
+}]);
+
+// Populates the chart with dummy data for now
+app.controller('ChartCtrl', ['$scope', function ($scope) {
+  $scope.chartOptions = {
+    dataSource: [
+    {
+        year: 1950, costs: 34
+    },
+    {
+        year: 1951, costs: 37
+    },
+    {
+        year: 1952, costs: 23
+    },
+    {
+        year: 1953, costs: 63
+    }
+    ],
+        series: {valueField: 'costs', argumentField: 'year'} 
+    };
+}]);
+>>>>>>> c135674cd775aab6df76eb7baa99a5181e14640f
