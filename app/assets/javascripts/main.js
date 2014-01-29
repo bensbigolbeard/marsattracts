@@ -1,4 +1,4 @@
-var app = angular.module('mars', [ 'dx', 'ngResource', 'ngAnimate'
+var app = angular.module('mars', [ 'dx', 'ngResource', 'ngAnimate', 'ngRoute'
   ]);
 
 app.config([
