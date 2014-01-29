@@ -2,8 +2,8 @@ class FlightsController < ApplicationController
   def index
     @flights = Flight.all
     @origins = Origin.all
-    @chicago_lat = Origin.find_by_origin("Chicago").lat;
-    @chicago_long = Origin.find_by_origin("Chicago").long;
+    @chicago_lat = Origin.find_by_origin("Chicago").lat
+    @chicago_long = Origin.find_by_origin("Chicago").long
     @destinations = Destination.all
     ForecastIO.api_key = ENV['FORECAST_IO_KEY']
     if params[:search_origin].nil?

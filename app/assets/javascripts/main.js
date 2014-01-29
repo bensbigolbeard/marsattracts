@@ -160,10 +160,10 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
   // Global form data to be accessed later by the form on update
   $scope.formData = {
-    first_name: 'Sigorney',
+    first_name: 'Sigourney',
     last_name: 'Weaver',
     email: 'AlienGrimReaper@zuul.biz',
-    phone: '4d84r6s8f4d584hg',
+    phone: '4d84r6s8f4',
     address: '888 Earth Major Ln',
     emergency_contact: 'Me, My Bad-ass Self, and I',
     date_of_birth: '01/01/0001'
@@ -231,8 +231,11 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
       setTimeout(function() {
         $scope.$apply(function () {
           $scope.flightSearch = true;
-          $('.chart').addClass('chart-enter');
           $('.flight-card-2').addClass('display-none');
+          $('.chart').addClass('show-chart');
+          $('.chart').addClass('chart-enter');
+          $('.weather-dials').addClass('show-chart');
+
         });
       }, 1000);
     } else {
@@ -261,9 +264,7 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
     } else {
       $scope.bookFlight = false;
     }
-    if ($scope.amenitiesInfo = true){
-      $scope.amenitiesInfo = false;
-    }
+    
   };
 
 // Toggle trip overview page. Needs renaming to aviod confusion with showAmenities,
@@ -271,7 +272,12 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
 
   $scope.viewAmenities = function(){
     if ($scope.amenitiesInfo !== true){
-      $scope.amenitiesInfo = true;
+      setTimeout(function() {
+        $scope.$apply(function () {
+          $('.passenger-form').addClass('create-form-move');
+          $scope.amenitiesInfo = true;
+        });
+      }, 1000);
     } else {
       $scope.amenitiesInfo = false;
     }
@@ -394,7 +400,14 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
     }).error(function() {
       return console.error('Failed to create new passenger.');
     });
-  
+
+    setTimeout(function() {
+        $scope.$apply(function () {
+          $('.passenger-info').removeClass('passenger-info');
+          $('.pi').addClass('margin-top-80');
+        });
+      }, 1000);
+
     return true;
   };
 });
