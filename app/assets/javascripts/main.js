@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-var app = angular.module('mars', [
-=======
-var app = angular.module('mars', [ 'dx','ngResource',
->>>>>>> c135674cd775aab6df76eb7baa99a5181e14640f
-  'ngAnimate'
+var app = angular.module('mars', [ 'ngResource', 'ngAnimate'
   ]);
 
 app.config([
@@ -423,30 +418,4 @@ app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $ht
 
     return true;
   };
-<<<<<<< HEAD
-});
-=======
-
 }]);
-
-// Populates the chart with dummy data for now
-app.controller('ChartCtrl', ['$scope', function ($scope) {
-  $scope.chartOptions = {
-    dataSource: [
-    {
-        year: 1950, costs: 34
-    },
-    {
-        year: 1951, costs: 37
-    },
-    {
-        year: 1952, costs: 23
-    },
-    {
-        year: 1953, costs: 63
-    }
-    ],
-        series: {valueField: 'costs', argumentField: 'year'} 
-    };
-}]);
->>>>>>> c135674cd775aab6df76eb7baa99a5181e14640f
