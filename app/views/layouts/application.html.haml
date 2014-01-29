@@ -11,8 +11,7 @@
   = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js'
   = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.min.js'
   = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-animate.min.js'
-  = javascript_include_tag 'http://ajax.aspnetcdn.com/ajax/globalize/0.1.1/globalize.min.js'
-  = javascript_include_tag 'http://cdn3.devexpress.com/jslib/13.2.6/js/dx.chartjs.js'
+  = javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js'
 
 
 %body#background
@@ -23,11 +22,81 @@
 
     .row
       / .vid.small-12.medium-12.large-12.columns
-      / = video_tag "stars.ogv", :autoplay => true, :loop => true, :poster => "night-sky.jpg"
+      = video_tag "stars.ogv", :autoplay => true, :loop => true, :poster => "night-sky.jpg"
       / via https://archive.org/details/StarsTimeLapse
-
+    
     = yield
     = javascript_include_tag "application" 
     .padding-bottom
 
-  
+    :javascript
+
+      $(document).ready(function() {
+        var urlMarsTemp = "/mars_weather_temps.json";
+        var urlEarthTemp = "/earth_weather_temps.json";
+
+        var marsMinTempDataContainer = [];
+        var marsMaxTempDataContainer = [];
+        var earthMinTempDataContainer = [];
+        var earthMaxTempDataContainer = [];
+
+        $.get(urlMarsTemp, function(data) {
+          for(var i = 0; i < data.length; i++){
+            marsMinTempDataContainer.push(data[i].min_temp_fahrenheit)
+            marsMaxTempDataContainer.push(data[i].max_temp_fahrenheit)
+          }
+          $.get(urlEarthTemp, function(data) {
+            for(var i = 0; i < data.length; i++){
+              earthMinTempDataContainer.push(data[i].temperatureMin)
+              earthMaxTempDataContainer.push(data[i].temperatureMax)
+            }
+
+            var ctx = $("#weatherChart").get(0).getContext("2d");
+
+            var data = {
+            labels : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52],
+            datasets : [
+              {
+                fillColor : "rgba(134, 22, 19, 1)",
+                strokeColor : "rgba(134, 22, 19, 0.5)",
+                pointColor : "rgba(134, 22, 19, 0)",
+                pointStrokeColor : "rgba(134, 22, 19, 0)",
+                data : marsMinTempDataContainer
+              },
+              {
+                fillColor : "rgba(134, 22, 19, 1)",
+                strokeColor : "rgba(64, 255, 49, 0.5)",
+                pointColor : "rgba(134, 22, 19, 0)",
+                pointStrokeColor : "rgba(134, 22, 19, 0)",
+                data : marsMaxTempDataContainer
+              },
+              {
+                fillColor : "rgba(134, 22, 19, 1)",
+                strokeColor : "rgba(255, 51, 41, 0.5)",
+                pointColor : "rgba(134, 22, 19, 0)",
+                pointStrokeColor : "rgba(134, 22, 19, 0)",
+                data : earthMinTempDataContainer
+              },
+              {
+                fillColor : "rgba(134, 22, 19, 1)",
+                strokeColor : "rgba(178, 46, 255, 0.5)",
+                pointColor : "rgba(134, 22, 19, 0)",
+                pointStrokeColor : "rgba(134, 22, 19, 0)",
+                data : earthMaxTempDataContainer
+              }
+              ]
+            };
+
+            options = {
+                datasetFill: false,
+                scaleOverride: true,
+                scaleSteps: 13,
+                scaleStepWidth: 20,
+                scaleStartValue: -150,
+            };
+
+            var myNewChart = new Chart(ctx).Line(data, options);
+            
+            })
+        })
+      })

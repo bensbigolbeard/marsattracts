@@ -4,8 +4,7 @@
       %h2.index.center-text
         Mars
         %span Attracts!
-
-      
+     
 %div{"ng-controller" => "MainCtrl"}
   .row.ng-cloak
     .search-container
@@ -141,18 +140,15 @@
               Current Launch Site Conditions
         .row
           .medium-4.columns
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
-            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.cloudCover}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.cloudCover}"}
             %p.dial-text.center-text
               Cloud Cover
           .medium-4.columns   
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
-            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.humidity}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.humidity}"}
             %p.dial-text.center-text
               Humidity
           .medium-4.columns   
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
-            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.precipIntensity}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.precipIntensity}"}
             %p.dial-text.center-text
               Precipitation
         %hr
@@ -177,37 +173,19 @@
             / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.precipIntensity}"}
             %p.dial-text.center-text
               Precipitation
-        / .row
-        /   .small-6.medium-12.columns
-        /     %h5.weather-text
-        /       Current Mars day
-        /     %h1.weather-text
-        /       = MarsWeather.first.sol
-        / .row
-        /   .small-6.medium-12.columns
-        /     %h5.weather-text
-        /       Temperature
-        /     %h1.weather-text
-        /       = MarsWeather.first.max_temp_fahrenheit
-        / .row
-        /   .small-6.medium-12.columns
-        /     %h5.weather-text
-        /       Season
-        /     %h1.weather-text
-        /       = MarsWeather.first.season
-        / .row
-        /   .small-6.medium-12.columns
-        /     %h5.weather-text
-        /       Pressure
-        /     %h1.weather-text
-        /       = MarsWeather.first.pressure
-    .row.chart{'ng-show'=>"flightSearch"}
-      // Graph placeholder for weather
-      .small-12.medium-6.columns.ng-cloak.chart.center-text{ 'ng-hide'=>"bookFlight" }
-        %div{"ng-controller" => "ChartCtrl", 'ng-show'=>"myFlight"}
-          %div{"dx-chart" => "chartOptions"}
-    
-    
+
+        // Weather chart
+        .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
+          %canvas#weatherChart{:height => "200", :width => "600", 'ng-show'=>'flightSearch' }
+
+    // Collecting the buttons for showing amenities and booking form
+    / .small-6.medium-6.columns
+    /   %div{'ng-hide'=>'updateInfo'}  
+    /     %div{'ng-hide'=>'bookFlight'}  
+    /       %button{'ng-show'=>'bookButton', 'class'=>"btn btn-info", 'ng-click'=>"bookPassenger(); showAmenities()"} 
+    /         Book My Flight
+    /         %i{ 'class' => 'fi-arrow-right'}
+
     // Form for passenger booking
   %div.ng-cloak{ 'ng-show'=>"bookFlight" }
     .row.passenger-form
@@ -416,13 +394,60 @@
           %button{ 'class'=>"btn btn-primary button-pad btn-width", 'ng-click'=>"addAmenities(amenityData); congratsPage()"}
             CONFIRM TRIP
     // Confirm trip/Congrats page
-    .row.margin-top-80{"ng-show"=>"tripConfirmed"}
-      .medium-12.columns
+    .row{"ng-show"=>"tripConfirmed"}
+      .medium-12.columns.confirm-main-container.margin-top-80
         %hr
         %hr
-          .congrats-heading
-            %h3 
-              Ahoy, {{ formData.first_name }}!
-          .congrats-text
-            In {{ (myFlight[0].departure_time - Date.now())/60/60/24 }} short days, you're taking off for the colony of {{ destinations[myFlight[0].destination_id].destination }} on Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees.
-
+        .medium-12.columns.confirm-header
+          Ahoy, {{ formData.first_name }}!
+        %hr
+        %hr
+          .confirm-text
+            %p= "In a few[ish] short days, you're taking off for Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees."
+            %p= "Here are the details of your flight for your records:"
+        .row
+          .medium-11.medium-centered.columns.confirm-flt-container
+            .row
+              .medium-3.columns.confirm-section-title
+                .confirm-section-text
+                  Flight info
+            .row
+              .medium-6.columns
+                .confirm-section-listings
+                  Flight #: {{myFlight[0].flight_number}}
+                .confirm-section-listings
+                  Route: {{origins[myFlight[0].origin_id].origin}} >>> {{destinations[myFlight[0].destination_id].destination}} 
+                .confirm-section-listings
+                  Ship: {{myShip[0].name}}
+              .medium-6.columns
+                .confirm-section-listings
+                  Departure: {{myFlight[0].departure_time.slice(5,7)}}/{{myFlight[0].departure_time.slice(8,10)}}/{{myFlight[0].departure_time.slice(0,4)}}
+                .confirm-section-listings
+                  Duration: {{myFlight[0].duration}} months
+                .confirm-section-listings
+                  Seat #: {{Math.floor(Math.random()*myShip[0].capacity)}}
+        .row
+          .medium-11.medium-centered.columns.confirm-pass-container
+            .row
+              .medium-3.columns.confirm-section-title
+                .confirm-section-text
+                  Passenger info
+            .row
+              .medium-6.columns
+                .confirm-section-listings
+                  Name: {{formData.first_name}} {{formData.last_name}}
+                .confirm-section-listings
+                  DOB: {{formData.date_of_birth}} 
+                .confirm-section-listings
+                  Adddress: {{formData.address}}
+              .medium-6.columns
+                .confirm-section-listings
+                  Comm-SHA: {{formData.phone}}
+                .confirm-section-listings
+                  Email: {{formData.email}}
+                .confirm-section-listings
+                  Emergency contact: {{formData.emergency_contact}}
+        .row
+          .medium-12.columns.confirm-footer
+            .confirm-footer-text
+              The TOTAL RECALL of your trip comes to:
