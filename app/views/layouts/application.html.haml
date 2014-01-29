@@ -4,7 +4,7 @@
   %title Mars Attracts!
 
   = stylesheet_link_tag "application", media: "all" 
-
+  %meta{ "name"=>"apple-mobile-web-app-capable", "content"=>"yes"}
   = favicon_link_tag
   = csrf_meta_tags
   = javascript_include_tag 'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js'
@@ -17,13 +17,12 @@
 %body#background
   .background
     .row
-      / .small-12.medium-12.large-12.columns
       .grid
         = image_tag "hexgrid.png"
 
     .row
       / .vid.small-12.medium-12.large-12.columns
-      = video_tag "stars.ogv", :autoplay => false, :loop => true
+      / = video_tag "stars.ogv", :autoplay => false, :loop => true
       / via https://archive.org/details/StarsTimeLapse
     
     = yield

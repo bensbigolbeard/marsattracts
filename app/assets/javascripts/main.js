@@ -9,7 +9,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', function($scope, $http){
+app.controller('MainCtrl', function($scope, $http, $timeout){
 
 
 // Services to grab database content
@@ -63,6 +63,7 @@ app.controller('MainCtrl', function($scope, $http){
 
 // Variables to be set by user interaction
 
+  $scope.moveFlight = null;
   $scope.myFlight = null;
   $scope.myShip = null;
   $scope.bookFlight = null;
@@ -77,6 +78,7 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.updateInfo = null;
   $scope.amenityList = null;
   $scope.tripConfirmed = null;
+  // $scope.marsInfo = null;
 
   // $scope.flightDateConversion = function(flightDate){
   //   new Date(flightDate);
@@ -114,8 +116,16 @@ app.controller('MainCtrl', function($scope, $http){
     } else {
       $scope.amenities[id-1].amenityToggle = 'none'
     }
-  }
-
+  };
+  $scope.moveFlightSearch = function () {
+    if ($scope.moveFlight !== true) {
+      $('.search-container').addClass('flightSearch-to-edge');
+      setTimeout(function() {
+        $scope.moveFlight = true;
+      }, 1000);
+      $scope.moveFlight = false;
+    }
+  };
   
 
 // Function to define myFlight and myShip
@@ -123,20 +133,29 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.findFlightInfo = function(flightId){
     var myFlight = [];
     var myShip = [];
-    for (var i = 0; i < $scope.flights.length; i += 1){
-      if ($scope.flights[i].id === flightId){
-        myFlight.push($scope.flights[i]);
+      for (var i = 0; i < $scope.flights.length; i += 1){
+        if ($scope.flights[i].id === flightId){
+          myFlight.push($scope.flights[i]);
+           setTimeout(function() {
+            $scope.$apply(function () {
+              $('.flight-card-cont').addClass('flightCard-enter');
+            });
+          }, 1000);
+        }
       }
-    }
     for (var i = 0; i<$scope.ships.length; i+=1){
       if ($scope.ships[i].id === myFlight[0].ship_id){
         myShip.push($scope.ships[i]);
       }
     }
+
     $scope.myFlight = myFlight;
     $scope.myShip = myShip;
+
   };
-  
+
+
+
   // Global form data to be accessed later by the form on update
   $scope.formData = {
     first_name: 'Sigorney',
@@ -205,7 +224,15 @@ app.controller('MainCtrl', function($scope, $http){
 
   $scope.hideFlightSearch = function () {
     if ($scope.flightSearch !== true) {
-      $scope.flightSearch = true;
+      $('.flightSearch').addClass('flightSearch-add-start');
+      $('.flight-card-2').addClass('hide-ship-info');
+      setTimeout(function() {
+        $scope.$apply(function () {
+          $scope.flightSearch = true;
+          $('.chart').addClass('chart-enter');
+          $('.flight-card-2').addClass('display-none');
+        });
+      }, 1000);
     } else {
       $scope.flightSearch = false;
     }
