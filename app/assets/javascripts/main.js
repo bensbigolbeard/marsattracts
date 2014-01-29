@@ -166,7 +166,7 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
     phone: '4d84r6s8f4',
     address: '888 Earth Major Ln',
     emergency_contact: 'Me, My Bad-ass Self, and I',
-    date_of_birth: '01/01/0001'
+    date_of_birth: '01/01/1961'
   };
 
   // Finds one of 4 amenities, adds it to the associated global variable
