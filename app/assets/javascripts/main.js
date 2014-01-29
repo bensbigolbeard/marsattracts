@@ -9,7 +9,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', ['$scope', '$http',"$resource", "ChartCtrl", function($scope, $http, $resource, ChartCtrl){
+app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $http, $resource){
 
 
 // Services to grab database content
@@ -57,7 +57,7 @@ app.controller('MainCtrl', ['$scope', '$http',"$resource", "ChartCtrl", function
       // Adds a base class to amenity toggles
 
       for (var i = 0; i<$scope.amenities.length; i+=1) { 
-        $scope.amenities[i].amenityToggle = 'none'
+        $scope.amenities[i].amenityToggle = 'none';
       }
   });
 
@@ -113,10 +113,10 @@ app.controller('MainCtrl', ['$scope', '$http',"$resource", "ChartCtrl", function
 
   $scope.amenityToggle = function(id){
     if ($scope.amenities[id-1].amenityToggle === 'none'){
-      $scope.amenities[id-1].amenityToggle = 'act-bars-active'
-      console.log($scope.amenities[id-1].amenityToggle)
+      $scope.amenities[id-1].amenityToggle = 'act-bars-active';
+      console.log($scope.amenities[id-1].amenityToggle);
     } else {
-      $scope.amenities[id-1].amenityToggle = 'none'
+      $scope.amenities[id-1].amenityToggle = 'none';
     }
   };
   $scope.moveFlightSearch = function () {
@@ -135,16 +135,18 @@ app.controller('MainCtrl', ['$scope', '$http',"$resource", "ChartCtrl", function
   $scope.findFlightInfo = function(flightId){
     var myFlight = [];
     var myShip = [];
-      for (var i = 0; i < $scope.flights.length; i += 1){
-        if ($scope.flights[i].id === flightId){
-          myFlight.push($scope.flights[i]);
-           setTimeout(function() {
-            $scope.$apply(function () {
-              $('.flight-card-cont').addClass('flightCard-enter');
-            });
-          }, 1000);
-        }
+
+    for (var i = 0; i < $scope.flights.length; i += 1){
+      if ($scope.flights[i].id === flightId){
+        myFlight.push($scope.flights[i]);
+         setTimeout(function() {
+          $scope.$apply(function () {
+            $('.flight-card-cont').addClass('flightCard-enter');
+          });
+        }, 1000);
       }
+    }
+
     for (var i = 0; i<$scope.ships.length; i+=1){
       if ($scope.ships[i].id === myFlight[0].ship_id){
         myShip.push($scope.ships[i]);
@@ -310,7 +312,7 @@ app.controller('MainCtrl', ['$scope', '$http',"$resource", "ChartCtrl", function
 
       var flightId = $scope.myFlight[0].id;
       var tripId = $scope.trips[$scope.trips.length-1].id + 1;
-      var passenger = $scope.passengers[$scope.passengers.length-1]
+      var passenger = $scope.passengers[$scope.passengers.length-1];
 
       var passTripData = {
         flight_id: flightId,
@@ -347,7 +349,7 @@ app.controller('MainCtrl', ['$scope', '$http',"$resource", "ChartCtrl", function
   $scope.updatePassenger = function(passData) {
 
     var flightId = $scope.myFlight[0].id;
-    var passengerId = $scope.passengers[$scope.passengers.length-1].id
+    var passengerId = $scope.passengers[$scope.passengers.length-1].id;
 
     var passengerData = {
       first_name: passData.first_name,

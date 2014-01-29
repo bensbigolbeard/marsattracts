@@ -11107,6 +11107,773 @@ if (!document.createElement('canvas').getContext) {
 
 } // if
 ;
+/*!jQuery Knob*/
+/**
+ * Downward compatible, touchable dial
+ *
+ * Version: 1.2.0 (15/07/2012)
+ * Requires: jQuery v1.7+
+ *
+ * Copyright (c) 2012 Anthony Terrien
+ * Under MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ * Thanks to vor, eskimoblood, spiffistan, FabrizioC
+ */
+
+(function($) {
+
+    /**
+     * Kontrol library
+     */
+    "use strict";
+
+    /**
+     * Definition of globals and core
+     */
+    var k = {}, // kontrol
+        max = Math.max,
+        min = Math.min;
+
+    k.c = {};
+    k.c.d = $(document);
+    k.c.t = function (e) {
+        return e.originalEvent.touches.length - 1;
+    };
+
+    /**
+     * Kontrol Object
+     *
+     * Definition of an abstract UI control
+     *
+     * Each concrete component must call this one.
+     * <code>
+     * k.o.call(this);
+     * </code>
+     */
+    k.o = function () {
+        var s = this;
+
+        this.o = null; // array of options
+        this.$ = null; // jQuery wrapped element
+        this.i = null; // mixed HTMLInputElement or array of HTMLInputElement
+        this.g = null; // deprecated 2D graphics context for 'pre-rendering'
+        this.v = null; // value ; mixed array or integer
+        this.cv = null; // change value ; not commited value
+        this.x = 0; // canvas x position
+        this.y = 0; // canvas y position
+        this.w = 0; // canvas width
+        this.h = 0; // canvas height
+        this.$c = null; // jQuery canvas element
+        this.c = null; // rendered canvas context
+        this.t = 0; // touches index
+        this.isInit = false;
+        this.fgColor = null; // main color
+        this.pColor = null; // previous color
+        this.dH = null; // draw hook
+        this.cH = null; // change hook
+        this.eH = null; // cancel hook
+        this.rH = null; // release hook
+        this.scale = 1; // scale factor
+        this.relative = false;
+        this.relativeWidth = false;
+        this.relativeHeight = false;
+        this.$div = null; // component div
+
+        this.run = function () {
+            var cf = function (e, conf) {
+                var k;
+                for (k in conf) {
+                    s.o[k] = conf[k];
+                }
+                s._carve().init();
+                s._configure()
+                 ._draw();
+            };
+
+            if(this.$.data('kontroled')) return;
+            this.$.data('kontroled', true);
+
+            this.extend();
+            this.o = $.extend(
+                {
+                    // Config
+                    min : this.$.data('min') || 0,
+                    max : this.$.data('max') || 100,
+                    stopper : true,
+                    readOnly : this.$.data('readonly') || (this.$.attr('readonly') === 'readonly'),
+
+                    // UI
+                    cursor : (this.$.data('cursor') === true && 30) ||
+                                this.$.data('cursor') || 0,
+                    thickness : (
+                                    this.$.data('thickness') &&
+                                    Math.max(Math.min(this.$.data('thickness'), 1), 0.01)
+                                ) || 0.35,
+                    lineCap : this.$.data('linecap') || 'butt',
+                    width : this.$.data('width') || 200,
+                    height : this.$.data('height') || 200,
+                    displayInput : this.$.data('displayinput') == null || this.$.data('displayinput'),
+                    displayPrevious : this.$.data('displayprevious'),
+                    fgColor : this.$.data('fgcolor') || '#87CEEB',
+                    inputColor: this.$.data('inputcolor'),
+                    font: this.$.data('font') || 'Arial',
+                    fontWeight: this.$.data('font-weight') || 'bold',
+                    inline : false,
+                    step : this.$.data('step') || 1,
+
+                    // Hooks
+                    draw : null, // function () {}
+                    change : null, // function (value) {}
+                    cancel : null, // function () {}
+                    release : null // function (value) {}
+                }, this.o
+            );
+
+            // finalize options
+            if(!this.o.inputColor) {
+                this.o.inputColor = this.o.fgColor;
+            }
+
+            // routing value
+            if(this.$.is('fieldset')) {
+
+                // fieldset = array of integer
+                this.v = {};
+                this.i = this.$.find('input');
+                this.i.each(function(k) {
+                    var $this = $(this);
+                    s.i[k] = $this;
+                    s.v[k] = $this.val();
+
+                    $this.bind(
+                        'change blur'
+                        , function () {
+                            var val = {};
+                            val[k] = $this.val();
+                            s.val(val);
+                        }
+                    );
+                });
+                this.$.find('legend').remove();
+
+            } else {
+
+                // input = integer
+                this.i = this.$;
+                this.v = this.$.val();
+                (this.v === '') && (this.v = this.o.min);
+
+                this.$.bind(
+                    'change blur'
+                    , function () {
+                        s.val(s._validate(s.$.val()));
+                    }
+                );
+
+            }
+
+            (!this.o.displayInput) && this.$.hide();
+
+            // adds needed DOM elements (canvas, div)
+            this.$c = $(document.createElement('canvas')).attr({
+                width: this.o.width,
+                height: this.o.height
+            });
+
+            // wraps all elements in a div
+            // add to DOM before Canvas init is triggered
+            this.$div = $('<div style="'
+                + (this.o.inline ? 'display:inline;' : '')
+                + 'width:' + this.o.width + 'px;height:' + this.o.height + 'px;'
+                + '"></div>');
+
+            this.$.wrap(this.$div).before(this.$c);
+            this.$div = this.$.parent();
+
+            if (typeof G_vmlCanvasManager !== 'undefined') {
+              G_vmlCanvasManager.initElement(this.$c[0]);
+            }
+
+            this.c = this.$c[0].getContext ? this.$c[0].getContext('2d') : null;
+
+            if (!this.c) {
+                throw {
+                    name:        "CanvasNotSupportedException",
+                    message:     "Canvas not supported. Please use excanvas on IE8.0.",
+                    toString:    function(){return this.name + ": " + this.message}
+                }
+            }
+
+            // hdpi support
+            this.scale = (window.devicePixelRatio || 1) /
+                        (
+                            this.c.webkitBackingStorePixelRatio ||
+                            this.c.mozBackingStorePixelRatio ||
+                            this.c.msBackingStorePixelRatio ||
+                            this.c.oBackingStorePixelRatio ||
+                            this.c.backingStorePixelRatio || 1
+                        );
+
+            // detects relative width / height
+            this.relativeWidth = ((this.o.width % 1 !== 0) &&
+                this.o.width.indexOf('%'));
+            this.relativeHeight = ((this.o.height % 1 !== 0) &&
+                this.o.height.indexOf('%'));
+            this.relative = (this.relativeWidth || this.relativeHeight);
+
+            // computes size and carves the component
+            this._carve();
+
+            // prepares props for transaction
+            if (this.v instanceof Object) {
+                this.cv = {};
+                this.copy(this.v, this.cv);
+            } else {
+                this.cv = this.v;
+            }
+
+            // binds configure event
+            this.$
+                .bind("configure", cf)
+                .parent()
+                .bind("configure", cf);
+
+            // finalize init
+            this._listen()
+                ._configure()
+                ._xy()
+                .init();
+
+            this.isInit = true;
+
+            // the most important !
+            this._draw();
+
+            return this;
+        };
+
+        this._carve = function() {
+            if(this.relative) {
+                var w = this.relativeWidth ?
+                            this.$div.parent().width() *
+                            parseInt(this.o.width) / 100 :
+                            this.$div.parent().width(),
+                    h = this.relativeHeight ?
+                            this.$div.parent().height() *
+                            parseInt(this.o.height) / 100 :
+                            this.$div.parent().height();
+
+                // apply relative
+                this.w = this.h = Math.min(w, h);
+            } else {
+                this.w = this.o.width;
+                this.h = this.o.height;
+            }
+
+            // finalize div
+            this.$div.css({
+                'width': this.w + 'px',
+                'height': this.h + 'px'
+            });
+
+            // finalize canvas with computed width
+            this.$c.attr({
+                width: this.w,
+                height: this.h
+            });
+
+            // scaling
+            if (this.scale !== 1) {
+                this.$c[0].width = this.$c[0].width * this.scale;
+                this.$c[0].height = this.$c[0].height * this.scale;
+                this.$c.width(this.w);
+                this.$c.height(this.h);
+            }
+
+            return this;
+        }
+
+        this._draw = function () {
+
+            // canvas pre-rendering
+            var d = true;
+
+            s.g = s.c;
+
+            s.clear();
+
+            s.dH
+            && (d = s.dH());
+
+            (d !== false) && s.draw();
+
+        };
+
+        this._touch = function (e) {
+
+            var touchMove = function (e) {
+
+                var v = s.xy2val(
+                            e.originalEvent.touches[s.t].pageX,
+                            e.originalEvent.touches[s.t].pageY
+                            );
+
+                if (v == s.cv) return;
+
+                if (s.cH && (s.cH(v) === false)) return;
+
+                s.change(s._validate(v));
+                s._draw();
+            };
+
+            // get touches index
+            this.t = k.c.t(e);
+
+            // First touch
+            touchMove(e);
+
+            // Touch events listeners
+            k.c.d
+                .bind("touchmove.k", touchMove)
+                .bind(
+                    "touchend.k"
+                    , function () {
+                        k.c.d.unbind('touchmove.k touchend.k');
+                        s.val(s.cv);
+                    }
+                );
+
+            return this;
+        };
+
+        this._mouse = function (e) {
+
+            var mouseMove = function (e) {
+                var v = s.xy2val(e.pageX, e.pageY);
+
+                if (v == s.cv) return;
+
+                if (s.cH && (s.cH(v) === false)) return;
+
+                s.change(s._validate(v));
+                s._draw();
+            };
+
+            // First click
+            mouseMove(e);
+
+            // Mouse events listeners
+            k.c.d
+                .bind("mousemove.k", mouseMove)
+                .bind(
+                    // Escape key cancel current change
+                    "keyup.k"
+                    , function (e) {
+                        if (e.keyCode === 27) {
+                            k.c.d.unbind("mouseup.k mousemove.k keyup.k");
+
+                            if (
+                                s.eH
+                                && (s.eH() === false)
+                            ) return;
+
+                            s.cancel();
+                        }
+                    }
+                )
+                .bind(
+                    "mouseup.k"
+                    , function (e) {
+                        k.c.d.unbind('mousemove.k mouseup.k keyup.k');
+                        s.val(s.cv);
+                    }
+                );
+
+            return this;
+        };
+
+        this._xy = function () {
+            var o = this.$c.offset();
+            this.x = o.left;
+            this.y = o.top;
+            return this;
+        };
+
+        this._listen = function () {
+
+            if (!this.o.readOnly) {
+                this.$c
+                    .bind(
+                        "mousedown"
+                        , function (e) {
+                            e.preventDefault();
+                            s._xy()._mouse(e);
+                         }
+                    )
+                    .bind(
+                        "touchstart"
+                        , function (e) {
+                            e.preventDefault();
+                            s._xy()._touch(e);
+                         }
+                    );
+
+                this.listen();
+            } else {
+                this.$.attr('readonly', 'readonly');
+            }
+
+            if(this.relative) {
+                $(window).resize(function() {
+                    s._carve()
+                     .init();
+                    s._draw();
+                });
+            }
+
+            return this;
+        };
+
+        this._configure = function () {
+
+            // Hooks
+            if (this.o.draw) this.dH = this.o.draw;
+            if (this.o.change) this.cH = this.o.change;
+            if (this.o.cancel) this.eH = this.o.cancel;
+            if (this.o.release) this.rH = this.o.release;
+
+            if (this.o.displayPrevious) {
+                this.pColor = this.h2rgba(this.o.fgColor, "0.4");
+                this.fgColor = this.h2rgba(this.o.fgColor, "0.6");
+            } else {
+                this.fgColor = this.o.fgColor;
+            }
+
+            return this;
+        };
+
+        this._clear = function () {
+            this.$c[0].width = this.$c[0].width;
+        };
+
+        this._validate = function(v) {
+            return (~~ (((v < 0) ? -0.5 : 0.5) + (v/this.o.step))) * this.o.step;
+        };
+
+        // Abstract methods
+        this.listen = function () {}; // on start, one time
+        this.extend = function () {}; // each time configure triggered
+        this.init = function () {}; // each time configure triggered
+        this.change = function (v) {}; // on change
+        this.val = function (v) {}; // on release
+        this.xy2val = function (x, y) {}; //
+        this.draw = function () {}; // on change / on release
+        this.clear = function () { this._clear(); };
+
+        // Utils
+        this.h2rgba = function (h, a) {
+            var rgb;
+            h = h.substring(1,7)
+            rgb = [parseInt(h.substring(0,2),16)
+                   ,parseInt(h.substring(2,4),16)
+                   ,parseInt(h.substring(4,6),16)];
+            return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + a + ")";
+        };
+
+        this.copy = function (f, t) {
+            for (var i in f) { t[i] = f[i]; }
+        };
+    };
+
+
+    /**
+     * k.Dial
+     */
+    k.Dial = function () {
+        k.o.call(this);
+
+        this.startAngle = null;
+        this.xy = null;
+        this.radius = null;
+        this.lineWidth = null;
+        this.cursorExt = null;
+        this.w2 = null;
+        this.PI2 = 2*Math.PI;
+
+        this.extend = function () {
+            this.o = $.extend(
+                {
+                    bgColor : this.$.data('bgcolor') || '#EEEEEE',
+                    angleOffset : this.$.data('angleoffset') || 0,
+                    angleArc : this.$.data('anglearc') || 360,
+                    inline : true
+                }, this.o
+            );
+        };
+
+        this.val = function (v, triggerRelease) {
+            if (null != v) {
+
+                if (
+                    triggerRelease !== false && (v != this.v) && this.rH &&
+                        (this.rH(v) === false)
+                ) return;
+
+                this.cv = this.o.stopper ? max(min(v, this.o.max), this.o.min) : v;
+                this.v = this.cv;
+                this.$.val(this.v);
+                this._draw();
+            } else {
+                return this.v;
+            }
+        };
+
+        this.xy2val = function (x, y) {
+            var a, ret;
+
+            a = Math.atan2(
+                        x - (this.x + this.w2)
+                        , - (y - this.y - this.w2)
+                    ) - this.angleOffset;
+
+            if(this.angleArc != this.PI2 && (a < 0) && (a > -0.5)) {
+                // if isset angleArc option, set to min if .5 under min
+                a = 0;
+            } else if (a < 0) {
+                a += this.PI2;
+            }
+
+            ret = ~~ (0.5 + (a * (this.o.max - this.o.min) / this.angleArc))
+                    + this.o.min;
+
+            this.o.stopper && (ret = max(min(ret, this.o.max), this.o.min));
+
+            return ret;
+        };
+
+        this.listen = function () {
+            // bind MouseWheel
+            var s = this, mwTimerStop, mwTimerRelease,
+                mw = function (e) {
+                    e.preventDefault();
+
+                    var ori = e.originalEvent
+                        ,deltaX = ori.detail || ori.wheelDeltaX
+                        ,deltaY = ori.detail || ori.wheelDeltaY
+                        ,v = s._validate(s.$.val())
+                            + (deltaX>0 || deltaY>0 ? s.o.step : deltaX<0 || deltaY<0 ? -s.o.step : 0);
+
+                    v = max(min(v, s.o.max), s.o.min);
+
+                    s.val(v, false);
+
+                    if(s.rH) {
+                        // Handle mousewheel stop
+                        clearTimeout(mwTimerStop);
+                        mwTimerStop = setTimeout(function() {
+                            s.rH(v);
+                            mwTimerStop = null;
+                        }, 100);
+
+                        // Handle mousewheel releases
+                        if(!mwTimerRelease) {
+                            mwTimerRelease = setTimeout(function() {
+                                if(mwTimerStop) s.rH(v);
+                                mwTimerRelease = null;
+                            }, 200);
+                        }
+                    }
+                }
+                , kval, to, m = 1, kv = {37:-s.o.step, 38:s.o.step, 39:s.o.step, 40:-s.o.step};
+
+            this.$
+                .bind(
+                    "keydown"
+                    ,function (e) {
+                        var kc = e.keyCode;
+
+                        // numpad support
+                        if(kc >= 96 && kc <= 105) {
+                            kc = e.keyCode = kc - 48;
+                        }
+
+                        kval = parseInt(String.fromCharCode(kc));
+
+                        if (isNaN(kval)) {
+
+                            (kc !== 13)         // enter
+                            && (kc !== 8)       // bs
+                            && (kc !== 9)       // tab
+                            && (kc !== 189)     // -
+                            && e.preventDefault();
+
+                            // arrows
+                            if ($.inArray(kc,[37,38,39,40]) > -1) {
+                                e.preventDefault();
+
+                                var v = parseInt(s.$.val()) + kv[kc] * m;
+
+                                s.o.stopper && (v = max(min(v, s.o.max), s.o.min));
+
+                                s.change(v);
+                                s._draw();
+
+                                // long time keydown speed-up
+                                to = window.setTimeout(
+                                    function () { m *= 2; }, 30
+                                );
+                            }
+                        }
+                    }
+                )
+                .bind(
+                    "keyup"
+                    ,function (e) {
+                        if (isNaN(kval)) {
+                            if (to) {
+                                window.clearTimeout(to);
+                                to = null;
+                                m = 1;
+                                s.val(s.$.val());
+                            }
+                        } else {
+                            // kval postcond
+                            (s.$.val() > s.o.max && s.$.val(s.o.max))
+                            || (s.$.val() < s.o.min && s.$.val(s.o.min));
+                        }
+
+                    }
+                );
+
+            this.$c.bind("mousewheel DOMMouseScroll", mw);
+            this.$.bind("mousewheel DOMMouseScroll", mw)
+        };
+
+        this.init = function () {
+
+            if (
+                this.v < this.o.min
+                || this.v > this.o.max
+            ) this.v = this.o.min;
+
+            this.$.val(this.v);
+            this.w2 = this.w / 2;
+            this.cursorExt = this.o.cursor / 100;
+            this.xy = this.w2 * this.scale;
+            this.lineWidth = this.xy * this.o.thickness;
+            this.lineCap = this.o.lineCap;
+            this.radius = this.xy - this.lineWidth / 2;
+
+            this.o.angleOffset
+            && (this.o.angleOffset = isNaN(this.o.angleOffset) ? 0 : this.o.angleOffset);
+
+            this.o.angleArc
+            && (this.o.angleArc = isNaN(this.o.angleArc) ? this.PI2 : this.o.angleArc);
+
+            // deg to rad
+            this.angleOffset = this.o.angleOffset * Math.PI / 180;
+            this.angleArc = this.o.angleArc * Math.PI / 180;
+
+            // compute start and end angles
+            this.startAngle = 1.5 * Math.PI + this.angleOffset;
+            this.endAngle = 1.5 * Math.PI + this.angleOffset + this.angleArc;
+
+            var s = max(
+                            String(Math.abs(this.o.max)).length
+                            , String(Math.abs(this.o.min)).length
+                            , 2
+                            ) + 2;
+
+            this.o.displayInput
+                && this.i.css({
+                        'width' : ((this.w / 2 + 4) >> 0) + 'px'
+                        ,'height' : ((this.w / 3) >> 0) + 'px'
+                        ,'position' : 'absolute'
+                        ,'vertical-align' : 'middle'
+                        ,'margin-top' : ((this.w / 3) >> 0) + 'px'
+                        ,'margin-left' : '-' + ((this.w * 3 / 4 + 2) >> 0) + 'px'
+                        ,'border' : 0
+                        ,'background' : 'none'
+                        ,'font' : this.o.fontWeight + ' ' + ((this.w / s) >> 0) + 'px ' + this.o.font
+                        ,'text-align' : 'center'
+                        ,'color' : this.o.inputColor || this.o.fgColor
+                        ,'padding' : '0px'
+                        ,'-webkit-appearance': 'none'
+                        })
+                || this.i.css({
+                        'width' : '0px'
+                        ,'visibility' : 'hidden'
+                        });
+        };
+
+        this.change = function (v) {
+            this.cv = v;
+            this.$.val(v);
+        };
+
+        this.angle = function (v) {
+            return (v - this.o.min) * this.angleArc / (this.o.max - this.o.min);
+        };
+
+        this.draw = function () {
+
+            var c = this.g,                 // context
+                a = this.angle(this.cv)    // Angle
+                , sat = this.startAngle     // Start angle
+                , eat = sat + a             // End angle
+                , sa, ea                    // Previous angles
+                , r = 1;
+
+            c.lineWidth = this.lineWidth;
+
+            c.lineCap = this.lineCap;
+
+            this.o.cursor
+                && (sat = eat - this.cursorExt)
+                && (eat = eat + this.cursorExt);
+
+            c.beginPath();
+                c.strokeStyle = this.o.bgColor;
+                c.arc(this.xy, this.xy, this.radius, this.endAngle - 0.00001, this.startAngle + 0.00001, true);
+            c.stroke();
+
+            if (this.o.displayPrevious) {
+                ea = this.startAngle + this.angle(this.v);
+                sa = this.startAngle;
+                this.o.cursor
+                    && (sa = ea - this.cursorExt)
+                    && (ea = ea + this.cursorExt);
+
+                c.beginPath();
+                    c.strokeStyle = this.pColor;
+                    c.arc(this.xy, this.xy, this.radius, sa - 0.00001, ea + 0.00001, false);
+                c.stroke();
+                r = (this.cv == this.v);
+            }
+
+            c.beginPath();
+                c.strokeStyle = r ? this.o.fgColor : this.fgColor ;
+                c.arc(this.xy, this.xy, this.radius, sat - 0.00001, eat + 0.00001, false);
+            c.stroke();
+        };
+
+        this.cancel = function () {
+            this.val(this.v);
+        };
+    };
+
+    $.fn.dial = $.fn.knob = function (o) {
+        return this.each(
+            function () {
+                var d = new k.Dial();
+                d.o = o;
+                d.$ = $(this);
+                d.run();
+            }
+        ).parent();
+    };
+
+})(jQuery);
 /*
  * Foundation Responsive Library
  * http://foundation.zurb.com
@@ -15299,11 +16066,10 @@ if (!document.createElement('canvas').getContext) {
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 ;
-(function() {
-
-
-}).call(this);
-var app = angular.module('mars', [
+$(function() {
+  return $(".dial").knob();
+});
+var app = angular.module('mars', [ 'dx','ngResource',
   'ngAnimate'
   ]);
 
@@ -15314,39 +16080,40 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', function($scope, $http){
+app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $http, $resource){
 
 
 // Services to grab database content
 
-  $scope.flights = []
+  $scope.flights = [];
   $http.get('/flights.json').success(function(data){
       $scope.flights = data;
   });
   
-  $scope.origins = []
+  $scope.origins = [];
   $http.get('/origins.json').success(function(data){
       $scope.origins = data;
       $scope.origins.unshift( {id: '', origin:"Select a launch site..."});
       $scope.select1 = {orig: $scope.origins[0].id};
   });
 
-  $scope.destinations = []
+  $scope.destinations = [];
   $http.get('/destinations.json').success(function(data){
       $scope.destinations = data;
-      $scope.destinations.unshift( {id: '', destination:"Select a Mars colony..."});
+      $scope.destinations.unshift( {id: '', destination:"Select a Martian colony..."});
       $scope.select2 = {dest: $scope.destinations[0].id};
   });
     
 
-  $scope.ships = []
+  $scope.ships = [];
   $http.get('/ships.json').success(function(data){
       $scope.ships = data;
   });
 
-  $scope.passengers = []
+  $scope.passengers = [];
   $http.get('/passengers.json').success(function(data){
       $scope.passengers = data;
+      console.log($scope.passengers);
   });
 
   $scope.trips = []
@@ -15355,19 +16122,21 @@ app.controller('MainCtrl', function($scope, $http){
   });
 
 
-  $scope.amenities = []
+  $scope.amenities = [];
   $http.get('/amenities.json').success(function(data){
       $scope.amenities = data;
       // Adds a base class to amenity toggles
 
       for (var i = 0; i<$scope.amenities.length; i+=1) { 
-        $scope.amenities[i].amenityToggle = 'none'
+        $scope.amenities[i].amenityToggle = 'none';
       }
   });
+
   
 
 // Variables to be set by user interaction
 
+  $scope.moveFlight = null;
   $scope.myFlight = null;
   $scope.myShip = null;
   $scope.bookFlight = null;
@@ -15379,80 +16148,107 @@ app.controller('MainCtrl', function($scope, $http){
   $scope.priceArrow = 'down';
   $scope.dateArrow = 'down';
   $scope.durationArrow = 'down';
+  $scope.updateInfo = null;
+  $scope.amenityList = null;
+  $scope.tripConfirmed = null;
+  // $scope.marsInfo = null;
 
-  $scope.flightDateConversion = function(flightDate){
-    new Date(flightDate);
-  }
+  // $scope.flightDateConversion = function(flightDate){
+  //   new Date(flightDate);
+  // };
 
+  // Various toggles
   $scope.priceArwToggle = function(){
     if ($scope.priceArrow === 'down'){
-      $scope.priceArrow = 'up'
+      $scope.priceArrow = 'up';
     } else {
-      $scope.priceArrow = 'down'
+      $scope.priceArrow = 'down';
     }
-  }
+  };
 
   $scope.dateArwToggle = function(){
     if ($scope.dateArrow === 'down'){
-      $scope.dateArrow = 'up'
+      $scope.dateArrow = 'up';
     } else {
-      $scope.dateArrow = 'down'
+      $scope.dateArrow = 'down';
     }
-  }
+  };
 
   $scope.durationArwToggle = function(){
     if ($scope.durationArrow === 'down'){
-      $scope.durationArrow = 'up'
+      $scope.durationArrow = 'up';
     } else {
-      $scope.durationArrow = 'down'
+      $scope.durationArrow = 'down';
     }
-  }
+  };
 
   $scope.amenityToggle = function(id){
     if ($scope.amenities[id-1].amenityToggle === 'none'){
-      $scope.amenities[id-1].amenityToggle = 'act-bars-active'
-      console.log($scope.amenities[id-1].amenityToggle)
+      $scope.amenities[id-1].amenityToggle = 'act-bars-active';
+      console.log($scope.amenities[id-1].amenityToggle);
     } else {
-      $scope.amenities[id-1].amenityToggle = 'none'
+      $scope.amenities[id-1].amenityToggle = 'none';
     }
-  }
-
+  };
+  $scope.moveFlightSearch = function () {
+    if ($scope.moveFlight !== true) {
+      $('.search-container').addClass('flightSearch-to-edge');
+      setTimeout(function() {
+        $scope.moveFlight = true;
+      }, 1000);
+      $scope.moveFlight = false;
+    }
+  };
   
 
 // Function to define myFlight and myShip
 
   $scope.findFlightInfo = function(flightId){
-    var myFlight = []
-    var myShip = []
+    var myFlight = [];
+    var myShip = [];
+
     for (var i = 0; i < $scope.flights.length; i += 1){
       if ($scope.flights[i].id === flightId){
         myFlight.push($scope.flights[i]);
+         setTimeout(function() {
+          $scope.$apply(function () {
+            $('.flight-card-cont').addClass('flightCard-enter');
+          });
+        }, 1000);
       }
     }
+
     for (var i = 0; i<$scope.ships.length; i+=1){
       if ($scope.ships[i].id === myFlight[0].ship_id){
         myShip.push($scope.ships[i]);
       }
     }
+
     $scope.myFlight = myFlight;
     $scope.myShip = myShip;
-  }
-  
-  $scope.formData = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    address: '',
-    emergency_contact: '',
-    date_of_birth: ''
+
   };
 
+
+
+  // Global form data to be accessed later by the form on update
+  $scope.formData = {
+    first_name: 'Sigourney',
+    last_name: 'Weaver',
+    email: 'AlienGrimReaper@zuul.biz',
+    phone: '4d84r6s8f4',
+    address: '888 Earth Major Ln',
+    emergency_contact: 'Me, My Bad-ass Self, and I',
+    date_of_birth: '01/01/0001'
+  };
+
+  // Finds one of 4 amenities, adds it to the associated global variable
+  // which then populates the hidden field. 
   $scope.findAmenityInfo= function(amenityId){
     
     if ($scope.amenities[0].id === amenityId) {
       if ($scope.amenity_id1 != amenityId){
-        $scope.amenity_id1 = amenityId 
+        $scope.amenity_id1 = amenityId;
       } else { 
         $scope.amenity_id1 = null;
       }
@@ -15482,31 +16278,50 @@ app.controller('MainCtrl', function($scope, $http){
 // Displays results of flight search
 
   $scope.showFlights = function () {
-    if ($scope.revealSearch != true) {
+    if ($scope.revealSearch !== true) {
       $scope.revealSearch = true;
     } else {
       $scope.revealSearch = false;
     }
   };
 
+// Brings back the form fields and the new Update submit button
+
+  $scope.showUpdateForm = function () {
+    if ($scope.updateInfo !== true) {
+      $scope.updateInfo = true;
+    } else {
+      $scope.updateInfo = false;
+    }
+  };
+
 // Move flight search & results off to the side, reveal buttons for toggling passenger info and showing of amenities
 
   $scope.hideFlightSearch = function () {
-    if ($scope.flightSearch != true) {
-      $scope.flightSearch = true;
+    if ($scope.flightSearch !== true) {
+      $('.flightSearch').addClass('flightSearch-add-start');
+      $('.flight-card-2').addClass('hide-ship-info');
+      setTimeout(function() {
+        $scope.$apply(function () {
+          $scope.flightSearch = true;
+          $('.flight-card-2').addClass('display-none');
+          $('.chart').addClass('show-chart');
+          $('.chart').addClass('chart-enter');
+          $('.weather-dials').addClass('show-chart');
+
+        });
+      }, 1000);
     } else {
       $scope.flightSearch = false;
     }
 
-    
-
-    if ($scope.bookButton != true) {
+    if ($scope.bookButton !== true) {
       $scope.bookButton = true; 
     } else {
       $scope.bookButton = false;
     }
 
-    if ($scope.pickItButton != true) {
+    if ($scope.pickItButton !== true) {
       $scope.pickItButton = true;
     } else {
       $scope.pickItButton = false;
@@ -15517,34 +16332,58 @@ app.controller('MainCtrl', function($scope, $http){
 // Toggle passenger info form
 
   $scope.bookPassenger = function(){
-    if ($scope.bookFlight != true){
+    if ($scope.bookFlight !== true){
       $scope.bookFlight = true;
     } else {
       $scope.bookFlight = false;
     }
-    if ($scope.amenitiesInfo = true){
+    
+  };
+
+// Toggle trip overview page. Needs renaming to aviod confusion with showAmenities,
+// since this now shows the Update-or-confirm view
+
+  $scope.viewAmenities = function(){
+    if ($scope.amenitiesInfo !== true){
+      setTimeout(function() {
+        $scope.$apply(function () {
+          $('.passenger-form').addClass('create-form-move');
+          $scope.amenitiesInfo = true;
+        });
+      }, 1000);
+    } else {
       $scope.amenitiesInfo = false;
     }
   };
 
 // Toggle view of amenities
 
-  $scope.viewAmenities = function(){
-    if ($scope.amenitiesInfo != true){
-      $scope.amenitiesInfo = true;
+  $scope.showAmenities = function(){
+    if ($scope.amenityList !== true){
+      $scope.amenityList = true;
     } else {
-      $scope.amenitiesInfo = false;
+      $scope.amenityList = false;
     }
   };
 
-// Create new passenger function
+// Show congrats page
+
+  $scope.congratsPage = function(){
+    if ($scope.tripConfirmed !== true){
+      $scope.tripConfirmed = true;
+    } else {
+      $scope.tripConfirmed = false;
+    }
+  };
+
+// Add amenities to trip function
 
 
   $scope.addAmenities = function(amenityData) {
 
       var flightId = $scope.myFlight[0].id;
       var tripId = $scope.trips[$scope.trips.length-1].id + 1;
-      var passenger = $scope.passengers[$scope.passengers.length-1]
+      var passenger = $scope.passengers[$scope.passengers.length-1];
 
       var passTripData = {
         flight_id: flightId,
@@ -15578,16 +16417,32 @@ app.controller('MainCtrl', function($scope, $http){
   };
   // Create new passenger function
       
-  $scope.createPassenger = function(passData) {
+  $scope.updatePassenger = function(passData) {
 
-    // Send update to trip with amenities
+    var flightId = $scope.myFlight[0].id;
+    var passengerId = $scope.passengers[$scope.passengers.length-1].id;
 
-      $http.put('trips/' + tripId + '.json', tripData).success(function(tripData) {
-        $scope.passengers.push(tripData);
-        return console.log('Successfully updated trip.');
+    var passengerData = {
+      first_name: passData.first_name,
+      last_name: passData.last_name,
+      date_of_birth: passData.date_of_birth,
+      email: passData.email,
+      phone: passData.phone,
+      address: passData.address,
+      emergency_contact: passData.emergency_contact,
+      id: passengerId
+    };
+
+    $scope.formData = passengerData;
+
+    // Send update to passenger info
+
+      $http.put('flights/' + flightId + '/passengers/'+ (passengerId) +'.json', passengerData).success(function(passengerData) {
+        $scope.passengers[$scope.passengers.length-1] = passengerData;
+        return console.log('Successfully updated passenger info.');
       }).error(function() {
         console.log($http);
-        return console.error('Failed to update trip.');
+        return console.error('Failed to update passenger info.');
       });
       
       return true;
@@ -15596,50 +16451,65 @@ app.controller('MainCtrl', function($scope, $http){
       
   $scope.createPassenger = function(passData) {
     
+    var flightId = $scope.myFlight[0].id;
+
     // Grab passenger form data
-      var passengerData = {
-        first_name: passData.first_name,
-        last_name: passData.last_name,
-        date_of_birth: passData.date_of_birth,
-        email: passData.email,
-        phone: passData.phone,
-        address: passData.address,
-        emergency_contact: passData.emergency_contact
-      };
+    var passengerData = {
+      first_name: passData.first_name,
+      last_name: passData.last_name,
+      date_of_birth: passData.date_of_birth,
+      email: passData.email,
+      phone: passData.phone,
+      address: passData.address,
+      emergency_contact: passData.emergency_contact
+    };
 
+    $scope.formData = passengerData;
 
-    // Send formdata via post request 
-      $http.post('flights/1/passengers.json', passengerData).success(function(passengerData) {
-        $scope.passengers.push(passengerData);
-        return console.log('Successfully created passenger.');
-      }).error(function() {
-        return console.error('Failed to create new passenger.');
-      });
-
-      return true;
+  // Send formdata via post request 
+    $http.post('flights/'+ flightId +'/passengers.json', passengerData).success(function(passengerData) {
+      $scope.passengers.push(passengerData);
+      return console.log('Successfully created passenger.');
+    }).error(function() {
+      return console.error('Failed to create new passenger.');
+    });
+    $('.passenger-form').addClass('create-form-move');
+    setTimeout(function() {
+        $scope.$apply(function () {
+          $('.passenger-info').removeClass('passenger-info');
+          $('.pi').addClass('margin-top-80');
+          $('.confirm').addClass('show-confirm-info');
+        });
+      }, 1000);
+    return true;
 
   };
 
-  $scope.confirmTrip = function(data) {
-    // Grab the passenger data from the previous form and populate new form
-    // Grab by /flights/1/passengers/(passengers.length - 1).json
-      var id = $scope.passengers.length + 1;
-      console.log($scope.passengers[$scope.passengers.length - 1].first_name);
+}]);
 
-      $http.put('flights/1/passengers/' + id + '.json', data)
-              .success(function(data) {
-        // show form and populate it
-        if (data != formData) {
-          $scope.passengers.pop();
-          $scope.passengers.push(formData);
-        } else {
-          console.log("No changes made. Now you can book your flight.")
-        }
-        // change button to 'book'
-      });
-  };
-  
-});
+// Populates the chart with dummy data for now
+app.controller('ChartCtrl', ['$scope', function ($scope) {
+  $scope.chartOptions = {
+    dataSource: [
+    {
+        year: 1950, costs: 34
+    },
+    {
+        year: 1951, costs: 37
+    },
+    {
+        year: 1952, costs: 23
+    },
+    {
+        year: 1953, costs: 63
+    }
+    ],
+        series: {valueField: 'costs', argumentField: 'year'} 
+    };
+}]);
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+;
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -15652,6 +16522,7 @@ app.controller('MainCtrl', function($scope, $http){
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 
