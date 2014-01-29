@@ -1,6 +1,6 @@
 MarsAttracts::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+   # Compressor for JavaScript
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -23,7 +23,10 @@ MarsAttracts::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  # config.assets.js_compressor = :uglifier
+  config.assets.js_compress = true
+  config.assets.js_compressor = Uglifier.new(:mangle => false)
+
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -77,6 +80,8 @@ MarsAttracts::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+
 
   config.action_mailer.raise_delivery_errors = true 
   config.action_mailer.delivery_method = :smtp

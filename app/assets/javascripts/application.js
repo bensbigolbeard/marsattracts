@@ -13,10 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require excanvas
-//= require js/jquery.knob
 //= require skycons
+//= require js/jquery.knob
 //= require foundation
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
-

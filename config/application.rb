@@ -25,7 +25,7 @@ module MarsAttracts
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
 
-    # fonts path!
+    # FONTS PATH!
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     # Settings in config/environments/* take precedence over those specified here.
