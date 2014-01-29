@@ -8,7 +8,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $http, $resource){
+app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 
 
 // Services to grab database content
@@ -60,6 +60,16 @@ app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $ht
       }
   });
 
+  $scope.marsData = [];
+  $http.get('/mars_weathers.json').success(function(data){
+    $scope.marsData = data;
+    console.log(data);
+    console.log(typeof(data[0].sol));
+    console.log("Hrmmm");
+  }).error(function(){
+    console.log("D'oh!");
+  });
+
 // Variables to be set by user interaction
 
   $scope.moveFlight = null;
@@ -77,7 +87,8 @@ app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $ht
   $scope.updateInfo = null;
   $scope.amenityList = null;
   $scope.tripConfirmed = null;
-  // $scope.marsInfo = null;
+
+  $scope.marsInfo = null;
 
   // $scope.flightDateConversion = function(flightDate){
   //   new Date(flightDate);
@@ -123,6 +134,21 @@ app.controller('MainCtrl', ['$scope', '$http', "$resource", function($scope, $ht
         $scope.moveFlight = true;
       }, 1000);
       $scope.moveFlight = false;
+    }
+  };
+
+// Function to display icon for Mars weather conditions
+
+  $scope.marsSky = function () {
+    var skycons = new Skycons({"color": "white"});
+    if ($scope.marsSky == "Sunny") {
+      console.log("sunny!");
+      skycons.add("marsIcon", Skycons.CLEAR_DAY);
+      skycons.play();
+    } else {
+      console.log("sad face");
+      skycons.add("marsIcon", Skycons.CLEAR_DAY);
+      skycons.play();
     }
   };
   

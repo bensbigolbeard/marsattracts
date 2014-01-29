@@ -1017,12 +1017,18 @@ dd {
   font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
-#weatherChart {
-  margin-left: -447px;
-  margin-top: 44px;
-  background-color: rgba(24, 23, 24, 0.7);
-  border-radius: 20px 0 20px 0;
-  padding-left: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+#marsIcon {
+  width: 200px;
+  height: 100%;
+  margin-left: -50px;
 }
+
+#weatherChart {
+   margin-left: -447px;
+   margin-top: 44px;
+   background-color: rgba(24, 23, 24, 0.7);
+   border-radius: 20px 0 20px 0;
+   padding-left: 20px;
+   padding-top: 15px;
+   padding-bottom: 15px;
+  }

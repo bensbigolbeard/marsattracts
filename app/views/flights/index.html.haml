@@ -4,7 +4,7 @@
       %h2.index.center-text
         Mars
         %span Attracts!
-     
+
 %div{"ng-controller" => "MainCtrl"}
   .row.ng-cloak
     .search-container
@@ -21,6 +21,7 @@
             %button{'ng-click'=>"showFlights()"}
               Take me to the future!
               %i{class: "fi-ticket"}
+
         // Buttons for the sorting of search results 
         // Header for flight search results
         .row.ng-cloak{ 'ng-hide'=>"amenitiesInfo" }
@@ -68,7 +69,7 @@
     // Specific Flight Information      
     .small-12.medium-6.columns.ng-cloak.flight-card-cont{ 'ng-hide'=>'amenitiesInfo'}
       %div.flight-text{'class'=>'a-flight', 'ng-show'=>"myFlight"}
-        .flight-card{ 'ng-hide'=>'updateInfo; pickItButton; bookFlight','ng-click'=>"hideFlightSearch()"}
+        .flight-card{ 'ng-hide'=>'updateInfo; pickItButton; bookFlight','ng-click'=>"hideFlightSearch(); marsSky()"}
           .row
             .medium-1.columns.center-text.no-pad-right
               %hr
@@ -159,20 +160,17 @@
               Current Mars Conditions
         .row
           .medium-4.columns
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
-            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.cloudCover}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 1, "data-max" => 669, "data-displayInput" => "false", "readonly" => "readonly", "value"=>"124" }
             %p.dial-text.center-text
-              Mars Day
+              Mars Year
           .medium-4.columns   
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
-            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.humidity}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 100, "data-displayInput" => "false", "readonly" => "readonly", "value" => "33"}
             %p.dial-text.center-text
               Pressure
-          .medium-4.columns   
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly"}
-            / , value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.precipIntensity}"}
+          .medium-4.columns
+            %canvas#marsIcon
             %p.dial-text.center-text
-              Precipitation
+              Sky Conditions
 
         // Weather chart
         .small-12.medium-6.columns.ng-cloak{ 'ng-hide'=>"bookFlight" }
