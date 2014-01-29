@@ -1,5 +1,5 @@
-var app = angular.module('mars', [ 'dx',
-  'ngAnimate','ngResource'
+var app = angular.module('mars', [ 'dx','ngResource',
+  'ngAnimate'
   ]);
 
 app.config([
@@ -9,7 +9,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', ['$scope', '$http',"$httpProvider", function($scope, $http,$httpProvider){
+app.controller('MainCtrl', ['$scope', '$http',"$resource", function($scope, $http, $resource){
 
 
 // Services to grab database content
