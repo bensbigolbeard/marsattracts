@@ -9,7 +9,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
+app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 
 
 // Services to grab database content
