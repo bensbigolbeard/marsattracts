@@ -412,10 +412,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$timeout', function($scope, $htt
 
   };
 
-});
+}]);
 
 // Populates the chart with dummy data for now
-app.controller('ChartCtrl', function ($scope) {
+app.controller('ChartCtrl', ['$scope', function ($scope) {
   $scope.chartOptions = {
     dataSource: [
     {
