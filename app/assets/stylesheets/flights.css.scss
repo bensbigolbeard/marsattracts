@@ -11,7 +11,7 @@ $clayface: #C6813C;
 $brick: #730B14;
 $brown: #5C3515;
 $near-black: #222422;
-$emerald: #3a7d2a;
+$emerald: #36AC1A;
 $pinky: #a33a33;
 
 // Powered by Angular.js, Slayer, and black coffee
@@ -157,12 +157,12 @@ hr {
   background-color: black;
   transition: opacity;
   &:hover, &:active {
-    background: $near-black;
+    background: tomato;
     opacity: 0.5;
 
   }  
   p {
-    font-size: .8em;
+    font-size: .6em;
     margin-bottom: .8em;
   }
 }
@@ -1014,4 +1014,14 @@ dd {
   color: white;
   font-size: 1em;
   font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+#weatherChart {
+  margin-left: -447px;
+  margin-top: 44px;
+  background-color: rgba(24, 23, 24, 0.7);
+  border-radius: 20px 0 20px 0;
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

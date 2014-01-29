@@ -9,6 +9,7 @@ MarsAttracts::Application.routes.draw do
   get '/amenities' => 'amenities#index', as: :amenities
   get '/mars_weather_temps' => 'mars_weather_temps#index', as: :mars_weather_temps
   get '/earth_weather_temps' => 'earth_weather_temps#index', as: :earth_weather_temps
+  get '/mars_weathers' => 'mars_weathers#index', as: :mars_weathers
 
   resources :flights do
     resources :passengers
