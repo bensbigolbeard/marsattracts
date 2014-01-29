@@ -79,8 +79,8 @@ MarsAttracts::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
    # Compressor for JavaScript
-  config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(:mangle => false) }
-  
+   config.assets.js_compressor = Uglifier.new(:mangle => false)
+
   config.action_mailer.raise_delivery_errors = true 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: "heroku.com" }
