@@ -174,7 +174,7 @@ hr {
     opacity: .8;
   }
   p {
-    font-size: .88em;
+    font-size: .08em;
     margin-bottom: .8em;
   }  
 }
@@ -701,13 +701,6 @@ dd {
   text-align: center;
 }
 
-.congrats-heading {
-  color: white;
-  font-size: 2em;
-  font-family: 'Droid', 'Arial', 'sans-serif';
-  padding-bottom: 20px;
-}
-
 .vert-align {
   position: relative;
   top: 50%;
@@ -728,11 +721,6 @@ dd {
 
 .no-pad-right {
   padding-right: 0; 
-}
-.congrats-text {
-  color: white;
-  font-size: 1em;
-  font-family: 'Droid', 'Arial', 'sans-serif';
 }
 
 .flight-card {
@@ -814,4 +802,88 @@ dd {
   color: $white;
   font-family: 'Droid', 'Arial', 'sans-serif';
   font-size: .8em;
+}
+
+/* Confirmation page */
+
+.confirm-main-container {
+  padding: 25px;
+  border: 3px solid tomato;
+  border-radius: 10px 0 10px 0; 
+}
+
+.confirm-header {
+  padding-top: 5px;
+  margin-bottom: 10px;
+  color: white;
+  font-size: 1.5em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.confirm-flt-container {
+  border: 3px solid tomato;
+  background-color: #692b25;
+  margin-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px 0 10px 0;
+}
+
+.confirm-pass-container {
+  border: 3px solid tomato;
+  background-color: #004a45;
+  margin-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  border-radius: 10px 0 10px 0;
+}
+
+.confirm-footer {
+  margin-left: 15px;
+  margin-top: 15px;
+  padding-top: 5px;
+  /*border: 3px solid tomato;*/
+}
+
+.confirm-footer-text {
+  text-align: center;
+  color: tomato;
+  font-weight: 600;
+  font-size: 1.5em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.confirm-section-title {
+  padding-left: 0px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  margin-left: 15px;
+ /* border: 3px solid blue;*/
+}
+
+.confirm-section-listings {
+  margin-left: 15px;
+  padding-left: 0px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  /*border: 1px solid purple;*/
+  color: white;
+  font-size: 1em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.confirm-section-text {
+  padding: 0;
+  /*border: 2px solid orange;*/
+  color: white;
+  font-size: 1.5em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
+}
+
+.confirm-text {
+  /*border: 1px solid yellow;*/
+  color: white;
+  font-size: 1em;
+  font-family: 'Droid', 'Arial', 'sans-serif';
 }

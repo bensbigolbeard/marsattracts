@@ -379,11 +379,60 @@
             Confirm Trip
     // Confirm trip/Congrats page
     .row{"ng-show"=>"tripConfirmed"}
-      .medium-12.columns
+      .medium-12.columns.confirm-main-container
         %hr
         %hr
-          .congrats-heading
-            Ahoy, {{ formData.first_name }}!
-          .congrats-text
+        .medium-12.columns.confirm-header
+          Ahoy, {{ formData.first_name }}!
+        %hr
+        %hr
+          .confirm-text
             %p= "In a few[ish] short days, you're taking off for Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees."
+            %p= "Here are the details of your flight for your records:"
+        .row
+          .medium-11.medium-centered.columns.confirm-flt-container
+            .row
+              .medium-3.columns.confirm-section-title
+                .confirm-section-text
+                  Flight info
+            .row
+              .medium-6.columns
+                .confirm-section-listings
+                  Flight #: {{myFlight[0].flight_number}}
+                .confirm-section-listings
+                  Route: {{origins[myFlight[0].origin_id].origin}} >>> {{destinations[myFlight[0].destination_id].destination}} 
+                .confirm-section-listings
+                  Ship: {{myShip[0].name}}
+              .medium-6.columns
+                .confirm-section-listings
+                  Departure: {{myFlight[0].departure_time.slice(5,7)}}/{{myFlight[0].departure_time.slice(8,10)}}/{{myFlight[0].departure_time.slice(0,4)}}
+                .confirm-section-listings
+                  Duration: {{myFlight[0].duration}} months
+                .confirm-section-listings
+                  Seat #: {{Math.floor(Math.random()*myShip[0].capacity)}}
+        .row
+          .medium-11.medium-centered.columns.confirm-pass-container
+            .row
+              .medium-3.columns.confirm-section-title
+                .confirm-section-text
+                  Passenger info
+            .row
+              .medium-6.columns
+                .confirm-section-listings
+                  Name: {{formData.first_name}} {{formData.last_name}}
+                .confirm-section-listings
+                  DOB: {{formData.date_of_birth}} 
+                .confirm-section-listings
+                  Adddress: {{formData.address}}
+              .medium-6.columns
+                .confirm-section-listings
+                  Comm-SHA: {{formData.phone}}
+                .confirm-section-listings
+                  Email: {{formData.email}}
+                .confirm-section-listings
+                  Emergency contact: {{formData.emergency_contact}}
+        .row
+          .medium-12.columns.confirm-footer
+            .confirm-footer-text
+              The TOTAL RECALL of your trip comes to:
 
