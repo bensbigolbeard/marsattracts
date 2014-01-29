@@ -26,7 +26,6 @@ class FlightsController < ApplicationController
     @ship = @flight.ship
     @lat = @flight.coordinates[0]
     @long = @flight.coordinates[1]
-    @mars_weather = MarsWeather.all
   end
 
   def edit

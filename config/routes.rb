@@ -7,7 +7,7 @@ MarsAttracts::Application.routes.draw do
   get '/flights/search' => 'flights#search', as: :flights_search
   get '/passengers' => 'passengers#index', as: :passengers
   get '/amenities' => 'amenities#index', as: :amenities
-
+  get '/mars_weathers' => 'mars_weathers#index', as: :mars_weathers
 
   resources :flights do
     resources :passengers

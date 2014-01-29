@@ -3,6 +3,7 @@ ruby '2.0.0'
 
 gem 'coffee-rails'  # Coffeescript + Rails = BZZZZZZZZ
 gem 'coffee-script' # Coffeescript for something???
+gem 'chronic' # Time parsing
 gem 'compass-rails' # For styling
 gem 'figaro' # Figaro for storing mailer credentials
 gem 'forecast_io' # Use to query current weather

@@ -401,10 +401,13 @@ app.controller('MainCtrl', function($scope, $http, $timeout){
       return console.error('Failed to create new passenger.');
     });
 
+    $('.passenger-form').addClass('create-form-move');
+
     setTimeout(function() {
         $scope.$apply(function () {
           $('.passenger-info').removeClass('passenger-info');
           $('.pi').addClass('margin-top-80');
+          $('.confirm').addClass('show-confirm-info');
         });
       }, 1000);
 
