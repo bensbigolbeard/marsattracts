@@ -187,7 +187,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
     phone: '4d84r6s8f4',
     address: '888 Earth Major Ln',
     emergency_contact: 'Me, My Bad-ass Self, and I',
-    date_of_birth: '01/01/1961'
+    date_of_birth: '10/08/1949'
   };
 
   // Finds one of 4 amenities, adds it to the associated global variable
