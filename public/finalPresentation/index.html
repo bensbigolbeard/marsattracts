@@ -1,745 +1,452 @@
-	<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-<script type="text/javascript">
-var TSSSB = {
-	callCEF3: function(method, obj_args, handler) {
-		var url = 'https://slackcef3.com/'+method;
-		
-		handler = handler || function(ob) {}
-		
-		var req = new XMLHttpRequest();
-		req.onreadystatechange = function() {
-			if (req.readyState == 4) {
-				if (req.status == 200) {
-	
-					req.onreadystatechange = null;
-					var obj;
-					
-					if (req.responseText.indexOf('{') == 0) {
-						try {
-							eval('obj = '+req.responseText);
-						} catch (err) {
-							console.warn('unable to do anything with simple_ajax_call rsp');
-							console.error(err);
-						}
-					} else {
-						obj = {
-							ok: 1,
-							rsp: req.responseText
-						}
-					}
-					if (handler) handler(obj);
-				} else {
-					handler({
-						'ok'	: 0,
-						'error'	: "Non-200 HTTP status: "+req.status,
-						'debug'	: req.responseText
-					});
-				}
-			}
-		}
-	
-		req.open('POST', url, 1);
-		req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	
-		var obj_args2 = [];
-		for (i in obj_args) {
-			obj_args2[obj_args2.length] = encodeURIComponent(i)+'='+encodeURIComponent(obj_args[i]);
-		}
-	
-		req.send(obj_args2.join('&'));
-	},
-	
-	callMacGap: function(method, args) {
-		
-		if (method == 'reload' && macgap.app.reload) {
-			macgap.app.reload();
-			return true;
-		}
-		
-		if (method == 'didStartLoading' && macgap.app.didStartLoading) {
-			macgap.app.didStartLoading(args);
-			return true;
-		}
-		
-		if (method == 'didFinishLoading' && macgap.app.didFinishLoading) {
-			macgap.app.didFinishLoading();
-			return true;
-		}
-		
-		if (method == 'setCurrentTeam' && macgap.state.setCurrentTeam) {
-			macgap.state.setCurrentTeam(args);
-			return true;
-		}
-		
-		return false;
-	},
-	
-	call: function(method, obj_args, args, handler) {
-		if (window.macgap) {
-			return TSSSB.callMacGap(method, args);
-		}
-		
-		if (window.is_winssb) {
-			TSSSB.callCEF3(method, obj_args, handler);
-			return true;
-		}
-		
-		return false;
-	}
-}
-
-</script><script type="text/javascript">
-	TSSSB.call('didFinishLoading');
-</script>
-    <meta charset="utf-8">
-    <title>index.html | MarsAttracts Slack</title>
-    <meta name="author" content="Tiny Speck">
-
-<!-- output_css "core" -->
-    <link href="https://slack.global.ssl.fastly.net/8816/style/libs_jquery.monkeyScroll_1376358523.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/15093/style/libs_bootstrap_1391044735.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/6689/style/libs_font-awesome_1387399352.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/15007/style/web_layout_1390960068.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14363/style/forms_1390954252.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14880/style/buttons_1390954351.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14419/style/tips_1390954405.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14903/style/typography_1390954302.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/15092/style/utilities_1391044730.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14210/style/menu_1390954233.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14152/style/activity_1390954295.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14304/style/channels_1390954309.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/15037/style/messages_1391018815.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14191/style/messages_dense_1390954346.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14191/style/messages_light_1390954400.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/15084/style/files_1391041455.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14300/style/members_1390954245.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14509/style/search_1390954356.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/13898/style/stars_1390954324.https.gz.css" rel="stylesheet" type="text/css">
-
-<!-- output_css "regular" -->
-    <link href="https://slack.global.ssl.fastly.net/14693/style/comments_1390954375.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/11315/style/libs_codemirror_1381961471.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/14899/style/modal_1390954239.https.gz.css" rel="stylesheet" type="text/css">
-    <link href="https://slack.global.ssl.fastly.net/9889/style/libs_ladda-themeless_1378856995.https.gz.css" rel="stylesheet" type="text/css">
-
-
-
-
-
-    <!--[if lt IE 9]>
-    <script src="https://slack.global.ssl.fastly.net/1261/js/libs_html5shiv_1361923886.https.gz.js"></script>
-    <![endif]-->
-
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-
-
-<link id="favicon" rel="shortcut icon" href="https://slack.global.ssl.fastly.net/9412/img/icons/favicon-32.png" sizes="16x16 32x32 48x48" type="image/png" />
-
-<link rel="icon" href="https://slack.global.ssl.fastly.net/9427/img/icons/app-256.png" sizes="256x256" type="image/png" />
-
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://slack.global.ssl.fastly.net/9712/img/icons/ios-152.png" />
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://slack.global.ssl.fastly.net/9426/img/icons/ios-144.png" />
-<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://slack.global.ssl.fastly.net/9426/img/icons/ios-120.png" />
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://slack.global.ssl.fastly.net/9426/img/icons/ios-114.png" />
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://slack.global.ssl.fastly.net/9426/img/icons/ios-72.png" />
-<link rel="apple-touch-icon-precomposed" href="https://slack.global.ssl.fastly.net/9426/img/icons/ios-57.png" />
-
-<meta name="msapplication-TileColor" content="#FFFFFF" />
-<meta name="msapplication-TileImage" content="https://slack.global.ssl.fastly.net/9427/img/icons/app-144.png" /><script type="text/javascript">
-	
-	(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
-	typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
-	b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	
-	mixpanel.init("3307f436963e02d4f9eb85ce5159744c");
-			ga('create', 'UA-106458-17', 'slack.com');
-		ga('send', 'pageview');
-		mixpanel.identify('U024UG05S');
-	mixpanel.people.set({"batch":"jan_25_realtime","created":"2014-01-25"});
-	mixpanel.name_tag('marsattracts/akrueger');
-		mixpanel.track('pageview');
-	function track(a){ga('send','event','web',a);mixpanel.track(a)}
-</script>
-  </head>
-
-  <body ondragover="return false" >
-
-		
-
-	  <div id="header">
-	     <div class="container position-relative">
-		
-			<div id="header_team">
-
-				<a href="/messages">
-					<img src="https://slack.global.ssl.fastly.net/14965/img/slack_logo_header.png" id="slack_icon" data-toggle="tooltip" title="Launch the Slack app" />
-				</a>
-
-				<span class="dropdown">
-					<a id="header_team_name" class="overflow-ellipsis dropdown-toggle" data-toggle="dropdown">
-						MarsAttracts
-						<i class="icon-caret-down"></i>
-					</a>
-
-					<ul class="dropdown-menu">
-						<li>
-							<a href="/team/akrueger">
-								<img src="https://secure.gravatar.com/avatar/8c7390ee80e1ef21fcacbf6bc3ab67c0.jpg?s=48&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0011-48.png" class="member_image thumb_24" id="header_user_avatar" />
-								Logged in as <strong>akrueger</strong>
-							</a>
-						</li>
-						<li>
-							<a href="/messages">
-								<img src="https://slack.global.ssl.fastly.net/9427/img/icons/app-48.png" id="header_app_icon" />
-								Launch the Slack app
-							</a>
-						</li>
-						<li class="divider"></li>
-													<li><a href="/admin"><i class="icon-cogs"></i> Team Administration</a></li>
-												<li><a href="/getting-started"><i class="icon-bolt"></i> Getting Started Tips</a></li>
-																									<li><a href="https://slack.com/signout/2164544194?crumb=1391106655-e17fa9d242-%E2%98%83"><i class="icon-signout"></i> Sign Out</a></li>
-					</ul>
-				</span>
-
-			</div>
-						
-			<div id="header_nav" >				
-				<a href="/activity" class="primary_nav ">Home</a>
-				<a href="/team" class="primary_nav ">Team</a>
-				<a href="/services/new" class="primary_nav ">Integrations</a>
-				<a href="/account/settings" class="primary_nav ">Account</a>
-				<a href="/help" class="primary_nav ">Help</a>
-				<a href="/apps" class="primary_nav ">Apps</a>
-			</div>
-			
-						
-		  </div>
-		</div>
-
-	
-			<div class="container"> 	
-<div id="file_page">
-	
-	<div class="col_left">
-
-		<p class="file_page_user bottom_margin">
-
-	<a href="/team/chrisbodhi" class="float-left small_right_margin">
-		<img src="https://secure.gravatar.com/avatar/69fb389657222cb9c5dbca92dc7984db.jpg?s=48&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0024-48.png" class="member_image thumb_36" />
-	</a>
-	<a href="/team/chrisbodhi" class="bold member_name member" style="color: #4BBE2E;" data-member-id="U024UC11D">
-		chrisbodhi
-	</a><br />
-	
-	<span class="date">Jan 30 at 12:30 PM</span>
-
-</p>		
-		<h5>Snippet Details</h5>
-		<p class="file_page_meta bottom_margin">
-			16KB HTML snippet<br />
-							Shared in 
-									<a href="/archives/general" class="bold">#general</a>&nbsp;<a class="unshare_link" data-toggle="tooltip" title="Remove this from #general" onclick="TS.files.promptForFileUnshare('F024W8X0M', 'C024UG05W')"><i class="icon-minus-sign"></i></a>													</p>
-
-		<h5>Actions</h5>
-		<ul class="file_page_meta bottom_margin action_list">
-							<li><a onclick="TS.web.file.deleteFile('F024W8X0M')" class="file_delete delete_link"><i class="icon-remove"></i>Delete</a></li>
-						<li><a href="https://slack-files.com/files-pub/T024UG05Q-F024W8X0M-f4e2da/index.html" target="2166303021"><i class="icon-code"></i>View raw</a></li>
-			<li><a href="https://slack-files.com/files-pub/T024UG05Q-F024W8X0M-f4e2da/download/index.html"><i class="icon-cloud-download"></i>Download file</a></li>
-			<li><a href="/files/create/snippet/F024W8X0M"><i class="icon-copy"></i>Clone</a></li>
-
-					</ul>
-		
-		<h5>Privacy and Sharing</h5>
-		<p class="file_page_meta bottom_margin action_list">
-			
-										
-									
-<span class="file_public_link_creation ">
-	<a id="file_public_link_toggle" class="bold"><i class="icon-link" style="font-size: 0.75rem;"></i>Create public link</a>
-</span>
-
-<span class="file_public_link_shared hidden">
-	<a class="file_public_link bold" href="https://slack-files.com/T024UG05Q-F024W8X0M-f4e2da" target="new"><i class="icon-link" style="font-size: 0.75rem;"></i>Public link</a>
-	<a id="file_public_link_revoker" class="delete_link" data-toggle="tooltip" title="You can revoke the public link to this file. This will cause any previously shared links to stop working."><i class="icon-remove" style="font-size: 0.75rem;"></i></a>
-</span>
-
-<span id="file_public_link_explanation" class="mini subtle_silver hidden inline-block" style="margin: 0 0 0.5rem 1.25rem;">Public link created:<br /><a href="https://slack-files.com/T024UG05Q-F024W8X0M-f4e2da" class="file_public_link" target="new">click here to open it</a>.</span>					<br />
-				
-				<span id="share_holder" class="mini hidden">
-
-	<a href="#file_share_modal" class="bold" data-toggle="modal">
-					<i class="icon-share"></i>Share snippet			</a>
-
-</span>				
-			
-		</p>				
-
-	</div>
-	
-	<div class="col_right">
-
-		<h2 class="small_bottom_margin break_word">
-			index.html
-			<span id="star_holder"></span>
-		</h2>
-
-				
-		<div id="file_page_preview">
-			<pre id="file_contents">&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-
-	&lt;head&gt;
-		&lt;meta charset=&quot;utf-8&quot;&gt;
-
-		&lt;title&gt;Mars Attracts! A MakerSquare Project&lt;/title&gt;
-
-		&lt;meta name=&quot;description&quot; content=&quot;A framework for easily creating beautiful presentations using HTML&quot;&gt;
-		&lt;meta name=&quot;author&quot; content=&quot;Hakim El Hattab&quot;&gt;
-
-		&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot; /&gt;
-		&lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black-translucent&quot; /&gt;
-
-		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;&gt;
-
-		&lt;link rel=&quot;stylesheet&quot; href=&quot;css/reveal.min.css&quot;&gt;
-		&lt;link rel=&quot;stylesheet&quot; href=&quot;css/theme/default.css&quot; id=&quot;theme&quot;&gt;
-
-		&lt;!-- For syntax highlighting --&gt;
-		&lt;link rel=&quot;stylesheet&quot; href=&quot;lib/css/zenburn.css&quot;&gt;
-
-		&lt;!-- If the query includes &#039;print-pdf&#039;, use the PDF print sheet --&gt;
-		&lt;script&gt;
-			document.write( &#039;&lt;link rel=&quot;stylesheet&quot; href=&quot;css/print/&#039; + ( window.location.search.match( /print-pdf/gi ) ? &#039;pdf&#039; : &#039;paper&#039; ) + &#039;.css&quot; type=&quot;text/css&quot; media=&quot;print&quot;&gt;&#039; );
-		&lt;/script&gt;
-
-		&lt;!--[if lt IE 9]&gt;
-		&lt;script src=&quot;lib/js/html5shiv.js&quot;&gt;&lt;/script&gt;
-		&lt;![endif]--&gt;
-	&lt;/head&gt;
-
-	&lt;body&gt;
-
-		&lt;div class=&quot;reveal&quot;&gt;
-
-			&lt;!-- Any section element inside of this container is displayed as a slide --&gt;
-			&lt;div class=&quot;slides&quot;&gt;
-				&lt;section&gt;
-&lt;!-- 					&lt;h1&gt;Mars Attracts!&lt;/h1&gt;
-					&lt;p&gt;
-						&lt;a href=&quot;http://github.com/akrueger&quot;&gt;Andrew Krueger&lt;/a&gt; | &lt;a href=&quot;http://twitter.com/andrew_krueger&quot;&gt;@andrew_krueger&lt;/a&gt;
-						&lt;br&gt;
-						&lt;a href=&quot;http://github.com/bensbigolbeard&quot;&gt;Ben White&lt;/a&gt; | &lt;a href=&quot;http://twitter.com/bensbigolbeard&quot;&gt;@bensbigolbeard&lt;/a&gt;
-						&lt;br&gt;
-						&lt;a href=&quot;http://github.com/chrisbodhi&quot;&gt;Chris Boette&lt;/a&gt; | &lt;a href=&quot;http://twitter.com/chrisbodhi&quot;&gt;@chrisbodhi&lt;/a&gt;
-					&lt;/p&gt;
-					&lt;p&gt;#marsattracts!&lt;/p&gt; --&gt;
-				&lt;/section&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Annie &amp;amp; Her&lt;/h1&gt; 
-					&lt;h1&gt;Antique iPad&lt;/h1&gt;
-				&lt;/section&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Problem:&lt;/h1&gt; 
-					&lt;h1&gt;Life on Earth is a drag.&lt;/h1&gt;
-				&lt;/section&gt;				
-
-				&lt;section&gt;
-					&lt;h1&gt;Solution:&lt;/h1&gt; 
-					&lt;!-- &lt;img src=&quot;img/mars-attacks-logo.gif&quot; alt=&quot;Oops!&quot; /&gt; --&gt;
-					&lt;img src=&quot;img/mars-attacks-large.jpg&quot; alt=&quot;via http://georgespigot.files.wordpress.com/2013/10/mars-attacks-15.jpg&quot; /&gt;
-				&lt;/section&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Solution:&lt;/h1&gt; 
-					&lt;h1&gt;&lt;a href=&quot;localhost:3000&quot; target=&quot;_newtab&quot;&gt;Mars Attracts!&lt;/a&gt;&lt;/h1&gt;
-				&lt;/section&gt;
-
-&lt;!-- 				&lt;section&gt;
-					&lt;video controls&gt;
-						&lt;source src=&quot;video/splicerama.mp4&quot; type=&quot;video/mp4&quot; /&gt;
-					&lt;/video&gt;
-				&lt;/section&gt; --&gt;
-
-&lt;!-- 				&lt;section&gt;
-					&lt;h1&gt;Motivation&lt;/h1&gt;
-					&lt;img src=&quot;http://24.media.tumblr.com/tumblr_m3esljeYFv1rvnpxoo1_r1_400.png&quot; /&gt;
-				&lt;/section&gt; --&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Tech Used&lt;/h1&gt;
-					&lt;h2&gt;Rails, at first...&lt;/h2&gt;
-					&lt;img src=&quot;img/RubyOnRails.png&quot; alt=&quot;Ruby on Rails. Ha.&quot; /&gt;
-				&lt;/section&gt;
-
-&lt;!-- 				&lt;section&gt;
-					&lt;h1&gt;Tech Used&lt;/h1&gt;
-					&lt;h2&gt;...but then some JavaScript got in there.&lt;/h2&gt;
-					&lt;img src=&quot;img/github-stats.png&quot; /&gt;
-				&lt;/section&gt; --&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Tech Used&lt;/h1&gt;
-					&lt;h2&gt;Angular.js&lt;/h2&gt;
-					&lt;img src=&quot;img/AngularJS-Shield-large.png&quot; alt=&quot;Angular.js badge&quot; width=&quot;25%&quot; /&gt;
-				&lt;/section&gt;
-
-				&lt;!-- &lt;section&gt;
-					&lt;h1&gt;Motivation&lt;/h1&gt;
-					&lt;img src=&quot;img/buzz-chopped.jpg&quot; alt=&quot;Buzz is cheesed. Via MIT Technology Review&quot; /&gt;
-				&lt;/section&gt; --&gt;
-
-
-				&lt;!-- &lt;section&gt;
-					&lt;h1&gt;Motivation&lt;/h1&gt;
-					&lt;img src=&quot;img/anon-comp.png&quot; alt=&quot;From an unnamed competitior in this product&#039;s space. Ha.&quot; /&gt;
-				&lt;/section&gt; --&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Hurdles&lt;/h1&gt;
-					&lt;h2&gt;Rebuilding it:&lt;/h2&gt; 
-					&lt;h2&gt;faster, stronger, more powerful...&lt;/h2&gt;
-				&lt;/section&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Hurdles&lt;/h1&gt;
-					&lt;h2&gt;Data Mashing&lt;/h2&gt;
-				&lt;/section&gt;				
-
-&lt;!-- 				&lt;section&gt;
-					&lt;h1&gt;Hurdles&lt;/h1&gt;
-					&lt;h2&gt;Designing for the Now &amp;amp; for the Future&lt;/h2&gt;
-				&lt;/section&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;To Do&lt;/h1&gt;
-					&lt;h2&gt;Maths&lt;/h2&gt;
-				&lt;/section&gt; --&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Takeaways&lt;/h1&gt;
-					&lt;h2&gt;whimsy | learning | science!&lt;/h2&gt;
-				&lt;/section&gt;
-
-				&lt;section&gt;
-					&lt;h1&gt;Thank You!&lt;/h1&gt;
-					&lt;h2&gt;Come say &quot;hey.&quot;&lt;/h2&gt;
-					&lt;p&gt;
-						&lt;a href=&quot;http://github.com/akrueger&quot;&gt;Andrew Krueger&lt;/a&gt; | &lt;a href=&quot;http://twitter.com/andrew_krueger&quot;&gt;@andrew_krueger&lt;/a&gt;
-						&lt;br&gt;
-						&lt;a href=&quot;http://github.com/bensbigolbeard&quot;&gt;Ben White&lt;/a&gt; | &lt;a href=&quot;http://twitter.com/bensbigolbeard&quot;&gt;@bensbigolbeard&lt;/a&gt;
-						&lt;br&gt;
-						&lt;a href=&quot;http://github.com/chrisbodhi&quot;&gt;Chris Boette&lt;/a&gt; | &lt;a href=&quot;http://twitter.com/chrisbodhi&quot;&gt;@chrisbodhi&lt;/a&gt;
-					&lt;/p&gt;
-					&lt;p&gt;#marsattracts!&lt;/p&gt;
-				&lt;/section&gt;
-
-&lt;!-- 			Example of nested vertical slides
-				&lt;section&gt;
-					&lt;section&gt;
-						&lt;h2&gt;&lt;/h2&gt;
-						&lt;p&gt;
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Mars Attracts! A MakerSquare Project</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+<!-- 					<h1>Mars Attracts!</h1>
+					<p>
+						<a href="http://github.com/akrueger">Andrew Krueger</a> | <a href="http://twitter.com/andrew_krueger">@andrew_krueger</a>
+						<br>
+						<a href="http://github.com/bensbigolbeard">Ben White</a> | <a href="http://twitter.com/bensbigolbeard">@bensbigolbeard</a>
+						<br>
+						<a href="http://github.com/chrisbodhi">Chris Boette</a> | <a href="http://twitter.com/chrisbodhi">@chrisbodhi</a>
+					</p>
+					<p>#marsattracts!</p> -->
+				</section>
+
+				<section>
+					<h1>Annie &amp; Her</h1> 
+					<h1>Antique iPad</h1>
+				</section>
+
+				<section>
+					<h1>Problem:</h1> 
+					<h1>Life on Earth is a drag.</h1>
+				</section>				
+
+				<section>
+					<h1>Solution:</h1> 
+					<!-- <img src="img/mars-attacks-logo.gif" alt="Oops!" /> -->
+					<img src="img/mars-attacks-large.jpg" alt="via http://georgespigot.files.wordpress.com/2013/10/mars-attacks-15.jpg" />
+				</section>
+
+				<section>
+					<h1>Solution:</h1> 
+					<h1><a href="localhost:3000" target="_newtab">Mars Attracts!</a></h1>
+				</section>
+
+<!-- 				<section>
+					<video controls>
+						<source src="video/splicerama.mp4" type="video/mp4" />
+					</video>
+				</section> -->
+
+<!-- 				<section>
+					<h1>Motivation</h1>
+					<img src="http://24.media.tumblr.com/tumblr_m3esljeYFv1rvnpxoo1_r1_400.png" />
+				</section> -->
+
+				<section>
+					<h1>Tech Used</h1>
+					<h2>Rails, at first...</h2>
+					<img src="img/RubyOnRails.png" alt="Ruby on Rails. Ha." />
+				</section>
+
+<!-- 				<section>
+					<h1>Tech Used</h1>
+					<h2>...but then some JavaScript got in there.</h2>
+					<img src="img/github-stats.png" />
+				</section> -->
+
+				<section>
+					<h1>Tech Used</h1>
+					<h2>Angular.js</h2>
+					<img src="img/AngularJS-Shield-large.png" alt="Angular.js badge" width="25%" />
+				</section>
+
+				<!-- <section>
+					<h1>Motivation</h1>
+					<img src="img/buzz-chopped.jpg" alt="Buzz is cheesed. Via MIT Technology Review" />
+				</section> -->
+
+
+				<!-- <section>
+					<h1>Motivation</h1>
+					<img src="img/anon-comp.png" alt="From an unnamed competitior in this product's space. Ha." />
+				</section> -->
+
+				<section>
+					<h1>Hurdles</h1>
+					<h2>Rebuilding it:</h2> 
+					<h2>faster, stronger, more powerful...</h2>
+				</section>
+
+				<section>
+					<h1>Hurdles</h1>
+					<h2>Data Mashing</h2>
+				</section>				
+
+<!-- 				<section>
+					<h1>Hurdles</h1>
+					<h2>Designing for the Now &amp; for the Future</h2>
+				</section>
+
+				<section>
+					<h1>To Do</h1>
+					<h2>Maths</h2>
+				</section> -->
+
+				<section>
+					<h1>Takeaways</h1>
+					<h2>whimsy | learning | science!</h2>
+				</section>
+
+				<section>
+					<h1>Thank You!</h1>
+					<h2>Come say "hey."</h2>
+					<p>
+						<a href="http://github.com/akrueger">Andrew Krueger</a> | <a href="http://twitter.com/andrew_krueger">@andrew_krueger</a>
+						<br>
+						<a href="http://github.com/bensbigolbeard">Ben White</a> | <a href="http://twitter.com/bensbigolbeard">@bensbigolbeard</a>
+						<br>
+						<a href="http://github.com/chrisbodhi">Chris Boette</a> | <a href="http://twitter.com/chrisbodhi">@chrisbodhi</a>
+					</p>
+					<p>#marsattracts!</p>
+				</section>
+
+<!-- 			Example of nested vertical slides
+				<section>
+					<section>
+						<h2></h2>
+						<p>
 							Slides can be nested inside of other slides,
-							try pressing &lt;a href=&quot;#&quot; class=&quot;navigate-down&quot;&gt;down&lt;/a&gt;.
-						&lt;/p&gt;
-						&lt;a href=&quot;#&quot; class=&quot;image navigate-down&quot;&gt;
-							&lt;img width=&quot;178&quot; height=&quot;238&quot; src=&quot;https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png&quot; alt=&quot;Down arrow&quot;&gt;
-						&lt;/a&gt;
-					&lt;/section&gt;
-					&lt;section&gt;
-						&lt;h2&gt;Basement Level 1&lt;/h2&gt;
-						&lt;p&gt;Press down or up to navigate.&lt;/p&gt;
-					&lt;/section&gt;
-					&lt;section&gt;
-						&lt;h2&gt;Basement Level 2&lt;/h2&gt;
-						&lt;p&gt;Cornify&lt;/p&gt;
-						&lt;a class=&quot;test&quot; href=&quot;http://cornify.com&quot;&gt;
-							&lt;img width=&quot;280&quot; height=&quot;326&quot; src=&quot;https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif&quot; alt=&quot;Unicorn&quot;&gt;
-						&lt;/a&gt;
-					&lt;/section&gt;
-					&lt;section&gt;
-						&lt;h2&gt;Basement Level 3&lt;/h2&gt;
-						&lt;p&gt;That&#039;s it, time to go back up.&lt;/p&gt;
-						&lt;a href=&quot;#/2&quot; class=&quot;image&quot;&gt;
-							&lt;img width=&quot;178&quot; height=&quot;238&quot; src=&quot;https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png&quot; alt=&quot;Up arrow&quot; style=&quot;-webkit-transform: rotate(180deg);&quot;&gt;
-						&lt;/a&gt;
-					&lt;/section&gt;
-				&lt;/section&gt;
+							try pressing <a href="#" class="navigate-down">down</a>.
+						</p>
+						<a href="#" class="image navigate-down">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+					<section>
+						<h2>Basement Level 1</h2>
+						<p>Press down or up to navigate.</p>
+					</section>
+					<section>
+						<h2>Basement Level 2</h2>
+						<p>Cornify</p>
+						<a class="test" href="http://cornify.com">
+							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
+						</a>
+					</section>
+					<section>
+						<h2>Basement Level 3</h2>
+						<p>That's it, time to go back up.</p>
+						<a href="#/2" class="image">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
+						</a>
+					</section>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Slides&lt;/h2&gt;
-					&lt;p&gt;
-						Not a coder? No problem. There&#039;s a fully-featured visual editor for authoring these, try it out at &lt;a href=&quot;http://slid.es&quot; target=&quot;_blank&quot;&gt;http://slid.es&lt;/a&gt;.
-					&lt;/p&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Slides</h2>
+					<p>
+						Not a coder? No problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slid.es" target="_blank">http://slid.es</a>.
+					</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Point of View&lt;/h2&gt;
-					&lt;p&gt;
-						Press &lt;strong&gt;ESC&lt;/strong&gt; to enter the slide overview.
-					&lt;/p&gt;
-					&lt;p&gt;
-						Hold down alt and click on any element to zoom in on it using &lt;a href=&quot;http://lab.hakim.se/zoom-js&quot;&gt;zoom.js&lt;/a&gt;. Alt + click anywhere to zoom back out.
-					&lt;/p&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Point of View</h2>
+					<p>
+						Press <strong>ESC</strong> to enter the slide overview.
+					</p>
+					<p>
+						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
+					</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Works in Mobile Safari&lt;/h2&gt;
-					&lt;p&gt;
+				<section>
+					<h2>Works in Mobile Safari</h2>
+					<p>
 						Try it out! You can swipe through the slides and pinch your way to the overview.
-					&lt;/p&gt;
-				&lt;/section&gt;
+					</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Marvelous Unordered List&lt;/h2&gt;
-					&lt;ul&gt;
-						&lt;li&gt;No order here&lt;/li&gt;
-						&lt;li&gt;Or here&lt;/li&gt;
-						&lt;li&gt;Or here&lt;/li&gt;
-						&lt;li&gt;Or here&lt;/li&gt;
-					&lt;/ul&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Marvelous Unordered List</h2>
+					<ul>
+						<li>No order here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+						<li>Or here</li>
+					</ul>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Fantastic Ordered List&lt;/h2&gt;
-					&lt;ol&gt;
-						&lt;li&gt;One is smaller than...&lt;/li&gt;
-						&lt;li&gt;Two is smaller than...&lt;/li&gt;
-						&lt;li&gt;Three!&lt;/li&gt;
-					&lt;/ol&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Fantastic Ordered List</h2>
+					<ol>
+						<li>One is smaller than...</li>
+						<li>Two is smaller than...</li>
+						<li>Three!</li>
+					</ol>
+				</section>
 
-				&lt;section data-markdown&gt;
-					&lt;script type=&quot;text/template&quot;&gt;
+				<section data-markdown>
+					<script type="text/template">
 						## Markdown support
 
 						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
 
 						```
-						&lt;section data-markdown&gt;
+						<section data-markdown>
 						  ## Markdown support
 
 						  For those of you who like that sort of thing.
 						  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-						&lt;/section&gt;
+						</section>
 						```
-					&lt;/script&gt;
-				&lt;/section&gt;
+					</script>
+				</section>
 
-				&lt;section id=&quot;transitions&quot;&gt;
-					&lt;h2&gt;Transition Styles&lt;/h2&gt;
-					&lt;p&gt;
-						You can select from different transitions, like: &lt;br&gt;
-						&lt;a href=&quot;?transition=cube#/transitions&quot;&gt;Cube&lt;/a&gt; -
-						&lt;a href=&quot;?transition=page#/transitions&quot;&gt;Page&lt;/a&gt; -
-						&lt;a href=&quot;?transition=concave#/transitions&quot;&gt;Concave&lt;/a&gt; -
-						&lt;a href=&quot;?transition=zoom#/transitions&quot;&gt;Zoom&lt;/a&gt; -
-						&lt;a href=&quot;?transition=linear#/transitions&quot;&gt;Linear&lt;/a&gt; -
-						&lt;a href=&quot;?transition=fade#/transitions&quot;&gt;Fade&lt;/a&gt; -
-						&lt;a href=&quot;?transition=none#/transitions&quot;&gt;None&lt;/a&gt; -
-						&lt;a href=&quot;?#/transitions&quot;&gt;Default&lt;/a&gt;
-					&lt;/p&gt;
-				&lt;/section&gt;
+				<section id="transitions">
+					<h2>Transition Styles</h2>
+					<p>
+						You can select from different transitions, like: <br>
+						<a href="?transition=cube#/transitions">Cube</a> -
+						<a href="?transition=page#/transitions">Page</a> -
+						<a href="?transition=concave#/transitions">Concave</a> -
+						<a href="?transition=zoom#/transitions">Zoom</a> -
+						<a href="?transition=linear#/transitions">Linear</a> -
+						<a href="?transition=fade#/transitions">Fade</a> -
+						<a href="?transition=none#/transitions">None</a> -
+						<a href="?#/transitions">Default</a>
+					</p>
+				</section>
 
-				&lt;section id=&quot;themes&quot;&gt;
-					&lt;h2&gt;Themes&lt;/h2&gt;
-					&lt;p&gt;
-						Reveal.js comes with a few themes built in: &lt;br&gt;
-						&lt;a href=&quot;?#/themes&quot;&gt;Default&lt;/a&gt; -
-						&lt;a href=&quot;?theme=sky#/themes&quot;&gt;Sky&lt;/a&gt; -
-						&lt;a href=&quot;?theme=beige#/themes&quot;&gt;Beige&lt;/a&gt; -
-						&lt;a href=&quot;?theme=simple#/themes&quot;&gt;Simple&lt;/a&gt; -
-						&lt;a href=&quot;?theme=serif#/themes&quot;&gt;Serif&lt;/a&gt; -
-						&lt;a href=&quot;?theme=night#/themes&quot;&gt;Night&lt;/a&gt; &lt;br&gt;
-						&lt;a href=&quot;?theme=moon#/themes&quot;&gt;Moon&lt;/a&gt; -
-						&lt;a href=&quot;?theme=solarized#/themes&quot;&gt;Solarized&lt;/a&gt;
-					&lt;/p&gt;
-					&lt;p&gt;
-						&lt;small&gt;
-							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; using a &lt;code&gt;&amp;lt;link&amp;gt;&lt;/code&gt;.
-						&lt;/small&gt;
-					&lt;/p&gt;
-				&lt;/section&gt;
+				<section id="themes">
+					<h2>Themes</h2>
+					<p>
+						Reveal.js comes with a few themes built in: <br>
+						<a href="?#/themes">Default</a> -
+						<a href="?theme=sky#/themes">Sky</a> -
+						<a href="?theme=beige#/themes">Beige</a> -
+						<a href="?theme=simple#/themes">Simple</a> -
+						<a href="?theme=serif#/themes">Serif</a> -
+						<a href="?theme=night#/themes">Night</a> <br>
+						<a href="?theme=moon#/themes">Moon</a> -
+						<a href="?theme=solarized#/themes">Solarized</a>
+					</p>
+					<p>
+						<small>
+							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
+						</small>
+					</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Global State&lt;/h2&gt;
-					&lt;p&gt;
-						Set &lt;code&gt;data-state=&quot;something&quot;&lt;/code&gt; on a slide and &lt;code&gt;&quot;something&quot;&lt;/code&gt;
+				<section>
+					<h2>Global State</h2>
+					<p>
+						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
 						will be added as a class to the document element when the slide is open. This lets you
 						apply broader style changes, like switching the background.
-					&lt;/p&gt;
-				&lt;/section&gt;
+					</p>
+				</section>
 
-				&lt;section data-state=&quot;customevent&quot;&gt;
-					&lt;h2&gt;Custom Events&lt;/h2&gt;
-					&lt;p&gt;
-						Additionally custom events can be triggered on a per slide basis by binding to the &lt;code&gt;data-state&lt;/code&gt; name.
-					&lt;/p&gt;
-					&lt;pre&gt;&lt;code data-trim contenteditable style=&quot;font-size: 18px; margin-top: 20px;&quot;&gt;
-Reveal.addEventListener( &#039;customevent&#039;, function() {
-	console.log( &#039;&quot;customevent&quot; has fired&#039; );
+				<section data-state="customevent">
+					<h2>Custom Events</h2>
+					<p>
+						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
+					</p>
+					<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+Reveal.addEventListener( 'customevent', function() {
+	console.log( '"customevent" has fired' );
 } );
-					&lt;/code&gt;&lt;/pre&gt;
-				&lt;/section&gt;
+					</code></pre>
+				</section>
 
-				&lt;section&gt;
-					&lt;section data-background=&quot;#007777&quot;&gt;
-						&lt;h2&gt;Slide Backgrounds&lt;/h2&gt;
-						&lt;p&gt;
-							Set &lt;code&gt;data-background=&quot;#007777&quot;&lt;/code&gt; on a slide to change the full page background to the given color. All CSS color formats are supported.
-						&lt;/p&gt;
-						&lt;a href=&quot;#&quot; class=&quot;image navigate-down&quot;&gt;
-							&lt;img width=&quot;178&quot; height=&quot;238&quot; src=&quot;https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png&quot; alt=&quot;Down arrow&quot;&gt;
-						&lt;/a&gt;
-					&lt;/section&gt;
-					&lt;section data-background=&quot;https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png&quot;&gt;
-						&lt;h2&gt;Image Backgrounds&lt;/h2&gt;
-						&lt;pre&gt;&lt;code&gt;&amp;lt;section data-background=&quot;image.png&quot;&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-					&lt;/section&gt;
-					&lt;section data-background=&quot;https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png&quot; data-background-repeat=&quot;repeat&quot; data-background-size=&quot;100px&quot;&gt;
-						&lt;h2&gt;Repeated Image Backgrounds&lt;/h2&gt;
-						&lt;pre&gt;&lt;code style=&quot;word-wrap: break-word;&quot;&gt;&amp;lt;section data-background=&quot;image.png&quot; data-background-repeat=&quot;repeat&quot; data-background-size=&quot;100px&quot;&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-					&lt;/section&gt;
-				&lt;/section&gt;
+				<section>
+					<section data-background="#007777">
+						<h2>Slide Backgrounds</h2>
+						<p>
+							Set <code>data-background="#007777"</code> on a slide to change the full page background to the given color. All CSS color formats are supported.
+						</p>
+						<a href="#" class="image navigate-down">
+							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png">
+						<h2>Image Backgrounds</h2>
+						<pre><code>&lt;section data-background="image.png"&gt;</code></pre>
+					</section>
+					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" data-background-repeat="repeat" data-background-size="100px">
+						<h2>Repeated Image Backgrounds</h2>
+						<pre><code style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
+					</section>
+				</section>
 
-				&lt;section data-transition=&quot;linear&quot; data-background=&quot;#4d7e65&quot; data-background-transition=&quot;slide&quot;&gt;
-					&lt;h2&gt;Background Transitions&lt;/h2&gt;
-					&lt;p&gt;
-						Pass reveal.js the &lt;code&gt;backgroundTransition: &#039;slide&#039;&lt;/code&gt; config argument to make backgrounds slide rather than fade.
-					&lt;/p&gt;
-				&lt;/section&gt;
+				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
+					<h2>Background Transitions</h2>
+					<p>
+						Pass reveal.js the <code>backgroundTransition: 'slide'</code> config argument to make backgrounds slide rather than fade.
+					</p>
+				</section>
 
-				&lt;section data-transition=&quot;linear&quot; data-background=&quot;#8c4738&quot; data-background-transition=&quot;slide&quot;&gt;
-					&lt;h2&gt;Background Transition Override&lt;/h2&gt;
-					&lt;p&gt;
-						You can override background transitions per slide by using &lt;code&gt;data-background-transition=&quot;slide&quot;&lt;/code&gt;.
-					&lt;/p&gt;
-				&lt;/section&gt;
+				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
+					<h2>Background Transition Override</h2>
+					<p>
+						You can override background transitions per slide by using <code>data-background-transition="slide"</code>.
+					</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Clever Quotes&lt;/h2&gt;
-					&lt;p&gt;
-						These guys come in two forms, inline: &lt;q cite=&quot;http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations&quot;&gt;
-						&amp;ldquo;The nice thing about standards is that there are so many to choose from&amp;rdquo;&lt;/q&gt; and block:
-					&lt;/p&gt;
-					&lt;blockquote cite=&quot;http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations&quot;&gt;
-						&amp;ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&amp;rdquo;
-					&lt;/blockquote&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Clever Quotes</h2>
+					<p>
+						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
+					</p>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
+						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+					</blockquote>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Pretty Code&lt;/h2&gt;
-					&lt;pre&gt;&lt;code data-trim contenteditable&gt;
+				<section>
+					<h2>Pretty Code</h2>
+					<pre><code data-trim contenteditable>
 function linkify( selector ) {
   if( supports3DTransforms ) {
 
     var nodes = document.querySelectorAll( selector );
 
-    for( var i = 0, len = nodes.length; i &amp;lt; len; i++ ) {
+    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
       var node = nodes[i];
 
       if( !node.className ) {
-        node.className += &#039; roll&#039;;
+        node.className += ' roll';
       }
     }
   }
 }
-					&lt;/code&gt;&lt;/pre&gt;
-					&lt;p&gt;Courtesy of &lt;a href=&quot;http://softwaremaniacs.org/soft/highlight/en/description/&quot;&gt;highlight.js&lt;/a&gt;.&lt;/p&gt;
-				&lt;/section&gt;
+					</code></pre>
+					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Intergalactic Interconnections&lt;/h2&gt;
-					&lt;p&gt;
+				<section>
+					<h2>Intergalactic Interconnections</h2>
+					<p>
 						You can link between slides internally,
-						&lt;a href=&quot;#/2/3&quot;&gt;like this&lt;/a&gt;.
-					&lt;/p&gt;
-				&lt;/section&gt;
+						<a href="#/2/3">like this</a>.
+					</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;section id=&quot;fragments&quot;&gt;
-						&lt;h2&gt;Fragmented Views&lt;/h2&gt;
-						&lt;p&gt;Hit the next arrow...&lt;/p&gt;
-						&lt;p class=&quot;fragment&quot;&gt;... to step through ...&lt;/p&gt;
-						&lt;ol&gt;
-							&lt;li class=&quot;fragment&quot;&gt;&lt;code&gt;any type&lt;/code&gt;&lt;/li&gt;
-							&lt;li class=&quot;fragment&quot;&gt;&lt;em&gt;of view&lt;/em&gt;&lt;/li&gt;
-							&lt;li class=&quot;fragment&quot;&gt;&lt;strong&gt;fragments&lt;/strong&gt;&lt;/li&gt;
-						&lt;/ol&gt;
+				<section>
+					<section id="fragments">
+						<h2>Fragmented Views</h2>
+						<p>Hit the next arrow...</p>
+						<p class="fragment">... to step through ...</p>
+						<ol>
+							<li class="fragment"><code>any type</code></li>
+							<li class="fragment"><em>of view</em></li>
+							<li class="fragment"><strong>fragments</strong></li>
+						</ol>
 
-						&lt;aside class=&quot;notes&quot;&gt;
+						<aside class="notes">
 							This slide has fragments which are also stepped through in the notes window.
-						&lt;/aside&gt;
-					&lt;/section&gt;
-					&lt;section&gt;
-						&lt;h2&gt;Fragment Styles&lt;/h2&gt;
-						&lt;p&gt;There&#039;s a few styles of fragments, like:&lt;/p&gt;
-						&lt;p class=&quot;fragment grow&quot;&gt;grow&lt;/p&gt;
-						&lt;p class=&quot;fragment shrink&quot;&gt;shrink&lt;/p&gt;
-						&lt;p class=&quot;fragment roll-in&quot;&gt;roll-in&lt;/p&gt;
-						&lt;p class=&quot;fragment fade-out&quot;&gt;fade-out&lt;/p&gt;
-						&lt;p class=&quot;fragment highlight-red&quot;&gt;highlight-red&lt;/p&gt;
-						&lt;p class=&quot;fragment highlight-green&quot;&gt;highlight-green&lt;/p&gt;
-						&lt;p class=&quot;fragment highlight-blue&quot;&gt;highlight-blue&lt;/p&gt;
-						&lt;p class=&quot;fragment current-visible&quot;&gt;current-visible&lt;/p&gt;
-						&lt;p class=&quot;fragment highlight-current-blue&quot;&gt;highlight-current-blue&lt;/p&gt;
-					&lt;/section&gt;
-				&lt;/section&gt;
+						</aside>
+					</section>
+					<section>
+						<h2>Fragment Styles</h2>
+						<p>There's a few styles of fragments, like:</p>
+						<p class="fragment grow">grow</p>
+						<p class="fragment shrink">shrink</p>
+						<p class="fragment roll-in">roll-in</p>
+						<p class="fragment fade-out">fade-out</p>
+						<p class="fragment highlight-red">highlight-red</p>
+						<p class="fragment highlight-green">highlight-green</p>
+						<p class="fragment highlight-blue">highlight-blue</p>
+						<p class="fragment current-visible">current-visible</p>
+						<p class="fragment highlight-current-blue">highlight-current-blue</p>
+					</section>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Spectacular image!&lt;/h2&gt;
-					&lt;a class=&quot;image&quot; href=&quot;http://lab.hakim.se/meny/&quot; target=&quot;_blank&quot;&gt;
-						&lt;img width=&quot;320&quot; height=&quot;299&quot; src=&quot;http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png&quot; alt=&quot;Meny&quot;&gt;
-					&lt;/a&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Spectacular image!</h2>
+					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
+						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
+					</a>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Export to PDF&lt;/h2&gt;
-					&lt;p&gt;Presentations can be &lt;a href=&quot;https://github.com/hakimel/reveal.js#pdf-export&quot;&gt;exported to PDF&lt;/a&gt;, below is an example that&#039;s been uploaded to SlideShare.&lt;/p&gt;
-					&lt;iframe id=&quot;slideshare&quot; src=&quot;http://www.slideshare.net/slideshow/embed_code/13872948&quot; width=&quot;455&quot; height=&quot;356&quot; style=&quot;margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px&quot; allowfullscreen&gt; &lt;/iframe&gt;
-					&lt;script&gt;
-						document.getElementById(&#039;slideshare&#039;).attributeName = &#039;allowfullscreen&#039;;
-					&lt;/script&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Export to PDF</h2>
+					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
+					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
+					<script>
+						document.getElementById('slideshare').attributeName = 'allowfullscreen';
+					</script>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Take a Moment&lt;/h2&gt;
-					&lt;p&gt;
-						Press b or period on your keyboard to enter the &#039;paused&#039; mode. This mode is helpful when you want to take distracting slides off the screen
+				<section>
+					<h2>Take a Moment</h2>
+					<p>
+						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
 						during a presentation.
-					&lt;/p&gt;
-				&lt;/section&gt;
+					</p>
+				</section>
 
-				&lt;section&gt;
-					&lt;h2&gt;Stellar Links&lt;/h2&gt;
-					&lt;ul&gt;
-						&lt;li&gt;&lt;a href=&quot;http://slid.es&quot;&gt;Try the online editor&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href=&quot;https://github.com/hakimel/reveal.js&quot;&gt;Source code on GitHub&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href=&quot;http://twitter.com/hakimel&quot;&gt;Follow me on Twitter&lt;/a&gt;&lt;/li&gt;
-					&lt;/ul&gt;
-				&lt;/section&gt;
+				<section>
+					<h2>Stellar Links</h2>
+					<ul>
+						<li><a href="http://slid.es">Try the online editor</a></li>
+						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
+						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
+					</ul>
+				</section>
 
-				&lt;section&gt;
-					&lt;h1&gt;THE END&lt;/h1&gt;
-					&lt;h3&gt;BY Hakim El Hattab / hakim.se&lt;/h3&gt;
-				&lt;/section&gt; --&gt;
+				<section>
+					<h1>THE END</h1>
+					<h3>BY Hakim El Hattab / hakim.se</h3>
+				</section> -->
 
-			&lt;/div&gt;
+			</div>
 
-		&lt;/div&gt;
+		</div>
 
-		&lt;script src=&quot;lib/js/head.min.js&quot;&gt;&lt;/script&gt;
-		&lt;script src=&quot;js/reveal.min.js&quot;&gt;&lt;/script&gt;
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
 
-		&lt;script&gt;
+		<script>
 
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
@@ -750,328 +457,25 @@ function linkify( selector ) {
 				center: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || &#039;none&#039;, // default/cube/page/concave/zoom/linear/fade/none
+				transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Parallax scrolling
 				// Image via http://thethoughtstash.files.wordpress.com/2012/03/west-valley-mars-180-degrees-panorama.jpg
-				parallaxBackgroundImage: &#039;img/mars-panorama.jpg&#039;,
-				parallaxBackgroundSize: &#039;2100px 900px&#039;,
+				parallaxBackgroundImage: 'img/mars-panorama.jpg',
+				parallaxBackgroundSize: '2100px 900px',
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
-					{ src: &#039;lib/js/classList.js&#039;, condition: function() { return !document.body.classList; } },
-					{ src: &#039;plugin/markdown/marked.js&#039;, condition: function() { return !!document.querySelector( &#039;[data-markdown]&#039; ); } },
-					{ src: &#039;plugin/markdown/markdown.js&#039;, condition: function() { return !!document.querySelector( &#039;[data-markdown]&#039; ); } },
-					{ src: &#039;plugin/highlight/highlight.js&#039;, async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: &#039;plugin/zoom-js/zoom.js&#039;, async: true, condition: function() { return !!document.body.classList; } },
-					{ src: &#039;plugin/notes/notes.js&#039;, async: true, condition: function() { return !!document.body.classList; } }
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
 
-		&lt;/script&gt;
+		</script>
 
-	&lt;/body&gt;
-&lt;/html&gt;
-</pre>
-		</div>
-
-		<p class="file_page_meta" style="line-height: 1.5rem;">
-			<label class="checkbox normal mini float-right no_top_padding no_min_width">
-				<input type="checkbox" id="file_preview_wrap_cb"> wrap long lines
-			</label>
-		</p>
-	
-		<div id="comments_holder" style="margin-top: 3rem;">
-			<h3>Comments</h3>
-			<div id="file_page_comments">
-							</div>	
-			<form 	action="https://marsattracts.slack.com/files/chrisbodhi/F024W8X0M/index.html" 
-		id="file_comment_form" 
-					class="comment_form"
-				method="post">
-			<a href="/team/akrueger" class="member_preview_link" data-member-id="U024UG05S">
-			<img src="https://secure.gravatar.com/avatar/8c7390ee80e1ef21fcacbf6bc3ab67c0.jpg?s=48&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0011-48.png" class="member_image thumb_36 member_preview_image" data-member-id="U024UG05S" />
-		</a>
-		<input type="hidden" name="addcomment" value="1" />
-	<textarea id="file_comment" data-el-id-to-keep-in-view="file_comment_submit_btn" class="comment_input small_bottom_margin" name="comment" wrap="virtual" ></textarea>
-	<span class="mini float-left cloud_silver file_comment_tip">cmd+enter to submit</span>
-	<input id="file_comment_submit_btn" type="submit" class="btn btn-primary btn-small float-right" value="Add Comment" />
-</form>
-
-<form action="https://marsattracts.slack.com/files/chrisbodhi/F024W8X0M/index.html" 
-		id="file_edit_comment_form" 
-					class="edit_comment_form hidden"
-				method="post">
-	<textarea id="file_edit_comment" class="comment_input small_bottom_margin" name="comment" wrap="virtual"></textarea><br>
-	<span class="mini float-left cloud_silver file_comment_tip">cmd+enter to submit</span>
-	<input type="submit" class="save btn btn-primary btn-mini float-right" value="Save Changes" />
-	<input type="submit" class="cancel btn btn-mini btn-outline float-right small_right_margin" value="Cancel" />
-</form>	
-		</div>
-	
-	</div>
-
-	<div id="file_share_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Share" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3>
-			Share 
-			Snippet											</h3>
-	</div>
-
-	<div class="modal-body share_dialog">
-				
-		<div id="share_channels">
-
-			<p id="select_share_channels_note">Sharing a file into a channel makes it public. All members of your team will have access to it.</p>
-
-			<p>
-				<label for="select_share_channels" class="select">Share in</label>
-				
-				<select id="select_share_channels" name="select_share_channels" >
-																		<option value="C024UG05W">#general</option>
-																								<option value="C024UG05Y">#random</option>
-																<option value="ts_null_value">---</option>
-					<option value="ts_switch_to_ims">Share with a person...</option>
-					
-				</select>			
-			</p>
-
-		</div>
-
-		<div id="share_ims" class="hidden">
-
-			<p id="select_share_ims_note">Sharing a file with a person means that only they will have access to it (unless it is also shared into a channel or with a group).</p>
-
-			<p>
-				<label for="select_share_ims" class="select">Share with</label>
-
-				<select id="select_share_ims" name="select_share_ims">
-																										<option value="D024UG05U">@slackbot</option>
-																																							<option value="D024UC11H" data-user-id="U024UC11D"></option>
-																																							<option value="D024UC17K" data-user-id="U024UC17F"></option>
-																							<option value="ts_null_value">---</option>
-					<option value="ts_switch_to_channels">Share in a channel...</option>
-									</select>
-			</p>
-
-		</div>
-
-		<div id="share_groups" class="hidden">
-
-			<p id="select_share_groups_note">Sharing a file into a group means that only members of that group will have access to it (unless it is also shared into a channel).</p>
-
-			<p>
-				<label for="select_share_groups" class="select">Share with</label>
-
-				<select id="select_share_groups" name="select_share_groups">
-										<option value="ts_null_value">---</option>
-					<option value="ts_switch_to_ims">Share with a person...</option>
-					<option value="ts_switch_to_channels">Share in a channel...</option>
-				</select>
-			</p>
-
-		</div>
-
-		<p class="no_bottom_margin">
-			<label class="inline-block align_top">
-				Add Comment<br />
-				<span class="input_note normal">(optional)</span>
-			</label>
-			<textarea id="file_comment_textarea" class="comment_input" name="comment" wrap="virtual"></textarea>
-		</p>
-
-	</div>
-
-	<div class="modal-footer">
-	  <button id="file_share_cancel" class="btn btn-outline" data-dismiss="modal" aria-hidden="true">Cancel</button>
-	  <button id="file_share_submit" class="btn btn-primary ladda-button" data-style="expand-right"><span class="ladda-label">Share</span></button>
-	</div>
-	
-</div>
-</div>
-
-
-	<div class="clear-both"></div>
-
-<div id="footer">		
-	<span class="float-right">
-					<a href="/apps">Apps</a>
-			<a href="/help">Help</a>
-			<a href="/pricing">Pricing</a>
-			<a href="https://api.slack.com/">API</a>
-				<a href="/terms-of-service">Terms of Service</a>
-		<a href="/privacy-policy">Privacy Policy</a>
-		<a href="/help/contact">Contact</a>
-		<a href="http://www.tinyspeck.com">Tiny Speck, Inc</a>
-	</span>
-</div>
-
-
-	</div> 
-
-	<script type="text/javascript">
-	<!--
-		var boot_data = {
-			user_id: '2164544196',
-			svn_rev: '15107',
-			api_url: '/api/',
-			api_token: 'xoxo-2164544196-m4XYhGJ0nPzkno6lLKsH5TxK',
-			app: 'web',
-			login_data: JSON.parse('{\"ok\":true,\"self\":{\"id\":\"U024UG05S\",\"name\":\"akrueger\",\"prefs\":{\"tz\":\"America\\/Chicago\",\"email_misc\":true,\"push_everything\":true,\"seen_notification_prefs_banner\":true,\"emoji_mode\":\"google\",\"seen_welcome_2\":true,\"seen_user_menu_tip_card\":true,\"seen_message_input_tip_card\":true,\"last_snippet_type\":\"auto\",\"has_uploaded\":true,\"new_msg_snd\":\"knock_brush.mp3\",\"highlight_words\":\"\",\"user_colors\":\"\",\"color_names_in_list\":true,\"growls_enabled\":true,\"push_dm_alert\":true,\"push_mention_alert\":true,\"push_idle_wait\":2,\"push_sound\":\"b2.mp3\",\"push_loud_channels\":\"\",\"push_mention_channels\":\"\",\"push_loud_channels_set\":\"\",\"email_alerts\":\"instant\",\"email_alerts_sleep_until\":0,\"welcome_message_hidden\":false,\"silent_channels\":\"\",\"all_channels_loud\":true,\"loud_channels\":\"\",\"loud_channels_set\":\"\",\"show_member_presence\":true,\"search_sort\":\"timestamp\",\"expand_inline_imgs\":true,\"expand_internal_inline_imgs\":true,\"seen_ssb_prompt\":false,\"search_only_my_channels\":false,\"has_invited\":false,\"has_created_channel\":false,\"search_exclude_channels\":\"\",\"messages_theme\":\"default\",\"webapp_spellcheck\":true,\"no_joined_overlays\":false,\"no_created_overlays\":false,\"dropbox_enabled\":false,\"seen_team_menu_tip_card\":false,\"seen_channel_menu_tip_card\":false,\"seen_channels_tip_card\":false,\"newxp_slackbot_step\":\"\",\"seen_flexpane_tip_card\":false,\"seen_search_input_tip_card\":false,\"mute_sounds\":false,\"arrow_history\":false,\"tab_ui_return_selects\":true,\"obey_inline_img_limit\":true,\"collapsible\":false,\"collapsible_by_click\":true,\"require_at\":false,\"mac_ssb_bounce\":false,\"mac_ssb_bullet\":true,\"expand_non_media_attachments\":true,\"show_typing\":true,\"pagekeys_handled\":true},\"created\":1390683677},\"team\":{\"id\":\"T024UG05Q\",\"name\":\"MarsAttracts\",\"email_domain\":\"\",\"domain\":\"marsattracts\",\"bots\":{\"ATL Homepage News\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10378\\/img\\/boticons\\/mlb_atlanta.png\"},\"Glengarry Leads\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10378\\/img\\/boticons\\/baldwin.png\"},\"LandingPages\":{\"emoji\":\":clap:\",\"image_64\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/5504\\/img\\/emoji\\/1f44f.png\"},\"SF Homepage News\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10378\\/img\\/boticons\\/mlb_sf.png\"},\"Stats Time!\":{\"emoji\":\":chart_with_upwards_trend:\",\"image_64\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/5504\\/img\\/emoji\\/1f4c8.png\"},\"TEX Homepage News\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10378\\/img\\/boticons\\/mlb_texas.png\"},\"TOR Homepage News\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10378\\/img\\/boticons\\/mlb_toronto.png\"},\"airbrake\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12037\\/img\\/services\\/airbrake_48.png\"},\"amazon-sqs\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/14567\\/img\\/services\\/amazon-sqs_48.png\"},\"asana\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/11237\\/img\\/services\\/asana_48.png\"},\"bitbucket\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10800\\/img\\/services\\/bitbucket_48.png\"},\"bugbot\":{\"emoji\":\":bug:\",\"image_64\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/5504\\/img\\/emoji\\/1f41b.png\"},\"bugs\":{\"emoji\":\":beetle:\",\"image_64\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/5504\\/img\\/emoji\\/1f41e.png\"},\"bugsnag\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12238\\/img\\/services\\/bugsnag_48.png\"},\"circleci\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/circleci_48.png\"},\"crashlytics\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10562\\/img\\/services\\/crashlytics_48.png\"},\"deployinator\":{\"emoji\":\":game_die:\",\"image_64\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/5504\\/img\\/emoji\\/1f3b2.png\"},\"disconnectedBot\":{\"emoji\":\":x:\",\"image_64\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/5504\\/img\\/emoji\\/274c.png\"},\"dropbox\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/dropbox_48.png\"},\"github\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10562\\/img\\/services\\/github_48.png\"},\"hangouts\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/11591\\/img\\/services\\/hangouts_48.png\"},\"helpscout\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10562\\/img\\/services\\/helpscout_48.png\"},\"heroku\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/13300\\/img\\/services\\/heroku_48.png\"},\"hubot\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/hubot_48.png\"},\"incoming-webhook\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/incoming-webhook_48.png\"},\"jenkins-ci\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12837\\/img\\/services\\/jenkins-ci_48.png\"},\"jira\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/14542\\/img\\/services\\/jira_48.png\"},\"loadBot\":{\"emoji\":\":rocket:\",\"image_64\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/5504\\/img\\/emoji\\/1f680.png\"},\"magnum-ci\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12233\\/img\\/services\\/magnum-ci_48.png\"},\"nagios\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/nagios_48.png\"},\"new-relic\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/14778\\/img\\/services\\/new-relic_48.png\"},\"outgoing-webhook\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/outgoing-webhook_48.png\"},\"pagerduty\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/11699\\/img\\/services\\/pagerduty_48.png\"},\"phabricator\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/phabricator_48.png\"},\"pingdom\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/14858\\/img\\/services\\/pingdom_48.png\"},\"pivotaltracker\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/11022\\/img\\/services\\/pivotaltracker_48.png\"},\"rss\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12765\\/img\\/services\\/rss_48.png\"},\"slackbot\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10562\\/img\\/services\\/slackbot_48.png\"},\"svn\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10597\\/img\\/services\\/subversion_48.png\"},\"travis\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10562\\/img\\/services\\/travis_48.png\"},\"trello\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10562\\/img\\/services\\/trello_48.png\"},\"twitter\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10562\\/img\\/services\\/twitter_48.png\"},\"zapier\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/10563\\/img\\/services\\/zapier_48.png\"},\"zendesk\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/12078\\/img\\/services\\/zendesk_48.png\"}},\"msg_edit_window_mins\":-1,\"prefs\":{\"default_channels\":[\"2164544200\",\"2164544202\"],\"auth_mode\":\"normal\"}},\"channels\":[{\"id\":\"C024UG05W\",\"name\":\"general\",\"created\":1390683677,\"creator\":\"U024UG05S\",\"is_archived\":false,\"is_member\":true},{\"id\":\"C024UG05Y\",\"name\":\"random\",\"created\":1390683678,\"creator\":\"U024UG05S\",\"is_archived\":false,\"is_member\":true}],\"groups\":[],\"ims\":[{\"id\":\"D024UG05U\",\"user\":\"USLACKBOT\",\"created\":1390683677,\"is_user_deleted\":false},{\"id\":\"D024UC11H\",\"user\":\"U024UC11D\",\"created\":1390683856,\"is_user_deleted\":false},{\"id\":\"D024UC17K\",\"user\":\"U024UC17F\",\"created\":1390684072,\"is_user_deleted\":false}],\"users\":[{\"id\":\"U024UG05S\",\"name\":\"akrueger\",\"deleted\":false,\"status\":null,\"color\":\"9f69e7\",\"real_name\":\"Andrew Krueger\",\"skype\":null,\"phone\":null,\"profile\":{\"first_name\":\"Andrew\",\"last_name\":\"Krueger\",\"title\":\"Great question\",\"real_name\":\"Andrew Krueger\",\"email\":\"krueger.andrew@gmail.com\",\"image_24\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/8c7390ee80e1ef21fcacbf6bc3ab67c0.jpg?s=24&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0011-24.png\",\"image_32\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/8c7390ee80e1ef21fcacbf6bc3ab67c0.jpg?s=32&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0011-32.png\",\"image_48\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/8c7390ee80e1ef21fcacbf6bc3ab67c0.jpg?s=48&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0011-48.png\",\"image_72\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/8c7390ee80e1ef21fcacbf6bc3ab67c0.jpg?s=72&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0011-72.png\",\"image_192\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/8c7390ee80e1ef21fcacbf6bc3ab67c0.jpg?s=192&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0011.png\"},\"is_admin\":true,\"is_owner\":true,\"is_primary_owner\":true},{\"id\":\"U024UC17F\",\"name\":\"bensbigolbeard\",\"deleted\":false,\"status\":null,\"color\":\"e7392d\",\"real_name\":\"\",\"skype\":null,\"phone\":null,\"profile\":{\"real_name\":\"\",\"email\":\"bensbigolbeard@gmail.com\",\"image_24\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/9e58ad3ecafe345f45bbe11839e3d201.jpg?s=24&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0014-24.png\",\"image_32\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/9e58ad3ecafe345f45bbe11839e3d201.jpg?s=32&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0014-32.png\",\"image_48\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/9e58ad3ecafe345f45bbe11839e3d201.jpg?s=48&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0014-48.png\",\"image_72\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/9e58ad3ecafe345f45bbe11839e3d201.jpg?s=72&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0014-72.png\",\"image_192\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/9e58ad3ecafe345f45bbe11839e3d201.jpg?s=192&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0014.png\"},\"is_admin\":false,\"is_owner\":false,\"is_primary_owner\":false},{\"id\":\"U024UC11D\",\"name\":\"chrisbodhi\",\"deleted\":false,\"status\":null,\"color\":\"4bbe2e\",\"real_name\":\"\",\"skype\":null,\"phone\":null,\"profile\":{\"real_name\":\"\",\"email\":\"cboette@gmail.com\",\"image_24\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/69fb389657222cb9c5dbca92dc7984db.jpg?s=24&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0024-24.png\",\"image_32\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/69fb389657222cb9c5dbca92dc7984db.jpg?s=32&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0024-32.png\",\"image_48\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/69fb389657222cb9c5dbca92dc7984db.jpg?s=48&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0024-48.png\",\"image_72\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/69fb389657222cb9c5dbca92dc7984db.jpg?s=72&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0024-72.png\",\"image_192\":\"https:\\/\\/secure.gravatar.com\\/avatar\\/69fb389657222cb9c5dbca92dc7984db.jpg?s=192&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F8390%2Fimg%2Favatars%2Fava_0024.png\"},\"is_admin\":false,\"is_owner\":false,\"is_primary_owner\":false},{\"id\":\"USLACKBOT\",\"name\":\"slackbot\",\"deleted\":false,\"status\":null,\"color\":\"757575\",\"real_name\":\"Slack Bot\",\"skype\":null,\"phone\":null,\"profile\":{\"first_name\":\"Slack\",\"last_name\":\"Bot\",\"image_24\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/10068\\/img\\/slackbot_24.png\",\"image_32\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/10068\\/img\\/slackbot_32.png\",\"image_48\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/10068\\/img\\/slackbot_48.png\",\"image_72\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/10068\\/img\\/slackbot_72.png\",\"image_192\":\"https:\\/\\/slack-assets2.s3-us-west-2.amazonaws.com\\/10068\\/img\\/slackbot_192.png\",\"real_name\":\"Slack Bot\",\"email\":null},\"is_admin\":false,\"is_owner\":false,\"is_primary_owner\":false}],\"bots\":[{\"id\":\"B024UEXNZ\",\"name\":\"heroku\",\"deleted\":false,\"icons\":{\"image_48\":\"https:\\/\\/slack.global.ssl.fastly.net\\/13300\\/img\\/services\\/heroku_48.png\"}}],\"svn_rev\":\"15107\",\"min_svn_rev\":14961}'),
-			feature_status: false,
-			feature_track_newxp: false,
-			feature_attachments: true,
-			feature_attachments_inline: false,
-			feature_im_archives: true,
-			feature_link_bouncer: false,
-			feature_issues: false,
-			feature_attachment_blacklisting: false,
-			img: {
-				app_icon: 'https://slack.global.ssl.fastly.net/8973/img/slack_growl_icon.png'
-			}
-		}
-	//-->
-	</script>
-	
-	<script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="rciq3gnem9oirk6"></script>
-
-	
-
-
-		<!-- output_js "core" -->
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/9949/js/libs_jquery-1.8.2_1379011587.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/10860/js/libs_flash_detect_1381167216.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/5677/js/libs_bootstrap_1368911076.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/11842/js/libs_soundmanager2_1383085430.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/503/js/libs_signals_1361923852.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/9456/js/libs_jstorage_1377798881.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/1305/js/libs_history_1361923867.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/4406/js/libs_cookie_1366239918.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13824/js/libs_jquery.chosen_1387316704.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/10104/js/libs_jquery.spritely_1379532404.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/1218/js/libs_handlebars_1361923895.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/5835/js/libs_codemirror_1369177044.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14895/js/codemirror_load_1390852151.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15060/js/TS_1391027552.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14639/js/TS.model_1390335867.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14325/js/TS.web_1389299656.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14200/js/TS.search.widget_1389042446.https.gz.js" crossorigin="anonymous"></script>
-
-<!-- output_js "secondary" -->
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13728/js/libs_emoji_1386981743.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/3286/js/libs_jquery.scrollintoview_1363475033.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/9884/js/libs_jquery.transit_1378853780.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14075/js/libs_jquery.monkeyScroll_1388431728.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13629/js/libs_jquery.assorted_1386871082.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/5060/js/libs_jquery.draghover_1367639920.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/8438/js/libs_jquery.autosize_1375819576.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/11355/js/libs_jquery.TS_tabComplete_1382042883.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14374/js/libs_jquery.TS_tabComplete2_1389376142.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/1389/js/libs_stacktrace_1361923906.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/10445/js/libs_truncate_1380213559.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/504/js/libs_swfobject_1361923915.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/12503/js/libs_web_socket_1384203154.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14443/js/TS.api_1389653185.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14639/js/TS.channels_1390335862.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14453/js/TS.groups_1389727178.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14918/js/TS.files_1390864560.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/12668/js/TS.activity_1384476150.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13984/js/TS.activity.view_1387836250.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14453/js/TS.ims_1389727154.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13991/js/TS.members_1387841200.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/12196/js/TS.bots_1383633417.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/12540/js/TS.members.view_1384295986.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15060/js/TS.msg_handlers_1391027559.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14122/js/TS.prefs_1388469500.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15061/js/TS.search_1391027712.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14262/js/TS.socket_1389205315.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14191/js/TS.storage_1389036939.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14885/js/TS.templates_1390852173.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14650/js/TS.templates.builders_1390341634.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15096/js/TS.templates.helpers_1391056705.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14638/js/TS.utility.date_1390335786.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15068/js/TS.utility.msgs_1391031522.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15096/js/TS.utility_1391056710.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13243/js/TS.emoji_menu_1386109242.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14691/js/TS.menu_1390414784.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14691/js/TS.cmd_handlers_1390414790.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/12693/js/TS.stars_1384551943.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13438/js/TS.inline_imgs_1386458518.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13438/js/TS.inline_videos_1386458493.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14875/js/TS.inline_attachments_1390680329.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13626/js/TS.inline_audios_1386871069.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14950/js/TS.newxp_1390932922.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/9593/js/TS.comments_1378327698.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14200/js/TS.comments.ui_1389042460.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14419/js/TS.tips_1389460010.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14419/js/TS.tip_card_1389459995.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14566/js/TS.msg_edit_1389985654.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/13544/js/TS.generic_dialog_1386730430.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15096/js/TS.help_1391056714.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/15099/js/TS.help_dialog_1391056700.https.gz.js" crossorigin="anonymous"></script>
-
-<!-- output_js "regular" -->
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/9922/js/TS.web.comments_1378937097.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14396/js/TS.web.file_1389392057.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/11998/js/libs_spin_1383256342.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/11998/js/libs_ladda_1383256337.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/5835/js/libs_codemirror_1369177044.https.gz.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://slack.global.ssl.fastly.net/14895/js/codemirror_load_1390852151.https.gz.js" crossorigin="anonymous"></script>
-
-	<script type="text/javascript">
-	<!--
-		boot_data.file = JSON.parse('{\"id\":\"F024W8X0M\",\"timestamp\":1391106630,\"name\":\"index.html\",\"title\":\"index.html\",\"mimetype\":\"text\\/plain\",\"filetype\":\"html\",\"pretty_type\":\"HTML\",\"user\":\"U024UC11D\",\"editable\":true,\"size\":16524,\"mode\":\"snippet\",\"is_external\":false,\"external_type\":\"\",\"is_public\":true,\"public_url_shared\":false,\"url\":\"https:\\/\\/slack-files.com\\/files-pub\\/T024UG05Q-F024W8X0M-f4e2da\\/index.html\",\"url_download\":\"https:\\/\\/slack-files.com\\/files-pub\\/T024UG05Q-F024W8X0M-f4e2da\\/download\\/index.html\",\"url_private\":\"https:\\/\\/files.slack.com\\/files-pri\\/T024UG05Q-F024W8X0M\\/index.html\",\"url_private_download\":\"https:\\/\\/files.slack.com\\/files-pri\\/T024UG05Q-F024W8X0M\\/download\\/index.html\",\"permalink\":\"https:\\/\\/marsattracts.slack.com\\/files\\/chrisbodhi\\/F024W8X0M\\/index.html\",\"permalink_public\":\"https:\\/\\/slack-files.com\\/T024UG05Q-F024W8X0M-f4e2da\",\"edit_link\":\"https:\\/\\/marsattracts.slack.com\\/files\\/chrisbodhi\\/F024W8X0M\\/index.html\\/edit\",\"preview\":\"<!doctype html>\\n<html lang=\\\"en\\\">\\n\\n\\t<head>\\n\\t\\t<meta charset=\\\"utf-8\\\">\\n\\n\\t\\t<title>Mars Attracts! A MakerSquare Project\\u2026\\n\\n\\t\\t<meta name=\\\"description\\\" content=\\\"A framewo\\u2026\\n\\t\\t<meta name=\\\"author\\\" content=\\\"Hakim El Hatta\\u2026\",\"preview_highlight\":\"<div class=\\\"sssh-code\\\"><div class=\\\"sssh-line\\\"><pre><span>&lt;!doctype html&gt;<\\/span><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre><span>&lt;<span class=\\\"sssh-keyword\\\">html<\\/span> <span class=\\\"sssh-keyword\\\">lang<\\/span><span>=<\\/span><span class=\\\"sssh-string\\\">&quot;en&quot;<\\/span>&gt;<\\/span><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre>\\t<span>&lt;<span class=\\\"sssh-keyword\\\">head<\\/span>&gt;<\\/span><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre>\\t\\t<span>&lt;<span class=\\\"sssh-keyword\\\">meta<\\/span> <span class=\\\"sssh-keyword\\\">charset<\\/span><span>=<\\/span><span class=\\\"sssh-string\\\">&quot;utf-8&quot;<\\/span>&gt;<\\/span><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre>\\t\\t<span>&lt;<span class=\\\"sssh-keyword\\\">title<\\/span>&gt;<\\/span>Mars Attracts! A MakerSquare Project<span>&lt;<span>\\/<\\/span><span class=\\\"sssh-keyword\\\">title<\\/span>&gt;<\\/span><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre>\\t\\t<span>&lt;<span class=\\\"sssh-keyword\\\">meta<\\/span> <span class=\\\"sssh-keyword\\\">name<\\/span><span>=<\\/span><span class=\\\"sssh-string\\\">&quot;description&quot;<\\/span> <span class=\\\"sssh-keyword\\\">content<\\/span><span>=<\\/span><span class=\\\"sssh-string\\\">&quot;A framework for easily creating beautiful presentations using HTML&quot;<\\/span>&gt;<\\/span><\\/pre><\\/div>\\n<div class=\\\"sssh-line\\\"><pre>\\t\\t<span>&lt;<span class=\\\"sssh-keyword\\\">meta<\\/span> <span class=\\\"sssh-keyword\\\">name<\\/span><span>=<\\/span><span class=\\\"sssh-string\\\">&quot;author&quot;<\\/span> <span class=\\\"sssh-keyword\\\">content<\\/span><span>=<\\/span><span class=\\\"sssh-string\\\">&quot;Hakim El Hattab&quot;<\\/span>&gt;<\\/span><\\/pre><\\/div>\\n<\\/div>\",\"lines\":482,\"lines_more\":472,\"channels\":[\"C024UG05W\"],\"groups\":[],\"ims\":[],\"comments_count\":0}');
-		boot_data.file.comments = JSON.parse('[]');
-
-		
-
-		var g_editor;
-
-		$(function(){
-
-			var wrap_long_lines = !!TS.model.code_wrap_long_lines;
-
-			g_editor = CodeMirror(function(elt){
-				var content = document.getElementById("file_contents");
-				content.parentNode.replaceChild(elt, content);
-			}, {
-				value: $('#file_contents').text(),
-				lineNumbers: true,
-				matchBrackets: true,
-				indentUnit: 4,
-				indentWithTabs: true,
-				enterMode: "keep",
-				tabMode: "shift",
-				viewportMargin: Infinity,
-				readOnly: true,
-				lineWrapping: wrap_long_lines
-			});
-
-			$('#file_preview_wrap_cb').bind('change', function(e) {
-				TS.model.code_wrap_long_lines = $(this).attr('checked') == 'checked';
-				g_editor.setOption('lineWrapping', TS.model.code_wrap_long_lines);
-			})
-
-			$('#file_preview_wrap_cb').attr('checked', wrap_long_lines);
-
-			CodeMirror.switchSlackMode(g_editor, 'html');
-		});
-
-		
-		$('#file_comment').css('overflow', 'hidden').autogrow();
-	//-->
-	</script>
-
-
-	<script type="text/javascript">
-		TS.boot(boot_data);
-	
-					$(document).on('ready', TS.web.setHeaderState);
-			$(window).bind('scroll', TS.web.setHeaderState);
-			</script>
-
-<!-- slack-www301 / 2014-01-30 10:30:55 / v15107 -->
-
-</body>
+	</body>
 </html>
