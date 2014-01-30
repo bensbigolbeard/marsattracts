@@ -20,10 +20,10 @@
       .grid
         = image_tag "hexgrid.png"
 
-    .row
-      .vid.small-12.medium-12.large-12.columns
-      = video_tag "stars.ogv", :autoplay => true, :loop => true, :poster => "night-sky.jpg"
-      / via https://archive.org/details/StarsTimeLapse
+    / .row
+    /   .vid.small-12.medium-12.large-12.columns
+    /   = video_tag "stars.ogv", :autoplay => true, :loop => true, :poster => "night-sky.jpg"
+    /   / via https://archive.org/details/StarsTimeLapse
     
     = yield
     = javascript_include_tag "application" 
