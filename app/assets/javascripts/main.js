@@ -60,15 +60,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
       }
   });
 
-  // $scope.marsData = [];
-  // $http.get('/mars_weathers.json').success(function(data){
-  //   $scope.marsData = data;
-  //   console.log(data);
-  //   console.log(typeof(data[0].sol));
-  //   console.log("Hrmmm");
-  // }).error(function(){
-  //   console.log("D'oh!");
-  // });
+  $scope.marsData = [];
+  $http.get('/mars_weathers.json').success(function(data){
+    $scope.marsData = data;
+    console.log(data);
+    console.log(typeof(data[0].sol));
+    console.log("Hrmmm");
+  }).error(function(){
+    console.log("D'oh!");
+  });
 
 // Variables to be set by user interaction
 
@@ -89,10 +89,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
   $scope.tripConfirmed = null;
 
   $scope.marsInfo = null;
-
-  // $scope.flightDateConversion = function(flightDate){
-  //   new Date(flightDate);
-  // };
 
   // Various toggles
   $scope.priceArwToggle = function(){
@@ -139,18 +135,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
 
 // Function to display icon for Mars weather conditions
 
-  // $scope.marsSky = function () {
-  //   var skycons = new Skycons({"color": "white"});
-  //   if ($scope.marsSky == "Sunny") {
-  //     console.log("sunny!");
-  //     skycons.add("marsIcon", Skycons.CLEAR_DAY);
-  //     skycons.play();
-  //   } else {
-  //     console.log("sad face");
-  //     skycons.add("marsIcon", Skycons.CLEAR_DAY);
-  //     skycons.play();
-  //   }
-  // };
+  $scope.marsSky = function () {
+    var skycons = new Skycons({"color": "white"});
+    if ($scope.marsSky == "Sunny") {
+      console.log("sunny!");
+      skycons.add("marsIcon", Skycons.CLEAR_DAY);
+      skycons.play();
+    } else {
+      console.log("sad face");
+      skycons.add("marsIcon", Skycons.CLEAR_DAY);
+      skycons.play();
+    }
+  };
   
 
 // Function to define myFlight and myShip
