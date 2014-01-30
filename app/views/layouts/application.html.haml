@@ -24,8 +24,8 @@
     /   .vid.small-12.medium-12.large-12.columns
     /   = video_tag "stars.ogv", :autoplay => true, :loop => true, :poster => "night-sky.jpg"
     /   / via https://archive.org/details/StarsTimeLapse
-    
-    = yield
+    %div{style: "width: 1024px; height: 768px; margin: 0 auto"}
+      = yield
     = javascript_include_tag "application" 
     .padding-bottom
 
