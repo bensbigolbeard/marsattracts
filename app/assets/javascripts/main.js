@@ -8,7 +8,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $http){
+app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $http, $resource){
 
 
 // Services to grab database content
