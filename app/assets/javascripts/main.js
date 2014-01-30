@@ -1,4 +1,4 @@
-var app = angular.module('mars', [ 'dx', 'ngResource', 'ngAnimate', 'ngRoute'
+var app = angular.module('mars', [ 'ngResource', 'ngAnimate'
   ]);
 
 app.config([
@@ -139,18 +139,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
 
 // Function to display icon for Mars weather conditions
 
-  $scope.marsSky = function () {
-    var skycons = new Skycons({"color": "white"});
-    if ($scope.marsSky == "Sunny") {
-      console.log("sunny!");
-      skycons.add("marsIcon", Skycons.CLEAR_DAY);
-      skycons.play();
-    } else {
-      console.log("sad face");
-      skycons.add("marsIcon", Skycons.CLEAR_DAY);
-      skycons.play();
-    }
-  };
+  // $scope.marsSky = function () {
+  //   var skycons = new Skycons({"color": "white"});
+  //   if ($scope.marsSky == "Sunny") {
+  //     console.log("sunny!");
+  //     skycons.add("marsIcon", Skycons.CLEAR_DAY);
+  //     skycons.play();
+  //   } else {
+  //     console.log("sad face");
+  //     skycons.add("marsIcon", Skycons.CLEAR_DAY);
+  //     skycons.play();
+  //   }
+  // };
   
 
 // Function to define myFlight and myShip
