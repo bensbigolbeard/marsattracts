@@ -141,15 +141,15 @@
               Current Launch Site Conditions
         .row
           .medium-4.columns
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.cloudCover}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicagoland_lat,@chicagoland_long).currently.cloudCover}"}
             %p.dial-text.center-text
               Cloud Cover
           .medium-4.columns   
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.humidity}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicagoland_lat,@chicagoland_long).currently.humidity}"}
             %p.dial-text.center-text
               Humidity
           .medium-4.columns   
-            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicago_lat,@chicago_long).currently.precipIntensity}"}
+            %input{"class"=>"dial", "data-fgcolor" => "DodgerBlue", "data-width"=>"100", "data-height"=>"100", "data-thickness" => ".4", "data-min" => 0, "data-max" => 1, "data-displayInput" => "false", readonly: "readonly", value: "#{ForecastIO.forecast(@chicagoland_lat,@chicagoland_long).currently.precipIntensity}"}
             %p.dial-text.center-text
               Precipitation
         %hr
