@@ -60,15 +60,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
       }
   });
 
-  $scope.marsData = [];
-  $http.get('/mars_weathers.json').success(function(data){
-    $scope.marsData = data;
-    console.log(data);
-    console.log(typeof(data[0].sol));
-    console.log("Hrmmm");
-  }).error(function(){
-    console.log("D'oh!");
-  });
+  // $scope.marsData = [];
+  // $http.get('/mars_weathers.json').success(function(data){
+  //   $scope.marsData = data;
+  //   console.log(data);
+  //   console.log(typeof(data[0].sol));
+  //   console.log("Hrmmm");
+  // }).error(function(){
+  //   console.log("D'oh!");
+  // });
 
 // Variables to be set by user interaction
 
