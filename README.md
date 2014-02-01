@@ -1,4 +1,4 @@
-# Mars Attracts!&copy;&reg;&trade;
+# Mars Attracts!
 ## a flight booking system for trips to Mars
 
 ### Book your flight [now!](http://marsattracts.com) 
@@ -23,12 +23,20 @@ This project was built by students at [MakerSquare](http://themakersquare.com), 
 - ZURB Foundation
 - CSS3
 - jQuery
+- jQuery Knob
 
 #####API's &amp; Gems
 - Mandrill for Action Mailer
 - Custom scraper for Mars weather collection
 - ForecastIO
 - Chart.js
+
+#####To Do
+- Maths: calculating the distance &amp; travel time using Kepler's Laws, Hohmann Transfer Orbit; adding and displaying the trip's total cost
+- Incorporate Stripe for collecting payment
+- Refactor: break the controllers into separate files; make use of templates 
+- Add a static 'About Us' page
+- Make the animations at the end flow more smoothly
 
 
 ##### built in Austin, TX, January 2014 
