@@ -4,7 +4,7 @@ namespace :earth_weather do
 
     ForecastIO.api_key = ENV['FORECAST_IO_KEY']
 
-    cities = [{ lat: 30.2676, long: -97.7430, name: "Austin" }, { lat: 34.0535, long: -118.2453, name: "Los Angeles" }, { lat: 31.2304, long: 121.4749, name: "Shanghai" }, { lat: 35.6832, long: 139.8089, name: "Tokyo" }, { lat: 41.8843, long: -87.6324, name: "Chicago" }]
+    cities = [{ lat: 30.2676, long: -97.7430, name: "Austin" }, { lat: 34.0535, long: -118.2453, name: "Los Angeles" }, { lat: 31.2304, long: 121.4749, name: "Shanghai" }, { lat: 35.6832, long: 139.8089, name: "Tokyo" }, { lat: 41.8843, long: -87.6324, name: "Chicagoland" }]
 
     time = Time.now
 

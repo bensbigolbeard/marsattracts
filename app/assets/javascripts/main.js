@@ -1,4 +1,4 @@
-var app = angular.module('mars', [ 'dx', 'ngResource', 'ngAnimate', 'ngRoute'
+var app = angular.module('mars', [ 'ngResource', 'ngAnimate'
   ]);
 
 app.config([
@@ -8,7 +8,7 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $http){
+app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $http, $resource){
 
 
 // Services to grab database content
@@ -89,10 +89,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
   $scope.tripConfirmed = null;
 
   $scope.marsInfo = null;
-
-  // $scope.flightDateConversion = function(flightDate){
-  //   new Date(flightDate);
-  // };
 
   // Various toggles
   $scope.priceArwToggle = function(){
@@ -191,7 +187,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
     phone: '4d84r6s8f4',
     address: '888 Earth Major Ln',
     emergency_contact: 'Me, My Bad-ass Self, and I',
-    date_of_birth: '01/01/1961'
+    date_of_birth: '10/08/1949'
   };
 
   // Finds one of 4 amenities, adds it to the associated global variable
