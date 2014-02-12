@@ -1,6 +1,7 @@
 class TripsController < ApplicationController
   respond_to :json
 
+  # Render all Trips from the database as JSON for Angular.js
   def index
     @trips = Trip.all
     respond_with(@trips) do |format|
@@ -8,14 +9,7 @@ class TripsController < ApplicationController
     end  
   end
 
-  def new
-
-  end
-
-  def create
-    
-  end
-
+  # Render the trip with an index of :ID from the Trips database as JSON for Angular.js
   def show
     @trip = Trip.find(params[:id])
     respond_with(@trip) do |format|
@@ -30,6 +24,8 @@ class TripsController < ApplicationController
     @passenger_id = @trip.passenger_id
   end
 
+  # Add amenities to a passenger's trip through the use of model associations
+  # Render the updated information as JSON for Angular.js
   def update
     @trip = Trip.find_by_passenger_id(params[:id])
     if params[:amenity1_id]
@@ -47,6 +43,12 @@ class TripsController < ApplicationController
     respond_with(@new_passenger) do |format|
       format.json {render json: @new_passenger.as_json }
     end  
+  end
+
+  def new
+  end
+
+  def create
   end
 
   def destroy

@@ -1,10 +1,8 @@
-/ %p= "Ahoy, #{@passenger.first_name}!"
+/ This is the unformatted email message that will be sent to passengers upon successful completion of 
+/ the booking process. It mimics the content [and soon, style] of the final screen of the app.
+/ DANGER ABOUNDS: Here by a mix of interpreted Ruby code [via Haml] and dual-bindings [via Angular.js]
 
-/ %p= "Sell the house and sell the wife"
-/ %p= "You're goin' on the trip of a life..."
-/ %p= "...time."
-
-/ %p= "In about #{((Flight.find(2).departure_time - Time.now)/60/60/24).to_i} short days, you're taking off for Mars. To prepare, we recommend you get your fill of swimming, carrying heavy things, and climbing trees."
+/ %p= "In about #{((Flight.find(2).departure_time - Time.now)/60/60/24).to_i} short days, you're taking off for Mars."
 %div{"ng-controller" => "MainCtrl"}
 // Confirm trip/Congrats page
   .row{"ng-show"=>"tripConfirmed"}

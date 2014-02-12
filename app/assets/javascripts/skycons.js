@@ -1,3 +1,4 @@
+// All of this is to place an animated sun on the Martian weather panel, but Heroku didn't like it.
 (function(global) {
   "use strict";
 

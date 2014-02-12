@@ -1,6 +1,7 @@
 class AmenitiesController < ApplicationController
   respond_to :json
-
+  # Extract the contents of the Amenities table, store it as JSON
+  # to allow access of data by Angular.js
   def index
     @amenities = Amenity.all
     

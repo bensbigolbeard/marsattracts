@@ -20,15 +20,17 @@
       .grid
         = image_tag "hexgrid.png"
 
-    / .row
-    /   .vid.small-12.medium-12.large-12.columns
-    /   = video_tag "stars.ogv", :autoplay => true, :loop => true, :poster => "night-sky.jpg"
-    /   / via https://archive.org/details/StarsTimeLapse
+    .row
+      / Background video of stars passing, complete with backup image in case of video load error
+      /   .vid.small-12.medium-12.large-12.columns
+      /= video_tag "stars.ogv", :autoplay => true, :loop => true, :poster => "night-sky.jpg"
+      /   / via https://archive.org/details/StarsTimeLapse
     %div{style: "width: 1024px; height: 768px; margin: 0 auto"}
       = yield
     = javascript_include_tag "application" 
     .padding-bottom
 
+    / Using chart.js: grab stored weather data, interpret, and display it on overlap graph
     :javascript
 
       $(document).ready(function() {

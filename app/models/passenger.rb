@@ -3,6 +3,5 @@ class Passenger < ActiveRecord::Base
   validates :first_name, :last_name, :email, :date_of_birth, presence: true
 
   has_many :trips
-  has_many :flights, :through => :trips
-  
+  has_many :flights, :through => :trips  
 end

@@ -5,4 +5,3 @@ class MarsWeatherMinTempsController < ApplicationController
   end
 
 end
-
