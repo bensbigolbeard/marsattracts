@@ -1,6 +1,6 @@
-var app = angular.module('mars', [ 'ngResource', 'ngAnimate'
-  ]);
+var app = angular.module('mars', [ 'ngResource', 'ngAnimate' ]);
 
+// Adds appropriate headers to POST/PUT requests
 app.config([
   "$httpProvider", function($httpProvider) {
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = document.getElementsByName("csrf-token")[0].content;
@@ -8,66 +8,124 @@ app.config([
   }
 ]);
 
-app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $http, $resource){
-
-
 // Services to grab database content
+app.factory('flightsFactory', function($http) {
+  return {
+      getFlights: function(callback) {
+          $http.get('/flights.json').success(callback);
+      }
+  };
+});
 
+app.factory('originsFactory', function($http) {
+  return {
+      getOrigins: function(callback) {
+          $http.get('/origins.json').success(callback);
+      }
+  };
+});
+
+app.factory('destinationsFactory', function($http) {
+  return {
+      getDestinations: function(callback) {
+          $http.get('/destinations.json').success(callback);
+      }
+  };
+});
+
+app.factory('shipsFactory', function($http) {
+  return {
+      getShips: function(callback) {
+          $http.get('/ships.json').success(callback);
+      }
+  };
+});
+
+app.factory('passengersFactory', function($http) {
+  return {
+      getPassengers: function(callback) {
+          $http.get('/passengers.json').success(callback);
+      }
+  };
+});
+
+app.factory('tripsFactory', function($http) {
+  return {
+      getTrips: function(callback) {
+          $http.get('/trips.json').success(callback);
+      }
+  };
+});
+
+app.factory('amenitiesFactory', function($http) {
+  return {
+      getAmenities: function(callback) {
+          $http.get('/amenities.json').success(callback);
+      }
+  };
+});
+
+app.factory('marsWeathersFactory', function($http) {
+  return {
+      getWeather: function(callback) {
+          $http.get('/mars_weathers.json').success(callback);
+      }
+  };
+});
+
+app.controller('MainCtrl', ['$scope', '$http', '$resource', 'flightsFactory', 'originsFactory', 'destinationsFactory', 'shipsFactory', 'passengersFactory', 'tripsFactory', 'amenitiesFactory', 'marsWeathersFactory', function($scope, $http, $resource, flightsFactory, originsFactory, destinationsFactory, shipsFactory, passengersFactory, tripsFactory, amenitiesFactory, marsWeathersFactory){
+
+// Define scope variables using factory data
   $scope.flights = [];
-  $http.get('/flights.json').success(function(data){
+  flightsFactory.getFlights(function(data){
       $scope.flights = data;
   });
   
   $scope.origins = [];
-  $http.get('/origins.json').success(function(data){
+  originsFactory.getOrigins(function(data){
       $scope.origins = data;
+      // adds a placeholder value in dropdown menu
       $scope.origins.unshift( {id: '', origin:"Select a launch site..."});
       $scope.select1 = {orig: $scope.origins[0].id};
   });
 
   $scope.destinations = [];
-  $http.get('/destinations.json').success(function(data){
+  destinationsFactory.getDestinations(function(data){
       $scope.destinations = data;
+      // adds a placeholder value in dropdown menu
       $scope.destinations.unshift( {id: '', destination:"Select a Martian colony..."});
       $scope.select2 = {dest: $scope.destinations[0].id};
   });
     
 
   $scope.ships = [];
-  $http.get('/ships.json').success(function(data){
+  shipsFactory.getShips(function(data){
       $scope.ships = data;
   });
 
   $scope.passengers = [];
-  $http.get('/passengers.json').success(function(data){
+  passengersFactory.getPassengers(function(data){
       $scope.passengers = data;
-      console.log($scope.passengers);
   });
 
   $scope.trips = []
-  $http.get('/trips.json').success(function(data){
+  tripsFactory.getTrips(function(data){
       $scope.trips = data;
   });
 
 
   $scope.amenities = [];
-  $http.get('/amenities.json').success(function(data){
+  amenitiesFactory.getAmenities(function(data){
       $scope.amenities = data;
       // Adds a base class to amenity toggles
-
       for (var i = 0; i<$scope.amenities.length; i+=1) { 
         $scope.amenities[i].amenityToggle = 'none';
       }
   });
 
   $scope.marsData = [];
-  $http.get('/mars_weathers.json').success(function(data){
+  marsWeathersFactory.getWeather(function(data){
     $scope.marsData = data;
-    console.log(data);
-    console.log(typeof(data[0].sol));
-    console.log("Hrmmm");
-  }).error(function(){
-    console.log("D'oh!");
   });
 
 // Variables to be set by user interaction
@@ -87,10 +145,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
   $scope.updateInfo = null;
   $scope.amenityList = null;
   $scope.tripConfirmed = null;
-
   $scope.marsInfo = null;
 
-  // Various toggles
+  // Sort Arrow Toggles
   $scope.priceArwToggle = function(){
     if ($scope.priceArrow === 'down'){
       $scope.priceArrow = 'up';
@@ -115,14 +172,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
     }
   };
 
-  $scope.amenityToggle = function(id){
-    if ($scope.amenities[id-1].amenityToggle === 'none'){
-      $scope.amenities[id-1].amenityToggle = 'act-bars-active';
-      console.log($scope.amenities[id-1].amenityToggle);
-    } else {
-      $scope.amenities[id-1].amenityToggle = 'none';
-    }
-  };
+  
+
   $scope.moveFlightSearch = function () {
     if ($scope.moveFlight !== true) {
       $('.search-container').addClass('flightSearch-to-edge');
@@ -133,21 +184,49 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
     }
   };
 
-// Function to display icon for Mars weather conditions
+// Displays results of flight search
 
-  $scope.marsSky = function () {
-    var skycons = new Skycons({"color": "white"});
-    if ($scope.marsSky == "Sunny") {
-      console.log("sunny!");
-      skycons.add("marsIcon", Skycons.CLEAR_DAY);
-      skycons.play();
+  $scope.showFlights = function () {
+    if ($scope.revealSearch !== true) {
+      $scope.revealSearch = true;
     } else {
-      console.log("sad face");
-      skycons.add("marsIcon", Skycons.CLEAR_DAY);
-      skycons.play();
+      $scope.revealSearch = false;
     }
   };
-  
+
+
+// Move flight search & results off to the side, reveal buttons for toggling passenger info and showing of amenities
+
+  $scope.hideFlightSearch = function () {
+    if ($scope.flightSearch !== true) {
+      $('.flightSearch').addClass('flightSearch-add-start');
+      $('.flight-card-2').addClass('hide-ship-info');
+      setTimeout(function() {
+        $scope.$apply(function () {
+          $scope.flightSearch = true;
+          $('.flight-card-2').addClass('display-none');
+          $('.chart').addClass('show-chart');
+          $('.chart').addClass('chart-enter');
+          $('.weather-dials').addClass('show-chart');
+
+        });
+      }, 1000);
+    } else {
+      $scope.flightSearch = false;
+    }
+
+    if ($scope.bookButton !== true) {
+      $scope.bookButton = true; 
+    } else {
+      $scope.bookButton = false;
+    }
+
+    if ($scope.pickItButton !== true) {
+      $scope.pickItButton = true;
+    } else {
+      $scope.pickItButton = false;
+    }
+  };
 
 // Function to define myFlight and myShip
 
@@ -177,7 +256,21 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
 
   };
 
+// Function to display icon for Mars weather conditions
 
+  $scope.marsSky = function () {
+    var skycons = new Skycons({"color": "white"});
+    if ($scope.marsSky == "Sunny") {
+      console.log("sunny!");
+      skycons.add("marsIcon", Skycons.CLEAR_DAY);
+      skycons.play();
+    } else {
+      console.log("sad face");
+      skycons.add("marsIcon", Skycons.CLEAR_DAY);
+      skycons.play();
+    }
+  };
+  
 
   // Global form data to be accessed later by the form on update
   $scope.formData = {
@@ -222,61 +315,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
     }
   }; 
 
-
-// Displays results of flight search
-
-  $scope.showFlights = function () {
-    if ($scope.revealSearch !== true) {
-      $scope.revealSearch = true;
-    } else {
-      $scope.revealSearch = false;
-    }
-  };
-
-// Brings back the form fields and the new Update submit button
-
-  $scope.showUpdateForm = function () {
-    if ($scope.updateInfo !== true) {
-      $scope.updateInfo = true;
-    } else {
-      $scope.updateInfo = false;
-    }
-  };
-
-// Move flight search & results off to the side, reveal buttons for toggling passenger info and showing of amenities
-
-  $scope.hideFlightSearch = function () {
-    if ($scope.flightSearch !== true) {
-      $('.flightSearch').addClass('flightSearch-add-start');
-      $('.flight-card-2').addClass('hide-ship-info');
-      setTimeout(function() {
-        $scope.$apply(function () {
-          $scope.flightSearch = true;
-          $('.flight-card-2').addClass('display-none');
-          $('.chart').addClass('show-chart');
-          $('.chart').addClass('chart-enter');
-          $('.weather-dials').addClass('show-chart');
-
-        });
-      }, 1000);
-    } else {
-      $scope.flightSearch = false;
-    }
-
-    if ($scope.bookButton !== true) {
-      $scope.bookButton = true; 
-    } else {
-      $scope.bookButton = false;
-    }
-
-    if ($scope.pickItButton !== true) {
-      $scope.pickItButton = true;
-    } else {
-      $scope.pickItButton = false;
-    }
-  };
-
-
 // Toggle passenger info form
 
   $scope.bookPassenger = function(){
@@ -314,6 +352,16 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
     }
   };
 
+// Brings back the form fields and the new Update submit button
+
+  $scope.showUpdateForm = function () {
+    if ($scope.updateInfo !== true) {
+      $scope.updateInfo = true;
+    } else {
+      $scope.updateInfo = false;
+    }
+  };
+
 // Show congrats page
 
   $scope.congratsPage = function(){
@@ -328,6 +376,56 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
     } else {
       $scope.tripConfirmed = false;
     }
+  };
+
+// Amenities toggle
+  $scope.amenityToggle = function(id){
+    if ($scope.amenities[id-1].amenityToggle === 'none'){
+      $scope.amenities[id-1].amenityToggle = 'act-bars-active';
+      console.log($scope.amenities[id-1].amenityToggle);
+    } else {
+      $scope.amenities[id-1].amenityToggle = 'none';
+    }
+  };
+
+  // Create new passenger function
+      
+  $scope.createPassenger = function(passData) {
+    
+    var flightId = $scope.myFlight[0].id;
+
+    // Grab passenger form data
+    var passengerData = {
+      first_name: passData.first_name,
+      last_name: passData.last_name,
+      date_of_birth: passData.date_of_birth,
+      email: passData.email,
+      phone: passData.phone,
+      address: passData.address,
+      emergency_contact: passData.emergency_contact
+    };
+
+    $scope.formData = passengerData;
+
+  // Send formdata via post request 
+    $http.post('flights/'+ flightId +'/passengers.json', passengerData).success(function(passengerData) {
+      $scope.passengers.push(passengerData);
+      return console.log('Successfully created passenger.');
+    }).error(function() {
+      return console.error('Failed to create new passenger.');
+    });
+
+    $('.passenger-form').addClass('create-form-move');
+
+    setTimeout(function() {
+        $scope.$apply(function () {
+          $('.passenger-info').removeClass('passenger-info');
+          $('.pi').addClass('margin-top-80');
+          $('.confirm').addClass('show-confirm-info');
+        });
+      }, 1000);
+
+    return true;
   };
 
 // Add amenities to trip function
@@ -391,53 +489,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$resource', function($scope, $ht
 
     // Send update to passenger info
 
-      $http.put('flights/' + flightId + '/passengers/'+ (passengerId) +'.json', passengerData).success(function(passengerData) {
-        $scope.passengers[$scope.passengers.length-1] = passengerData;
-        return console.log('Successfully updated passenger info.');
-      }).error(function() {
-        console.log($http);
-        return console.error('Failed to update passenger info.');
-      });
-      
-      return true;
-  };
-  // Create new passenger function
-      
-  $scope.createPassenger = function(passData) {
-    
-    var flightId = $scope.myFlight[0].id;
-
-    // Grab passenger form data
-    var passengerData = {
-      first_name: passData.first_name,
-      last_name: passData.last_name,
-      date_of_birth: passData.date_of_birth,
-      email: passData.email,
-      phone: passData.phone,
-      address: passData.address,
-      emergency_contact: passData.emergency_contact
-    };
-
-    $scope.formData = passengerData;
-
-  // Send formdata via post request 
-    $http.post('flights/'+ flightId +'/passengers.json', passengerData).success(function(passengerData) {
-      $scope.passengers.push(passengerData);
-      return console.log('Successfully created passenger.');
+    $http.put('flights/' + flightId + '/passengers/'+ (passengerId) +'.json', passengerData).success(function(passengerData) {
+      $scope.passengers[$scope.passengers.length-1] = passengerData;
+      return console.log('Successfully updated passenger info.');
     }).error(function() {
-      return console.error('Failed to create new passenger.');
+      console.log($http);
+      return console.error('Failed to update passenger info.');
     });
-
-    $('.passenger-form').addClass('create-form-move');
-
-    setTimeout(function() {
-        $scope.$apply(function () {
-          $('.passenger-info').removeClass('passenger-info');
-          $('.pi').addClass('margin-top-80');
-          $('.confirm').addClass('show-confirm-info');
-        });
-      }, 1000);
-
+    
     return true;
   };
+  
 }]);

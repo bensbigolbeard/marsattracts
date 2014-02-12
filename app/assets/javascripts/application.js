@@ -16,6 +16,8 @@
 // require skycons
 //= require js/jquery.knob
 //= require foundation
+//= require main
+// require AboutCtrl
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
