@@ -26,12 +26,13 @@ This project was built by students at [MakerSquare](http://themakersquare.com), 
 - jQuery Knob
 
 #####API's &amp; Gems
-- Mandrill for Action Mailer
+- Mandrill for Action Mailer ***Removed***
 - Custom scraper for Mars weather collection
 - ForecastIO
 - Chart.js
 
 #####To Do
+- Replace Mandrill for Action Mailer
 - Maths: calculating the distance &amp; travel time using Kepler's Laws, Hohmann Transfer Orbit; adding and displaying the trip's total cost
 - Incorporate Stripe for collecting payment
 - Refactor: break the controllers into separate files; make use of templates 
