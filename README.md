@@ -1,7 +1,7 @@
 # Mars Attracts!
 ## a flight booking system for trips to Mars
 
-### Book your flight [now!](http://marsattracts.com) 
+### Book your flight [now!](marsattracts.herokuapp.com) 
 
 
 #### developed by [Andrew Krueger](https://github.com/akrueger/), [Ben White](https://github.com/bensbigolbeard/), [Chris Boette](https://github.com/chrisbodhi/)
